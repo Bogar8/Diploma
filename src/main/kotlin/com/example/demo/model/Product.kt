@@ -3,6 +3,7 @@ package com.example.demo.model
 import java.awt.Image
 
 class Product(
+    var _id: String?,
     var name: String,
     var category: Category,
     var purchasePrice: Double,
