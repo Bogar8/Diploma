@@ -8,10 +8,10 @@ import java.time.LocalDateTime
 @Serializable
 class ProductStock(
     var _id: String?,
-    @Serializable(with = LocalDateTimeSerializer::class)
-    var date: LocalDateTime,
     var amount: Int,
     var pricePerOne: Double,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    var date: LocalDateTime = LocalDateTime.now(),
 ) {
 
     override fun toString(): String {

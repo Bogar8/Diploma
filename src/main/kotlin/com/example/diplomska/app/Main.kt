@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 fun main() {
     println("SANDBOX")
-    val p = ProductStock(null, LocalDateTime.now(),10,20.2)
+    val p = ProductStock(null,10,20.2)
     val format = Json { prettyPrint = true }
     var json = format.encodeToString(p)
     println(json)

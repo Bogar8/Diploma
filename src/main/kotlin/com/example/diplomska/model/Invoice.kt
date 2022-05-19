@@ -1,14 +1,18 @@
 package com.example.diplomska.model
 
+import com.example.diplomska.util.serializers.LocalDateTimeSerializer
+import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
-
+@Serializable
 class Invoice(
     var _id: String?,
-    var date: LocalDateTime,
-    var products: ArrayList<InvoiceItem>,
     var totalPrice: Double,
-    var seller: User
+    var seller: User,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    var date: LocalDateTime = LocalDateTime.now(),
+    var products: ArrayList<InvoiceItem> = ArrayList()
 ){
 }

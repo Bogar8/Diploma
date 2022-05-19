@@ -8,17 +8,27 @@ import model.ProductStock
 import java.awt.Image
 import java.time.LocalDateTime
 
+@kotlinx.serialization.Serializable
 class Product(
     var _id: String?,
     var barcode: Int,
     var name: String,
     var category: Category,
-    var sellingHistory: ArrayList<ProductStock> = ArrayList(),
-    var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
     var stock: Int = 0,
-    var image: Image? = null,
-    var isActive: Boolean = true
+    var imagePath: String? = null,
+    var isActive: Boolean = true,
+    private var sellingHistory: ArrayList<ProductStock> = ArrayList(),
+    private var purchaseHistory: ArrayList<ProductStock> = ArrayList()
 ) {
+
+    fun getCurrentSellingPrice() : Double{
+        return sellingHistory.last().pricePerOne
+    }
+
+    fun getCurrentPurchasePrice() : Double{
+        return purchaseHistory.last().pricePerOne
+    }
+
     fun getTotalPurchasePrice(): Double {
         return purchaseHistory.getTotalPrice()
     }
