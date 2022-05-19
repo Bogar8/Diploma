@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 
 internal class ProductTest {
-    val doubleDelta = 0.01
+    val doubleDelta: Double = 0.01
     private val history: ArrayList<ProductPurchase> = arrayListOf(
         ProductPurchase(null, LocalDate.of(2019, 1, 1), 10, 20.99),
         ProductPurchase(null, LocalDate.of(2018, 1, 1), 10, 15.99),
