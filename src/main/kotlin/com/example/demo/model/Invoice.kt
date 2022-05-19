@@ -1,11 +1,12 @@
 package com.example.demo.model
 
+import java.time.LocalDate
 import java.util.*
 
 
 class Invoice(
     var _id: String?,
-    var date: Date,
+    var date: LocalDate,
     var products: ArrayList<InvoiceItem>,
     var totalPrice: Double,
     var seller: User
