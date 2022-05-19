@@ -22,7 +22,7 @@ class Product(
 ) {
 
     override fun toString(): String {
-        return "id:$_id barcode:$barcode name:$name category:$category stock:$stock is active:$isActive\n" +
+        return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock is active:$isActive\n" +
                 "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"
     }
 
@@ -39,10 +39,8 @@ class Product(
     }
 
     fun getProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
-        return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) - this.getTotalPurchasePriceBetweenDates(
-            dateFrom,
-            dateTo
-        )
+        return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) -
+                this.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
     }
 
     fun getTotalPurchasePrice(): Double {

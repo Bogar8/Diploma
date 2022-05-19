@@ -16,6 +16,6 @@ class ProductStock(
 ) {
 
     override fun toString(): String {
-        return "id: $_id date: ${date.toNiceString()} amount: $amount price per one: ${pricePerOne}€"
+        return "\nid: $_id date: ${date.toNiceString()} amount: $amount price per one: ${pricePerOne}€"
     }
 }
