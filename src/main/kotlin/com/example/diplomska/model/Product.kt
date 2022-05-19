@@ -1,4 +1,4 @@
-package com.example.demo.model
+package com.example.diplomska.model
 
 import model.ProductPurchase
 import model.ProductSellingPrice
@@ -12,7 +12,6 @@ class Product(
     var category: Category,
     var sellingPriceHistory: ArrayList<ProductSellingPrice> = ArrayList(),
     var purchaseHistory: ArrayList<ProductPurchase> = ArrayList(),
-    var numberOfSold: Int = 0,
     var stock: Int = 0,
     var image: Image? = null,
     var isActive: Boolean = true
@@ -25,7 +24,7 @@ class Product(
         return totalPrice
     }
 
-    fun getTotalPurchasePriceBetweenDates(dateFrom: LocalDate, dateTo: LocalDate) : Double {
+    fun getTotalPurchasePriceBetweenDates(dateFrom: LocalDate, dateTo: LocalDate): Double {
         var totalPrice: Double = 0.0
         purchaseHistory.forEach {
             if (it.date in dateFrom..dateTo) {
@@ -33,5 +32,23 @@ class Product(
             }
         }
         return totalPrice
+    }
+
+    fun getNumberOfPurchased(): Int {
+        var numberOfPurchased = 0
+        purchaseHistory.forEach {
+            numberOfPurchased += it.amount
+        }
+        return numberOfPurchased
+    }
+
+    fun getNumberOfPurchasedBetweenDates(dateFrom: LocalDate, dateTo: LocalDate): Int {
+        var numberOfPurchased = 0
+        purchaseHistory.forEach {
+            if (it.date in dateFrom..dateTo) {
+                numberOfPurchased += it.amount
+            }
+        }
+        return numberOfPurchased
     }
 }

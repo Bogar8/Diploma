@@ -1,4 +1,4 @@
-package com.example.demo.model
+package com.example.diplomska.model
 
 import java.time.LocalDate
 import java.util.*
