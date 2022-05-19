@@ -21,6 +21,11 @@ class Product(
     private var purchaseHistory: ArrayList<ProductStock> = ArrayList()
 ) {
 
+    override fun toString(): String {
+        return "id:$_id barcode:$barcode name:$name category:$category stock:$stock is active:$isActive\n" +
+                "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"
+    }
+
     fun getCurrentSellingPrice(): Double {
         return sellingHistory.last().pricePerOne
     }
@@ -34,7 +39,10 @@ class Product(
     }
 
     fun getProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
-        return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) - this.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
+        return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) - this.getTotalPurchasePriceBetweenDates(
+            dateFrom,
+            dateTo
+        )
     }
 
     fun getTotalPurchasePrice(): Double {

@@ -1,5 +1,6 @@
 package model
 
+import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.util.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
@@ -15,6 +16,6 @@ class ProductStock(
 ) {
 
     override fun toString(): String {
-        return "id: $_id date: ${date.toString()} amount: $amount price per one: ${pricePerOne}€"
+        return "id: $_id date: ${date.toNiceString()} amount: $amount price per one: ${pricePerOne}€"
     }
 }

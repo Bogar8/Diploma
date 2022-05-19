@@ -9,4 +9,8 @@ class Company(
     var products: ArrayList<Product> = ArrayList(),
     var employees: ArrayList<User> = ArrayList()
 ){
+
+    override fun toString(): String {
+        return "id:$_id name:$name location:$location balance:$balance\nproducts:${products.toString()}\nemployees:${employees.toString()}"
+    }
 }
