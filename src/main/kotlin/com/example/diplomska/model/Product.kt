@@ -1,54 +1,53 @@
 package com.example.diplomska.model
 
-import model.ProductPurchase
-import model.ProductSellingPrice
+import com.example.diplomska.extensions.getTotalAmount
+import com.example.diplomska.extensions.getTotalAmountBetweenDates
+import com.example.diplomska.extensions.getTotalPrice
+import com.example.diplomska.extensions.getTotalPriceBetweenDates
+import model.ProductStock
 import java.awt.Image
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class Product(
     var _id: String?,
     var barcode: Int,
     var name: String,
     var category: Category,
-    var sellingPriceHistory: ArrayList<ProductSellingPrice> = ArrayList(),
-    var purchaseHistory: ArrayList<ProductPurchase> = ArrayList(),
+    var sellingHistory: ArrayList<ProductStock> = ArrayList(),
+    var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
     var stock: Int = 0,
     var image: Image? = null,
     var isActive: Boolean = true
 ) {
     fun getTotalPurchasePrice(): Double {
-        var totalPrice: Double = 0.0
-        purchaseHistory.forEach {
-            totalPrice += it.purchasePrice * it.amount
-        }
-        return totalPrice
+        return purchaseHistory.getTotalPrice()
     }
 
-    fun getTotalPurchasePriceBetweenDates(dateFrom: LocalDate, dateTo: LocalDate): Double {
-        var totalPrice: Double = 0.0
-        purchaseHistory.forEach {
-            if (it.date in dateFrom..dateTo) {
-                totalPrice += it.purchasePrice * it.amount
-            }
-        }
-        return totalPrice
+    fun getTotalPurchasePriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+        return purchaseHistory.getTotalPriceBetweenDates(dateFrom, dateTo)
     }
 
-    fun getNumberOfPurchased(): Int {
-        var numberOfPurchased = 0
-        purchaseHistory.forEach {
-            numberOfPurchased += it.amount
-        }
-        return numberOfPurchased
+    fun getTotalPurchaseAmount(): Int {
+        return purchaseHistory.getTotalAmount()
     }
 
-    fun getNumberOfPurchasedBetweenDates(dateFrom: LocalDate, dateTo: LocalDate): Int {
-        var numberOfPurchased = 0
-        purchaseHistory.forEach {
-            if (it.date in dateFrom..dateTo) {
-                numberOfPurchased += it.amount
-            }
-        }
-        return numberOfPurchased
+    fun getTotalPurchaseAmountBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Int {
+        return purchaseHistory.getTotalAmountBetweenDates(dateFrom, dateTo)
+    }
+
+    fun getTotalSoldPrice(): Double {
+        return sellingHistory.getTotalPrice()
+    }
+
+    fun getTotalSoldPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+        return sellingHistory.getTotalPriceBetweenDates(dateFrom, dateTo)
+    }
+
+    fun getTotalSoldAmount(): Int {
+        return sellingHistory.getTotalAmount()
+    }
+
+    fun getTotalSoldAmountBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Int {
+        return sellingHistory.getTotalAmountBetweenDates(dateFrom, dateTo)
     }
 }
