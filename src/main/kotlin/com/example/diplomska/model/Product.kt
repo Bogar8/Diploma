@@ -5,22 +5,26 @@ import com.example.diplomska.extensions.getTotalAmountBetweenDates
 import com.example.diplomska.extensions.getTotalPrice
 import com.example.diplomska.extensions.getTotalPriceBetweenDates
 import model.ProductStock
-import java.awt.Image
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 import java.time.LocalDateTime
 
-@kotlinx.serialization.Serializable
+@Serializable
 class Product(
-    var _id: String?,
+    var _id: String,
     var barcode: Int,
     var name: String,
     var category: Category,
-    var stock: Int = 0,
-    var imagePath: String? = null,
-    var isActive: Boolean = true,
+    var stock: Int,
+    var imagePath: String?,
+    var isActive: Boolean,
     private var sellingHistory: ArrayList<ProductStock> = ArrayList(),
-    private var purchaseHistory: ArrayList<ProductStock> = ArrayList()
+    private var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
 ) {
 
+    companion object{
+        val DATABASE_NAME = "Products"
+    }
     override fun toString(): String {
         return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock is active:$isActive\n" +
                 "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"

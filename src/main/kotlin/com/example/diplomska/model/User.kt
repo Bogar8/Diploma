@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 @Serializable
 class User(
-    var _id: String?,
+    var _id: String,
     var name: String,
     var surname: String,
     var username: String,
@@ -17,6 +17,10 @@ class User(
     @Serializable(with = LocalDateTimeSerializer::class)
     var lastLogin: LocalDateTime = LocalDateTime.now(),
 ){
+
+    companion object{
+        val DATABASE_NAME = "Users"
+    }
     override fun toString(): String {
         return "id:$_id name:$name surname:$surname username:$username password:$password level:$level last logged in:${lastLogin.toNiceString()}"
     }

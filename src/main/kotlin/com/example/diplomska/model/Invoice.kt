@@ -16,6 +16,9 @@ class Invoice(
     var date: LocalDateTime = LocalDateTime.now(),
     var products: ArrayList<InvoiceItem> = ArrayList()
 ){
+    companion object{
+        val DATABASE_NAME = "Invoices"
+    }
     override fun toString(): String {
         return "id:$_id total price:$totalPrice seller:$seller date:${date.toNiceString()}\nproducts:${products.toString()}"
     }
