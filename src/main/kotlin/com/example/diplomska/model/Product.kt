@@ -21,12 +21,20 @@ class Product(
     private var purchaseHistory: ArrayList<ProductStock> = ArrayList()
 ) {
 
-    fun getCurrentSellingPrice() : Double{
+    fun getCurrentSellingPrice(): Double {
         return sellingHistory.last().pricePerOne
     }
 
-    fun getCurrentPurchasePrice() : Double{
+    fun getCurrentPurchasePrice(): Double {
         return purchaseHistory.last().pricePerOne
+    }
+
+    fun getProfit(): Double {
+        return this.getTotalSoldPrice() - this.getTotalPurchasePrice()
+    }
+
+    fun getProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+        return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) - this.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
     }
 
     fun getTotalPurchasePrice(): Double {
