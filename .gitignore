@@ -12,6 +12,7 @@
 /android-studio/sdk
 out/
 /tmp
+/target
 /intellij
 workspace.xml
 *.versionsBackup
