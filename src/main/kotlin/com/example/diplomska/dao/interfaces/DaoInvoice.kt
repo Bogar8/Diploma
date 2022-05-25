@@ -6,10 +6,10 @@ import com.example.diplomska.model.User
 import java.time.LocalDateTime
 
 interface DaoInvoice : DaoCrud<Invoice> {
-    fun getBySeller(seller: User): List<Invoice>
-    fun getWithProduct(product: Product): List<Invoice>
-    fun getWithPriceGreaterThan(price: Double): List<Product>
-    fun getAfterDate(date: LocalDateTime): List<Product>
-    fun getBeforeDate(date: LocalDateTime): List<Product>
-    fun getBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): List<Product>
+    fun getBySeller(seller: User): ArrayList<Invoice>
+    fun getWithProduct(product: Product): ArrayList<Invoice>
+    fun getWithPriceGreaterThan(price: Double): ArrayList<Invoice>
+    fun getAfterDate(date: LocalDateTime): ArrayList<Invoice>
+    fun getBeforeDate(date: LocalDateTime): ArrayList<Invoice>
+    fun getBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): ArrayList<Invoice>
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 interface UserDao: DaoCrud<User> {
     fun getByUsername(username: String): User?
-    fun getByLevel(level: Int): List<User>
-    fun getLastLoggedInAfterDate(date: LocalDateTime): List<Product>
-    fun getLastLoggedInBeforeDate(date: LocalDateTime): List<Product>
+    fun getByLevel(level: Int): ArrayList<User>
+    fun getLastLoggedInAfterDate(date: LocalDateTime): ArrayList<User>
+    fun getLastLoggedInBeforeDate(date: LocalDateTime): ArrayList<User>
 }

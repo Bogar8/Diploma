@@ -5,9 +5,9 @@ import com.example.diplomska.model.Product
 
 interface DaoProduct : DaoCrud<Product>{
    fun getByBarcode(barcode: Int) : Product?
-   fun getInStock() : List<Product>
-   fun getOutOfStock() : List<Product>
-   fun getByCategory(category: Category): List<Product>
-   fun getActiveProducts() : List<Product>
-   fun getInActiveProducts(): List<Product>
+   fun getInStock() : ArrayList<Product>
+   fun getOutOfStock() : ArrayList<Product>
+   fun getByCategory(category: Category): ArrayList<Product>
+   fun getActiveProducts() : ArrayList<Product>
+   fun getInActiveProducts(): ArrayList<Product>
 }

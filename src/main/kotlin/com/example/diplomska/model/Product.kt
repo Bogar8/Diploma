@@ -14,15 +14,16 @@ class Product(
     var stock: Int,
     var imagePath: String?,
     var isActive: Boolean,
-    @Serializable(with = LocalDateTimeSerializer::class)
-    var lastChanged: LocalDateTime = LocalDateTime.now(),
     private var sellingHistory: ArrayList<ProductStock> = ArrayList(),
     private var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
+    @Serializable(with = LocalDateTimeSerializer::class)
+    var lastChanged: LocalDateTime = LocalDateTime.now()
 ) {
 
-    companion object{
+    companion object {
         val DATABASE_NAME = "Products"
     }
+
     override fun toString(): String {
         return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock last changed: ${lastChanged.toNiceString()} is active:$isActive\n" +
                 "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"
