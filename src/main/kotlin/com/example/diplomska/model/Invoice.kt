@@ -8,7 +8,7 @@ import kotlin.collections.ArrayList
 
 @Serializable
 class Invoice(
-    var _id: String?,
+    val _id: String?,
     var totalPrice: Double,
     var seller: User,
     @Serializable(with = LocalDateTimeSerializer::class)

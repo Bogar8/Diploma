@@ -1,7 +1,7 @@
 package com.example.diplomska.model
 
 class CompanyInformation (
-    var _id: String?,
+    val _id: String?,
     var name: String,
     var location: String,
     var balance: Double = 0.0,

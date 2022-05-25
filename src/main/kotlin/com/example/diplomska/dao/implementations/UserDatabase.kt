@@ -74,6 +74,10 @@ object UserDatabase : UserDao {
     }
 
     override fun insert(obj: User): Boolean {
+        val sameID = getById(obj._id)
+        if (sameID != null) {
+            return false
+        }
         val result = getCollection().insertOne(DocumentUtil.encode(obj))
         return result.wasAcknowledged()
     }

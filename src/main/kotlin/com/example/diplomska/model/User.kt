@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 @Serializable
 class User(
-    var _id: String,
+    val _id: String,
     var name: String,
     var surname: String,
     var username: String,

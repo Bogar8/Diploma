@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Serializable
 class Product(
-    var _id: String,
+    val _id: String,
     var barcode: Int,
     var name: String,
     var category: Category,

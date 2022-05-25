@@ -62,14 +62,11 @@ fun main() {
 //    }
 
     val user = User(UUID.randomUUID().toString(), "name3", "surname3", "username3", "password3", 2)
-     println(UserDatabase.insert(user))
+    println(UserDatabase.insert(user))
     println(UserDatabase.getAll())
     println(UserDatabase.getByLevel(1))
     println(UserDatabase.getByUsername("username3"))
     println(UserDatabase.getLastLoggedInAfterDate(LocalDateTime.now()))
     var users = UserDatabase.getAll()
-    users[0].password="newpassword"
-    UserDatabase.update(users[0])
-    UserDatabase.delete(users[1])
 
 }
