@@ -6,12 +6,16 @@ import com.example.diplomska.model.Product
 import com.example.diplomska.model.User
 import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
+import com.mongodb.client.ClientSession
 import com.mongodb.client.MongoCollection
+import com.sun.deploy.util.SessionState.Client
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.bson.Document
 import org.litote.kmongo.*
 import java.time.LocalDateTime
 
-class UserDatabase : UserDao {
+object UserDatabase : UserDao {
 
     private fun getCollection(): MongoCollection<Document> {
         return DatabaseUtil.getDatabaseConnection().getCollection(User.DATABASE_NAME)
@@ -75,12 +79,12 @@ class UserDatabase : UserDao {
     }
 
     override fun update(obj: User): Boolean {
-        val result = getCollection().updateOneById(DocumentUtil.encode(obj))
+        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj))
         return result.wasAcknowledged()
     }
 
     override fun delete(obj: User): Boolean {
-        val result = getCollection().deleteOneById(DocumentUtil.encode(obj))
+        val result = getCollection().deleteOne(User::_id eq obj._id, DocumentUtil.encode(obj))
         return result.wasAcknowledged()
     }
 }
