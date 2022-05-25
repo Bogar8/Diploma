@@ -4,7 +4,7 @@ import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
 import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
-import model.ProductStock
+import com.example.diplomska.model.ProductStock
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 

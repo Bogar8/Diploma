@@ -1,6 +1,6 @@
 package com.example.diplomska.extensions
 
-import model.ProductStock
+import com.example.diplomska.model.ProductStock
 import java.time.LocalDateTime
 
 fun ArrayList<ProductStock>.getTotalPrice(): Double {

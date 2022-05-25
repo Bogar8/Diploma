@@ -2,7 +2,7 @@ package com.example.diplomska.test
 
 import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
-import model.ProductStock
+import com.example.diplomska.model.ProductStock
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDateTime
