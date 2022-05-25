@@ -1,12 +1,8 @@
 package com.example.diplomska.model
 
-import com.example.diplomska.extensions.getTotalAmount
-import com.example.diplomska.extensions.getTotalAmountBetweenDates
-import com.example.diplomska.extensions.getTotalPrice
-import com.example.diplomska.extensions.getTotalPriceBetweenDates
-import model.ProductStock
+import com.example.diplomska.extensions.*
+import com.example.diplomska.util.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerialName
 import java.time.LocalDateTime
 
 @Serializable
@@ -18,6 +14,8 @@ class Product(
     var stock: Int,
     var imagePath: String?,
     var isActive: Boolean,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    var lastChanged: LocalDateTime = LocalDateTime.now(),
     private var sellingHistory: ArrayList<ProductStock> = ArrayList(),
     private var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
 ) {
@@ -26,7 +24,7 @@ class Product(
         val DATABASE_NAME = "Products"
     }
     override fun toString(): String {
-        return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock is active:$isActive\n" +
+        return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock last changed: ${lastChanged.toNiceString()} is active:$isActive\n" +
                 "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"
     }
 
