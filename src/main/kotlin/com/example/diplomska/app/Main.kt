@@ -68,5 +68,6 @@ fun main() {
     println(UserDatabase.getByUsername("username3"))
     println(UserDatabase.getLastLoggedInAfterDate(LocalDateTime.now()))
     var users = UserDatabase.getAll()
+    println(UserDatabase.login(user))
 
 }

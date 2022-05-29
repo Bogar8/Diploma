@@ -75,7 +75,8 @@ object UserDatabase : UserDao {
 
     override fun insert(obj: User): Boolean {
         val sameID = getById(obj._id)
-        if (sameID != null) {
+        val sameUsername = getByUsername(obj.username)
+        if (sameID != null || sameUsername != null) {
             return false
         }
         val result = getCollection().insertOne(DocumentUtil.encode(obj))
@@ -90,5 +91,13 @@ object UserDatabase : UserDao {
     override fun delete(obj: User): Boolean {
         val result = getCollection().deleteOne(User::_id eq obj._id, DocumentUtil.encode(obj))
         return result.wasAcknowledged()
+    }
+
+    override fun login(user: User): User? {
+        val result = getCollection().findOne(User::username eq user.username, User::password eq user.password)
+        if (result == null) {
+            return null
+        }
+        return DocumentUtil.decode(result)
     }
 }
