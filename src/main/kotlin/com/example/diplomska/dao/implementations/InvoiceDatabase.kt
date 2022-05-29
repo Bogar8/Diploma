@@ -2,7 +2,6 @@ package com.example.diplomska.dao.implementations
 
 import com.example.diplomska.dao.interfaces.DaoInvoice
 import com.example.diplomska.model.Invoice
-import com.example.diplomska.model.Product
 import com.example.diplomska.model.User
 import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
@@ -100,7 +99,7 @@ object InvoiceDatabase : DaoInvoice {
     }
 
     override fun delete(obj: Invoice): Boolean {
-        val result = getCollection().deleteOne(Product::_id eq obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().deleteOne(Invoice::_id eq obj._id, DocumentUtil.encode(obj))
         return result.wasAcknowledged()
     }
 }
