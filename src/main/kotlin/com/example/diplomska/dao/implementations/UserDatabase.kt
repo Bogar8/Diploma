@@ -1,21 +1,15 @@
 package com.example.diplomska.dao.implementations
 
-import com.example.diplomska.dao.interfaces.UserDao
-import com.example.diplomska.model.Invoice
-import com.example.diplomska.model.Product
+import com.example.diplomska.dao.interfaces.DaoUser
 import com.example.diplomska.model.User
 import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
-import com.mongodb.client.ClientSession
 import com.mongodb.client.MongoCollection
-import com.sun.deploy.util.SessionState.Client
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.bson.Document
 import org.litote.kmongo.*
 import java.time.LocalDateTime
 
-object UserDatabase : UserDao {
+object UserDatabase : DaoUser {
 
     private fun getCollection(): MongoCollection<Document> {
         return DatabaseUtil.getDatabaseConnection().getCollection(User.DATABASE_NAME)
