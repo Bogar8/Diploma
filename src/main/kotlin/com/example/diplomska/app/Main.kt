@@ -1,6 +1,7 @@
 package com.example.diplomska.app
 
 import com.example.diplomska.dao.implementations.ProductDatabase
+import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
@@ -53,6 +54,7 @@ fun main() {
     println(ProductDatabase.getInStock())
     println(ProductDatabase.getActiveProducts())
     println(ProductDatabase.getByCategory(Category.FOOD))
+    println(UserDatabase.getLastLoggedInBeforeDate(LocalDateTime.now()))
 
 //    val collection = DatabaseUtil.getDatabaseConnection().getCollection(Product.DATABASE_NAME)
 //    collection.insertOne(DocumentUtil.encode(testSample))

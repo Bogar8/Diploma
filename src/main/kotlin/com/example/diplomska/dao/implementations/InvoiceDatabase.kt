@@ -36,19 +36,23 @@ object InvoiceDatabase : DaoInvoice {
     }
 
     override fun getAfterDate(date: LocalDateTime): ArrayList<Invoice> {
-        val answer = getCollection().find(Invoice::date gt date)
         val invoices: ArrayList<Invoice> = ArrayList()
-        answer.forEach {
-            invoices.add(DocumentUtil.decode(it))
+        val all = getAll()
+        all.forEach {
+            if (it.date > date) {
+                invoices.add(it)
+            }
         }
         return invoices
     }
 
     override fun getBeforeDate(date: LocalDateTime): ArrayList<Invoice> {
-        val answer = getCollection().find(Invoice::date lt date)
         val invoices: ArrayList<Invoice> = ArrayList()
-        answer.forEach {
-            invoices.add(DocumentUtil.decode(it))
+        val all = getAll()
+        all.forEach {
+            if (it.date < date) {
+                invoices.add(it)
+            }
         }
         return invoices
     }

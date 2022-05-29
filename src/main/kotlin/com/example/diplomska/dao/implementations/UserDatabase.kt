@@ -33,19 +33,23 @@ object UserDatabase : DaoUser {
     }
 
     override fun getLastLoggedInAfterDate(date: LocalDateTime): ArrayList<User> {
-        val answer = getCollection().find(User::lastLogin gt date)
         val users: ArrayList<User> = ArrayList()
-        answer.forEach {
-            users.add(DocumentUtil.decode(it))
+        val all = getAll()
+        all.forEach {
+            if (it.lastLogin > date) {
+                users.add(it)
+            }
         }
         return users
     }
 
     override fun getLastLoggedInBeforeDate(date: LocalDateTime): ArrayList<User> {
-        val answer = getCollection().find(User::lastLogin lt date)
         val users: ArrayList<User> = ArrayList()
-        answer.forEach {
-            users.add(DocumentUtil.decode(it))
+        val all = getAll()
+        all.forEach {
+            if (it.lastLogin < date) {
+                users.add(it)
+            }
         }
         return users
     }
