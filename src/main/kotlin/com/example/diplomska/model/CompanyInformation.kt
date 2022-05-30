@@ -1,5 +1,6 @@
 package com.example.diplomska.model
 
+@kotlinx.serialization.Serializable
 class CompanyInformation(
     val _id: String,
     var name: String,

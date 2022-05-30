@@ -75,7 +75,7 @@ object InvoiceDatabase : DaoInvoice {
         return null
     }
 
-    override fun getAll(): List<Invoice> {
+    override fun getAll(): ArrayList<Invoice> {
         val answer = getCollection().find()
         val invoices: ArrayList<Invoice> = ArrayList()
         answer.forEach {

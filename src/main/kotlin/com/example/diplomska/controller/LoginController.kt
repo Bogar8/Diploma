@@ -1,7 +1,11 @@
 package com.example.diplomska.controller
 
+import com.example.diplomska.dao.implementations.CompanyInformationDatabase
+import com.example.diplomska.dao.implementations.InvoiceDatabase
+import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
+import com.example.diplomska.model.CompanyInformation
 import tornadofx.*
 
 class LoginController : Controller() {
@@ -15,7 +19,18 @@ class LoginController : Controller() {
             return false
         } else {
             AppData.loggedInUser = user
+            getData()
             return true
         }
     }
+
+    private fun getData() {
+        AppData.invoices = InvoiceDatabase.getAll()
+        AppData.products = ProductDatabase.getAll()
+        AppData.employees = UserDatabase.getAll()
+        AppData.companyInformation = CompanyInformationDatabase.getByName("DIPLOMA")
+        println(AppData.toString())
+    }
+
+
 }

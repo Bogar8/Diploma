@@ -76,7 +76,7 @@ object ProductDatabase : DaoProduct {
         return null
     }
 
-    override fun getAll(): List<Product> {
+    override fun getAll(): ArrayList<Product> {
         val answer = getCollection().find()
         val products: ArrayList<Product> = ArrayList()
         answer.forEach {

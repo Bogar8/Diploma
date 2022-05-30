@@ -32,7 +32,7 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         return null
     }
 
-    override fun getAll(): List<CompanyInformation> {
+    override fun getAll(): ArrayList<CompanyInformation> {
         val answer = getCollection().find()
         val companyInformations: ArrayList<CompanyInformation> = ArrayList()
         answer.forEach {
