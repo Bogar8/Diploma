@@ -14,13 +14,13 @@ class LoginController : Controller() {
 
     fun login(username: String, password: String): Boolean {
         val user = UserDatabase.login(username, password)
-        if (user == null) {
+        return if (user == null) {
             error = "Username or password is incorrect"
-            return false
+            false
         } else {
             AppData.loggedInUser = user
             getData()
-            return true
+            true
         }
     }
 
@@ -29,7 +29,6 @@ class LoginController : Controller() {
         AppData.products = ProductDatabase.getAll()
         AppData.employees = UserDatabase.getAll()
         AppData.companyInformation = CompanyInformationDatabase.getByName("DIPLOMA")
-        println(AppData.toString())
     }
 
 
