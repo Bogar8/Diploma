@@ -44,17 +44,16 @@ fun main() {
             purchaseHistory
         )
 
-
-    ProductDatabase.insert(testSample)
-    println(ProductDatabase.getAll())
-    println(ProductDatabase.getAll())
-    val x = ProductDatabase.getByBarcode(999)
-    if (x != null)
-        ProductDatabase.delete(x)
-    println(ProductDatabase.getInStock())
-    println(ProductDatabase.getActiveProducts())
-    println(ProductDatabase.getByCategory(Category.FOOD))
-    println(UserDatabase.getLastLoggedInBeforeDate(LocalDateTime.now()))
+//    ProductDatabase.insert(testSample)
+//    println(ProductDatabase.getAll())
+//    println(ProductDatabase.getAll())
+//    val x = ProductDatabase.getByBarcode(999)
+//    if (x != null)
+//        ProductDatabase.delete(x)
+//    println(ProductDatabase.getInStock())
+//    println(ProductDatabase.getActiveProducts())
+//    println(ProductDatabase.getByCategory(Category.FOOD))
+//    println(UserDatabase.getLastLoggedInBeforeDate(LocalDateTime.now()))
 
 //    val collection = DatabaseUtil.getDatabaseConnection().getCollection(Product.DATABASE_NAME)
 //    collection.insertOne(DocumentUtil.encode(testSample))

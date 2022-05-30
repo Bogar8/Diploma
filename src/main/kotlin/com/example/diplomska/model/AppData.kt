@@ -1,11 +1,12 @@
 package com.example.diplomska.model
 
 
-class Company(
+class AppData(
     var companyInformation: CompanyInformation,
     var products: ArrayList<Product> = ArrayList(),
     var employees: ArrayList<User> = ArrayList(),
-    var invoices: ArrayList<Invoice> = ArrayList()
+    var invoices: ArrayList<Invoice> = ArrayList(),
+    var loggedInUser: User?
 ){
 
     override fun toString(): String {

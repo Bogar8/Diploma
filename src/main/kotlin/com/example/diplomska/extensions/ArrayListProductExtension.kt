@@ -18,3 +18,27 @@ fun ArrayList<Product>.getTotalProfitBetweenDates(dateFrom: LocalDateTime, dateT
     }
     return totalProfit
 }
+
+fun ArrayList<Product>.sortByNameAsc(){
+    this.sortBy { it.name }
+}
+fun ArrayList<Product>.sortByNameDesc(){
+    this.sortByDescending { it.name }
+}
+
+fun ArrayList<Product>.sortByLastChangedAsc(){
+    this.sortBy { it.lastChanged }
+}
+fun ArrayList<Product>.sortByLastChangedDesc(){
+    this.sortByDescending { it.lastChanged }
+}
+
+fun ArrayList<Product>.sortByStockAsc(){
+    this.sortBy { it.stock }
+}
+fun ArrayList<Product>.sortByStockDesc(){
+    this.sortByDescending { it.stock }
+}
+
+
+

@@ -38,3 +38,11 @@ fun ArrayList<ProductStock>.getTotalAmountBetweenDates(dateFrom: LocalDateTime, 
     }
     return numberOfPurchased
 }
+
+fun ArrayList<ProductStock>.filterByAmountAsc(){
+    this.sortBy { it.amount }
+}
+
+fun ArrayList<ProductStock>.filterByAmountDesc(){
+    this.sortByDescending { it.amount }
+}

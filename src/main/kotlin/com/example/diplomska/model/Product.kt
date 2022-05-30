@@ -14,8 +14,8 @@ class Product(
     var stock: Int,
     var imagePath: String?,
     var isActive: Boolean,
-    private var sellingHistory: ArrayList<ProductStock> = ArrayList(),
-    private var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
+    var sellingHistory: ArrayList<ProductStock> = ArrayList(),
+    var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
     @Serializable(with = LocalDateTimeSerializer::class)
     var lastChanged: LocalDateTime = LocalDateTime.now()
 ) {
