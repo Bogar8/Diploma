@@ -8,5 +8,5 @@ interface DaoUser : DaoCrud<User> {
     fun getByLevel(level: Int): ArrayList<User>
     fun getLastLoggedInAfterDate(date: LocalDateTime): ArrayList<User>
     fun getLastLoggedInBeforeDate(date: LocalDateTime): ArrayList<User>
-    fun login(user: User): User?
+    fun login(username: String, password: String): User?
 }

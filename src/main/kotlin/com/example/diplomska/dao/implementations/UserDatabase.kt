@@ -94,8 +94,8 @@ object UserDatabase : DaoUser {
         return result.wasAcknowledged()
     }
 
-    override fun login(user: User): User? {
-        val result = getCollection().findOne(User::username eq user.username, User::password eq user.password)
+    override fun login(username: String,password: String): User? {
+        val result = getCollection().findOne(User::username eq username, User::password eq password)
         if (result == null) {
             return null
         }
