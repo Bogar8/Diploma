@@ -5,7 +5,6 @@ import com.example.diplomska.dao.implementations.InvoiceDatabase
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
-import com.example.diplomska.model.CompanyInformation
 import tornadofx.*
 
 class LoginController : Controller() {
