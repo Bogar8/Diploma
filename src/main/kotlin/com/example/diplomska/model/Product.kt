@@ -26,7 +26,7 @@ class Product(
 
     override fun toString(): String {
         return "id:$_id barcode:$barcode name:$name category:${category.categoryName} stock:$stock last changed: ${lastChanged.toNiceString()} is active:$isActive\n" +
-                "selling history:${sellingHistory.toString()}\npurchase history:${purchaseHistory.toString()}"
+                "selling history:$sellingHistory\npurchase history:$purchaseHistory"
     }
 
     fun getCurrentSellingPrice(): Double {

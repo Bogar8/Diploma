@@ -4,7 +4,6 @@ import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.util.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
-import kotlin.collections.ArrayList
 
 @Serializable
 class Invoice(
@@ -14,10 +13,11 @@ class Invoice(
     @Serializable(with = LocalDateTimeSerializer::class)
     var date: LocalDateTime = LocalDateTime.now(),
     var products: ArrayList<InvoiceItem> = ArrayList()
-){
-    companion object{
+) {
+    companion object {
         const val DATABASE_NAME = "Invoices"
     }
+
     override fun toString(): String {
         return "id:$_id total price:$totalPrice seller:$seller date:${date.toNiceString()}\nproducts:$products"
     }

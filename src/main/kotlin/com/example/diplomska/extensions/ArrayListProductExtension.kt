@@ -14,29 +14,32 @@ fun ArrayList<Product>.getTotalProfit(): Double {
 fun ArrayList<Product>.getTotalProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
     var totalProfit: Double = 0.0
     this.forEach {
-            totalProfit += it.getProfitBetweenDates(dateFrom,dateTo)
+        totalProfit += it.getProfitBetweenDates(dateFrom, dateTo)
     }
     return totalProfit
 }
 
-fun ArrayList<Product>.sortByNameAsc(){
+fun ArrayList<Product>.sortByNameAsc() {
     this.sortBy { it.name }
 }
-fun ArrayList<Product>.sortByNameDesc(){
+
+fun ArrayList<Product>.sortByNameDesc() {
     this.sortByDescending { it.name }
 }
 
-fun ArrayList<Product>.sortByLastChangedAsc(){
+fun ArrayList<Product>.sortByLastChangedAsc() {
     this.sortBy { it.lastChanged }
 }
-fun ArrayList<Product>.sortByLastChangedDesc(){
+
+fun ArrayList<Product>.sortByLastChangedDesc() {
     this.sortByDescending { it.lastChanged }
 }
 
-fun ArrayList<Product>.sortByStockAsc(){
+fun ArrayList<Product>.sortByStockAsc() {
     this.sortBy { it.stock }
 }
-fun ArrayList<Product>.sortByStockDesc(){
+
+fun ArrayList<Product>.sortByStockDesc() {
     this.sortByDescending { it.stock }
 }
 

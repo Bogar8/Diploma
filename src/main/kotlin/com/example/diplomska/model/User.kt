@@ -16,11 +16,12 @@ class User(
     var level: Int,
     @Serializable(with = LocalDateTimeSerializer::class)
     var lastLogin: LocalDateTime = LocalDateTime.now(),
-){
+) {
 
-    companion object{
+    companion object {
         val DATABASE_NAME = "Users"
     }
+
     override fun toString(): String {
         return "id:$_id name:$name surname:$surname username:$username password:$password level:$level last logged in:${lastLogin.toNiceString()}"
     }

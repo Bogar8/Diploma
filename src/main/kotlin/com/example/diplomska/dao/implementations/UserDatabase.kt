@@ -6,7 +6,10 @@ import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
 import com.mongodb.client.MongoCollection
 import org.bson.Document
-import org.litote.kmongo.*
+import org.litote.kmongo.deleteOne
+import org.litote.kmongo.eq
+import org.litote.kmongo.findOne
+import org.litote.kmongo.replaceOneById
 import java.time.LocalDateTime
 
 object UserDatabase : DaoUser {
