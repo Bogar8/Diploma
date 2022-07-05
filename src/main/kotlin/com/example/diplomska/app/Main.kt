@@ -1,9 +1,7 @@
 package com.example.diplomska.app
 
 
-import com.example.diplomska.dao.implementations.CompanyInformationDatabase
 import com.example.diplomska.model.Category
-import com.example.diplomska.model.CompanyInformation
 import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
 import java.time.LocalDateTime
@@ -40,7 +38,6 @@ fun main() {
             sellingHistory,
             purchaseHistory
         )
-
 //    ProductDatabase.insert(testSample)
 //    println(ProductDatabase.getAll())
 //    println(ProductDatabase.getAll())

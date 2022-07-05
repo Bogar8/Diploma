@@ -1,5 +1,6 @@
 package com.example.diplomska.model
 
+import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.util.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
@@ -24,6 +25,11 @@ class User(
 
     override fun toString(): String {
         return "id:$_id name:$name surname:$surname username:$username password:$password level:$level last logged in:${lastLogin.toNiceString()}"
+    }
+
+    fun updateLoginDate() {
+        lastLogin = LocalDateTime.now()
+        UserDatabase.update(this)
     }
 }
 
