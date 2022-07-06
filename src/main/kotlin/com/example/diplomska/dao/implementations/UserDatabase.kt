@@ -2,6 +2,7 @@ package com.example.diplomska.dao.implementations
 
 import com.example.diplomska.dao.interfaces.DaoUser
 import com.example.diplomska.model.User
+import com.example.diplomska.model.UserLevel
 import com.example.diplomska.util.DatabaseUtil
 import com.example.diplomska.util.DocumentUtil
 import com.mongodb.client.MongoCollection
@@ -26,7 +27,7 @@ object UserDatabase : DaoUser {
         return null
     }
 
-    override fun getByLevel(level: Int): ArrayList<User> {
+    override fun getByLevel(level: UserLevel): ArrayList<User> {
         val answer = getCollection().find(User::level eq level)
         val users: ArrayList<User> = ArrayList()
         answer.forEach {

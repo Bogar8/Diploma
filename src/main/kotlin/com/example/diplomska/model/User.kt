@@ -14,7 +14,7 @@ class User(
     var surname: String,
     var username: String,
     var password: String,
-    var level: Int,
+    var level: UserLevel,
     @Serializable(with = LocalDateTimeSerializer::class)
     var lastLogin: LocalDateTime = LocalDateTime.now(),
 ) {

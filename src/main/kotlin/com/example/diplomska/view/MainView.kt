@@ -4,6 +4,7 @@ import com.example.diplomska.controller.MainController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.AppData
 import com.example.diplomska.model.User
+import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
@@ -43,14 +44,14 @@ class MainView : View("Main view") {
             root.show()
             userInfo.value = "${controller.getUserData()} Today's date: ${LocalDateTime.now().toNiceString()}"
 
-            if (AppData.loggedInUser != null && AppData.loggedInUser?.level!! < 4) { //TODO Just test :) diffrent level for diffrent access
+            if (AppData.loggedInUser != null && AppData.loggedInUser?.level == UserLevel.OWNER){ //TODO Just test :) diffrent level for diffrent access
                 //userInfoLabel.hide()
                 addEmployeTable()
             }
         }
     }
 
-    fun addEmployeTable(){
+    private fun addEmployeTable(){
         val employeeView = tableview(AppData.employees.asObservable()) {
             readonlyColumn("ID", User::_id)
             readonlyColumn("Name", User::name)
