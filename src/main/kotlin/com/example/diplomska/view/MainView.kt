@@ -1,26 +1,27 @@
 package com.example.diplomska.view
 
 import com.example.diplomska.controller.MainController
+import com.example.diplomska.extensions.toNiceString
+import com.example.diplomska.model.AppData
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
+import java.time.LocalDateTime
 
-class MainView : View("Hello TornadoFX") {
+class MainView : View("Main view") {
 
     private val controller: MainController by inject()
     private var firstOpen = true
     private var userInfo = SimpleStringProperty()
+    private var userInfoLabel = label(userInfo)
+
 
     override val root = vbox {
         prefWidth = 800.0
         prefHeight = 600.0
 
-        label {
-            text = "123"
-        }
-        label(title) {
-            bind(userInfo)
-        }
+        add(userInfoLabel)
+
         button("Log out") {
             useMaxWidth = true
             action {
@@ -39,7 +40,11 @@ class MainView : View("Hello TornadoFX") {
         }
         currentStage?.focusedProperty()?.onChangeOnce {
             root.show()
-            userInfo.value = controller.getUserData()
+            userInfo.value = "${controller.getUserData()} Today's date: ${LocalDateTime.now().toNiceString()}"
+
+            if (AppData.loggedInUser != null && AppData.loggedInUser?.level!! < 4) { //TODO Just test :) diffrent level for diffrent access
+                //userInfoLabel.hide()
+            }
         }
     }
 

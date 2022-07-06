@@ -18,28 +18,30 @@ class LoginView : Fragment("Login") {
     private var progressDouble = 0.001
     private var isOpened = true
 
-    override val root = form {
-        fieldset {
-            field("Username") {
-                textfield(model.username).required()
-            }
-            field("Password") {
-                passwordfield(model.password).required()
-            }
+    override val root = vbox {
+        form {
+            fieldset {
+                field("Username") {
+                    textfield(model.username).required()
+                }
+                field("Password") {
+                    passwordfield(model.password).required()
+                }
 
-            button("Log in") {
-                enableWhen(model.valid)
-                useMaxWidth = true
-                action {
-                    error.value = ""
-                    runAsync {
-                        controller.login(model.username.value, model.password.value)
-                    } ui { login ->
-                        if (!login) {
-                            error.value = controller.error
-                        } else {
-                            isOpened = false
-                            close()
+                button("Log in") {
+                    enableWhen(model.valid)
+                    useMaxWidth = true
+                    action {
+                        error.value = ""
+                        runAsync {
+                            controller.login(model.username.value, model.password.value)
+                        } ui { login ->
+                            if (!login) {
+                                error.value = controller.error
+                            } else {
+                                isOpened = false
+                                close()
+                            }
                         }
                     }
                 }
@@ -52,7 +54,6 @@ class LoginView : Fragment("Login") {
                         if (progressDouble < 95 && controller.waitingForResponse) {
                             progressDouble += ((200..300).random() / 10000.0)
                             progress = progressDouble
-                            Thread.sleep(100)
                         } else if (error.value.isNullOrEmpty()) {
                             progressDouble = 0.001
                             progress = progressDouble
@@ -60,6 +61,7 @@ class LoginView : Fragment("Login") {
                             progressDouble = 1.0
                             progress = progressDouble
                         }
+                        Thread.sleep(100) //reduces cpu usage
                     }
                 }
             }
