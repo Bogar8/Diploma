@@ -3,6 +3,7 @@ package com.example.diplomska.view
 import com.example.diplomska.controller.MainController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.AppData
+import com.example.diplomska.model.User
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
@@ -44,8 +45,22 @@ class MainView : View("Main view") {
 
             if (AppData.loggedInUser != null && AppData.loggedInUser?.level!! < 4) { //TODO Just test :) diffrent level for diffrent access
                 //userInfoLabel.hide()
+                addEmployeTable()
             }
         }
+    }
+
+    fun addEmployeTable(){
+        val employeeView = tableview(AppData.employees.asObservable()) {
+            readonlyColumn("ID", User::_id)
+            readonlyColumn("Name", User::name)
+            readonlyColumn("Surname", User::surname)
+            readonlyColumn("Username", User::username)
+            readonlyColumn("LastLogin", User::lastLogin).cellFormat {
+                text=it.toNiceString()
+            }
+            readonlyColumn("Level", User::level) }
+        root.add(employeeView)
     }
 
 }
