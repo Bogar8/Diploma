@@ -2,9 +2,7 @@ package com.example.diplomska.view
 
 import com.example.diplomska.controller.MainController
 import com.example.diplomska.extensions.toNiceString
-import com.example.diplomska.model.AppData
-import com.example.diplomska.model.User
-import com.example.diplomska.model.UserLevel
+import com.example.diplomska.model.*
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
@@ -16,7 +14,7 @@ class MainView : View("Main view") {
     private var firstOpen = true
     private var userInfo = SimpleStringProperty()
     private var userInfoLabel = label(userInfo)
-
+    private var firstLoad=true
 
     override val root = vbox {
         prefWidth = 800.0
@@ -24,11 +22,10 @@ class MainView : View("Main view") {
 
         add(userInfoLabel)
 
-        button("Log out") {
+        button("Product management") {
             useMaxWidth = true
             action {
-                firstOpen = true
-                onDock()
+                replaceWith<ProductManagementView>()
             }
         }
     }
@@ -41,12 +38,15 @@ class MainView : View("Main view") {
             firstOpen = false
         }
         currentStage?.focusedProperty()?.onChangeOnce {
-            root.show()
-            userInfo.value = "${controller.getUserData()} Today's date: ${LocalDateTime.now().toNiceString()}"
-
-            if (AppData.loggedInUser != null && AppData.loggedInUser?.level == UserLevel.OWNER){ //TODO Just test :) diffrent level for diffrent access
-                //userInfoLabel.hide()
+            if(firstLoad) {
+                root.show()
+                userInfo.value = "${controller.getUserData()} Today's date: ${LocalDateTime.now().toNiceString()}"
                 addEmployeTable()
+
+                if (AppData.loggedInUser != null && AppData.loggedInUser?.level == UserLevel.OWNER) { //TODO Just test :) diffrent level for diffrent access
+                    //userInfoLabel.hide()
+                }
+                firstLoad=false
             }
         }
     }
