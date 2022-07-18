@@ -20,7 +20,7 @@ object InvoiceDatabase : DaoInvoice {
         val answer = getCollection().find(Invoice::seller eq seller)
         val invoices: ArrayList<Invoice> = ArrayList()
         answer.forEach {
-            invoices.add(DocumentUtil.decode(it))
+            DocumentUtil.decode(it,Invoice::class.java)?.let { it1 -> invoices.add(it1) }
         }
         return invoices
     }
@@ -29,7 +29,7 @@ object InvoiceDatabase : DaoInvoice {
         val answer = getCollection().find(Invoice::totalPrice gt price)
         val invoices: ArrayList<Invoice> = ArrayList()
         answer.forEach {
-            invoices.add(DocumentUtil.decode(it))
+            DocumentUtil.decode(it, Invoice::class.java)?.let { it1 -> invoices.add(it1) }
         }
         return invoices
     }
@@ -70,7 +70,7 @@ object InvoiceDatabase : DaoInvoice {
     override fun getById(id: String): Invoice? {
         val answer = getCollection().findOne { Invoice::_id eq id }
         if (answer != null) {
-            return DocumentUtil.decode(answer)
+            return DocumentUtil.decode(answer, Invoice::class.java)
         }
         return null
     }
@@ -79,7 +79,7 @@ object InvoiceDatabase : DaoInvoice {
         val answer = getCollection().find()
         val invoices: ArrayList<Invoice> = ArrayList()
         answer.forEach {
-            invoices.add(DocumentUtil.decode(it))
+            DocumentUtil.decode(it, Invoice::class.java)?.let { it1 -> invoices.add(it1) }
         }
         return invoices
     }
@@ -89,17 +89,17 @@ object InvoiceDatabase : DaoInvoice {
         if (sameID != null) {
             return false
         }
-        val result = getCollection().insertOne(DocumentUtil.encode(obj))
+        val result = getCollection().insertOne(DocumentUtil.encode(obj, Invoice::class.java))
         return result.wasAcknowledged()
     }
 
     override fun update(obj: Invoice): Boolean {
-        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj, Invoice::class.java))
         return result.wasAcknowledged()
     }
 
     override fun delete(obj: Invoice): Boolean {
-        val result = getCollection().deleteOne(Invoice::_id eq obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().deleteOne(Invoice::_id eq obj._id, DocumentUtil.encode(obj, Invoice::class.java))
         return result.wasAcknowledged()
     }
 }

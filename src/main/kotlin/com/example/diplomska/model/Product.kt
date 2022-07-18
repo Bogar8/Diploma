@@ -1,24 +1,92 @@
 package com.example.diplomska.model
 
 import com.example.diplomska.extensions.*
-import com.example.diplomska.util.serializers.LocalDateTimeSerializer
-import kotlinx.serialization.Serializable
-import java.time.LocalDateTime
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.SimpleStringProperty
+import javafx.collections.FXCollections
 
-@Serializable
+import tornadofx.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import javax.json.JsonObject
+
+
 class Product(
-    val _id: String,
-    var barcode: Int,
-    var name: String,
-    var category: Category,
-    var stock: Int,
-    var imagePath: String?,
-    var isActive: Boolean,
-    var sellingHistory: ArrayList<ProductStock> = ArrayList(),
-    var purchaseHistory: ArrayList<ProductStock> = ArrayList(),
-    @Serializable(with = LocalDateTimeSerializer::class)
-    var lastChanged: LocalDateTime = LocalDateTime.now()
-) {
+    _id: String,
+    barcode: Int,
+    name: String,
+    category: Category,
+    stock: Int,
+    imagePath: String?,
+    isActive: Boolean,
+    sellingHistory: ArrayList<ProductStock> = ArrayList(),
+    purchaseHistory: ArrayList<ProductStock> = ArrayList(),
+    lastChanged: LocalDateTime = LocalDateTime.now()
+) : JsonModel {
+
+    var _idProperty = SimpleStringProperty(_id)
+    var _id by _idProperty
+
+
+    var barcodeProperty = SimpleIntegerProperty(barcode)
+    var barcode by barcodeProperty
+
+
+    var nameProperty = SimpleStringProperty(name)
+    var name by nameProperty
+
+
+    var categoryProperty = SimpleObjectProperty(category)
+    var category by categoryProperty
+
+    var stockProperty = SimpleIntegerProperty(stock)
+    var stock by stockProperty
+
+
+    var imagePathProperty = SimpleStringProperty(imagePath)
+    var imagePath by imagePathProperty
+
+    var isActiveProperty = SimpleBooleanProperty(isActive)
+    var isActive by isActiveProperty
+
+    var sellingHistory = FXCollections.observableArrayList<ProductStock>(sellingHistory)
+    var purchaseHistory = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
+
+    var lastChangedProperty = SimpleObjectProperty(lastChanged)
+    var lastChanged by lastChangedProperty
+
+
+    override fun updateModel(json: JsonObject) {
+        with(json) {
+            _id = string("_id")!!
+            barcode = int("barcode")!!
+            name = string("name")!!
+            category = Category.valueOf(string("category")!!)
+            stock = int("stock")!!
+            imagePath = string("imagePath")!!
+            isActive = boolean("isActive")!!
+            sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
+            purchaseHistory.setAll(getJsonArray("purchaseHistory").toModel())
+            lastChanged = LocalDateTime.parse(string("lastChanged"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        }
+    }
+
+    override fun toJSON(json: JsonBuilder) {
+        with(json) {
+            add("_id", _id)
+            add("barcode", barcode)
+            add("name", name)
+            add("category", category.name)
+            add("stock", stock)
+            add("imagePath", imagePath)
+            add("isActive", isActive)
+            add("sellingHistory", sellingHistory.toJSON())
+            add("purchaseHistory", purchaseHistory.toJSON())
+            add("lastChanged", lastChanged.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+        }
+    }
 
     companion object {
         val DATABASE_NAME = "Products"

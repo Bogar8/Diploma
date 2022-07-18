@@ -5,6 +5,7 @@ import org.litote.kmongo.KMongo
 
 object DatabaseUtil {
 
+
     private var databaseConnection: MongoDatabase
 
     init {

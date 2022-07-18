@@ -19,7 +19,7 @@ object CompanyInformationDatabase : DaoCompanyInformation {
     override fun getByName(name: String): CompanyInformation? {
         val answer = getCollection().findOne { CompanyInformation::name eq name }
         if (answer != null) {
-            return DocumentUtil.decode(answer)
+            return DocumentUtil.decode(answer, CompanyInformation::class.java)
         }
         return null
     }
@@ -27,7 +27,7 @@ object CompanyInformationDatabase : DaoCompanyInformation {
     override fun getById(id: String): CompanyInformation? {
         val answer = getCollection().findOne { CompanyInformation::_id eq id }
         if (answer != null) {
-            return DocumentUtil.decode(answer)
+            return DocumentUtil.decode(answer, CompanyInformation::class.java)
         }
         return null
     }
@@ -36,7 +36,7 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         val answer = getCollection().find()
         val companyInformations: ArrayList<CompanyInformation> = ArrayList()
         answer.forEach {
-            companyInformations.add(DocumentUtil.decode(it))
+            DocumentUtil.decode(it, CompanyInformation::class.java)?.let { it1 -> companyInformations.add(it1) }
         }
         return companyInformations
     }
@@ -47,17 +47,17 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         if (sameID != null || sameName != null) {
             return false
         }
-        val result = getCollection().insertOne(DocumentUtil.encode(obj))
+        val result = getCollection().insertOne(DocumentUtil.encode(obj, CompanyInformation::class.java))
         return result.wasAcknowledged()
     }
 
     override fun update(obj: CompanyInformation): Boolean {
-        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj, CompanyInformation::class.java))
         return result.wasAcknowledged()
     }
 
     override fun delete(obj: CompanyInformation): Boolean {
-        val result = getCollection().deleteOne(CompanyInformation::_id eq obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().deleteOne(CompanyInformation::_id eq obj._id, DocumentUtil.encode(obj, CompanyInformation::class.java))
         return result.wasAcknowledged()
     }
 }

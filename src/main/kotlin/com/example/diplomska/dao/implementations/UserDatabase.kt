@@ -4,17 +4,13 @@ import com.example.diplomska.dao.interfaces.DaoUser
 import com.example.diplomska.model.User
 import com.example.diplomska.model.UserLevel
 import com.example.diplomska.util.DatabaseUtil
-import com.example.diplomska.util.DocumentUtil
 import com.mongodb.client.MongoCollection
 import org.bson.Document
-import org.litote.kmongo.deleteOne
-import org.litote.kmongo.eq
-import org.litote.kmongo.findOne
-import org.litote.kmongo.replaceOneById
+import org.litote.kmongo.*
+import tornadofx.*
 import java.time.LocalDateTime
 
 object UserDatabase : DaoUser {
-
     private fun getCollection(): MongoCollection<Document> {
         return DatabaseUtil.getDatabaseConnection().getCollection(User.DATABASE_NAME)
     }
@@ -22,7 +18,9 @@ object UserDatabase : DaoUser {
     override fun getByUsername(username: String): User? {
         val answer = getCollection().findOne { User::username eq username }
         if (answer != null) {
-            return DocumentUtil.decode(answer)
+            val user = User()
+            user.updateModel(loadJsonObject(answer.json))
+            return user
         }
         return null
     }
@@ -31,7 +29,9 @@ object UserDatabase : DaoUser {
         val answer = getCollection().find(User::level eq level)
         val users: ArrayList<User> = ArrayList()
         answer.forEach {
-            users.add(DocumentUtil.decode(it))
+            val user = User()
+            user.updateModel(loadJsonObject(it.json))
+            users.add(user)
         }
         return users
     }
@@ -61,7 +61,9 @@ object UserDatabase : DaoUser {
     override fun getById(id: String): User? {
         val answer = getCollection().findOne { User::_id eq id }
         if (answer != null) {
-            return DocumentUtil.decode(answer)
+            val user = User()
+            user.updateModel(loadJsonObject(answer.json))
+            return user
         }
         return null
     }
@@ -70,7 +72,9 @@ object UserDatabase : DaoUser {
         val answer = getCollection().find()
         val users: ArrayList<User> = ArrayList()
         answer.forEach {
-            users.add(DocumentUtil.decode(it))
+            val user = User()
+            user.updateModel(loadJsonObject(it.json))
+            users.add(user)
         }
         return users
     }
@@ -81,17 +85,17 @@ object UserDatabase : DaoUser {
         if (sameID != null || sameUsername != null) {
             return false
         }
-        val result = getCollection().insertOne(DocumentUtil.encode(obj))
+        val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 
     override fun update(obj: User): Boolean {
-        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().replaceOneById(id = obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 
     override fun delete(obj: User): Boolean {
-        val result = getCollection().deleteOne(User::_id eq obj._id, DocumentUtil.encode(obj))
+        val result = getCollection().deleteOne(User::_id eq obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 
@@ -100,6 +104,8 @@ object UserDatabase : DaoUser {
         if (result == null) {
             return null
         }
-        return DocumentUtil.decode(result)
+        val user = User()
+        user.updateModel(loadJsonObject(result.json))
+        return user
     }
 }

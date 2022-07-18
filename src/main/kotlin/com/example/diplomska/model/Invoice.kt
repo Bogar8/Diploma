@@ -1,19 +1,18 @@
 package com.example.diplomska.model
 
 import com.example.diplomska.extensions.toNiceString
-import com.example.diplomska.util.serializers.LocalDateTimeSerializer
-import kotlinx.serialization.Serializable
+import tornadofx.*
 import java.time.LocalDateTime
 
-@Serializable
+
 class Invoice(
-    val _id: String,
+    var _id: String,
     var totalPrice: Double,
     var seller: User,
-    @Serializable(with = LocalDateTimeSerializer::class)
     var date: LocalDateTime = LocalDateTime.now(),
     var products: ArrayList<InvoiceItem> = ArrayList()
-) {
+) : JsonModel{
+
     companion object {
         const val DATABASE_NAME = "Invoices"
     }

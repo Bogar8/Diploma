@@ -53,7 +53,6 @@ class MainView : View("Main view") {
 
     private fun addEmployeTable(){
         val employeeView = tableview(AppData.employees.asObservable()) {
-            readonlyColumn("ID", User::_id)
             readonlyColumn("Name", User::name)
             readonlyColumn("Surname", User::surname)
             readonlyColumn("Username", User::username)

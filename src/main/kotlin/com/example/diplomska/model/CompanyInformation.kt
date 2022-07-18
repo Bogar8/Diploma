@@ -1,12 +1,14 @@
 package com.example.diplomska.model
 
-@kotlinx.serialization.Serializable
+import tornadofx.*
+
+
 class CompanyInformation(
     val _id: String,
     var name: String,
     var location: String,
     var balance: Double = 0.0,
-) {
+) : JsonModel {
     companion object {
         const val DATABASE_NAME = "CompanyInformation"
     }
