@@ -4,7 +4,7 @@ import com.example.diplomska.model.ProductStock
 import javafx.collections.ObservableList
 import java.time.LocalDateTime
 
-fun  ObservableList<ProductStock>.getTotalPrice(): Double {
+fun ObservableList<ProductStock>.getTotalPrice(): Double {
     var totalPrice: Double = 0.0
     this.forEach {
         totalPrice += it.pricePerOne * it.amount
@@ -12,7 +12,7 @@ fun  ObservableList<ProductStock>.getTotalPrice(): Double {
     return totalPrice
 }
 
-fun  ObservableList<ProductStock>.getTotalPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+fun ObservableList<ProductStock>.getTotalPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
     var totalPrice: Double = 0.0
     this.forEach {
         if (it.date in dateFrom..dateTo) {
@@ -22,7 +22,7 @@ fun  ObservableList<ProductStock>.getTotalPriceBetweenDates(dateFrom: LocalDateT
     return totalPrice
 }
 
-fun  ObservableList<ProductStock>.getTotalAmount(): Int {
+fun ObservableList<ProductStock>.getTotalAmount(): Int {
     var numberOfPurchased = 0
     this.forEach {
         numberOfPurchased += it.amount
@@ -40,10 +40,10 @@ fun ObservableList<ProductStock>.getTotalAmountBetweenDates(dateFrom: LocalDateT
     return numberOfPurchased
 }
 
-fun  ObservableList<ProductStock>.filterByAmountAsc() {
+fun ObservableList<ProductStock>.filterByAmountAsc() {
     this.sortBy { it.amount }
 }
 
-fun  ObservableList<ProductStock>.filterByAmountDesc() {
+fun ObservableList<ProductStock>.filterByAmountDesc() {
     this.sortByDescending { it.amount }
 }

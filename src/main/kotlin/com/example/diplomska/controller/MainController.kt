@@ -1,7 +1,7 @@
 package com.example.diplomska.controller
 
 import com.example.diplomska.model.AppData
-import tornadofx.Controller
+import tornadofx.*
 
 
 class MainController : Controller() {

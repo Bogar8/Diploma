@@ -6,7 +6,7 @@ import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
 import com.example.diplomska.util.SHA512Util
-import tornadofx.Controller
+import tornadofx.*
 
 class LoginController : Controller() {
 

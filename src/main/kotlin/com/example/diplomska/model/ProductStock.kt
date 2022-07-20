@@ -1,19 +1,30 @@
 package com.example.diplomska.model
 
 import com.example.diplomska.extensions.toNiceString
+import javafx.beans.property.SimpleDoubleProperty
+import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.SimpleObjectProperty
 import tornadofx.*
-
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.json.JsonObject
 
 
 class ProductStock(
-    var amount: Int,
-    var pricePerOne: Double,
+    amount: Int = 0,
+    pricePerOne: Double = 0.0,
+    date: LocalDateTime = LocalDateTime.now(),
+) : JsonModel {
 
-    var date: LocalDateTime = LocalDateTime.now(),
-) : JsonModel{
+    var amountProperty = SimpleIntegerProperty(amount)
+    var amount by amountProperty
+
+    var pricePerOneProperty = SimpleDoubleProperty(pricePerOne)
+    var pricePerOne by pricePerOneProperty
+
+    var dateProperty = SimpleObjectProperty(date)
+    var date: LocalDateTime by dateProperty
+
 
     override fun updateModel(json: JsonObject) {
         with(json) {
@@ -30,6 +41,7 @@ class ProductStock(
             add("date", date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
         }
     }
+
     override fun toString(): String {
         return "\ndate: ${date.toNiceString()} amount: $amount price per one: ${pricePerOne}€"
     }

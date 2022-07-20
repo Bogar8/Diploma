@@ -1,5 +1,5 @@
 package com.example.diplomska.controller
 
-import tornadofx.Controller
+import tornadofx.*
 
 class TestController : Controller()

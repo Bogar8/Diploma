@@ -2,9 +2,7 @@ package com.example.diplomska.view
 
 
 import com.example.diplomska.controller.TestController
-import tornadofx.View
-import tornadofx.label
-import tornadofx.vbox
+import tornadofx.*
 
 
 class TestView : View("Test") {

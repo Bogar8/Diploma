@@ -3,13 +3,13 @@ package com.example.diplomska.dao.implementations
 import com.example.diplomska.dao.interfaces.DaoCompanyInformation
 import com.example.diplomska.model.CompanyInformation
 import com.example.diplomska.util.DatabaseUtil
-import com.example.diplomska.util.DocumentUtil
 import com.mongodb.client.MongoCollection
 import org.bson.Document
 import org.litote.kmongo.deleteOne
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.replaceOneById
+import tornadofx.*
 
 object CompanyInformationDatabase : DaoCompanyInformation {
     private fun getCollection(): MongoCollection<Document> {
@@ -19,7 +19,9 @@ object CompanyInformationDatabase : DaoCompanyInformation {
     override fun getByName(name: String): CompanyInformation? {
         val answer = getCollection().findOne { CompanyInformation::name eq name }
         if (answer != null) {
-            return DocumentUtil.decode(answer, CompanyInformation::class.java)
+            val companyInformation = CompanyInformation()
+            companyInformation.updateModel(loadJsonObject(answer.toJson()))
+            return companyInformation
         }
         return null
     }
@@ -27,7 +29,9 @@ object CompanyInformationDatabase : DaoCompanyInformation {
     override fun getById(id: String): CompanyInformation? {
         val answer = getCollection().findOne { CompanyInformation::_id eq id }
         if (answer != null) {
-            return DocumentUtil.decode(answer, CompanyInformation::class.java)
+            val companyInformation = CompanyInformation()
+            companyInformation.updateModel(loadJsonObject(answer.toJson()))
+            return companyInformation
         }
         return null
     }
@@ -36,7 +40,9 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         val answer = getCollection().find()
         val companyInformations: ArrayList<CompanyInformation> = ArrayList()
         answer.forEach {
-            DocumentUtil.decode(it, CompanyInformation::class.java)?.let { it1 -> companyInformations.add(it1) }
+            val companyInformation = CompanyInformation()
+            companyInformation.updateModel(loadJsonObject(it.toJson()))
+            companyInformations.add(companyInformation)
         }
         return companyInformations
     }
@@ -47,17 +53,18 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         if (sameID != null || sameName != null) {
             return false
         }
-        val result = getCollection().insertOne(DocumentUtil.encode(obj, CompanyInformation::class.java))
+        val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 
     override fun update(obj: CompanyInformation): Boolean {
-        val result = getCollection().replaceOneById(id = obj._id, DocumentUtil.encode(obj, CompanyInformation::class.java))
+        val result = getCollection().replaceOneById(id = obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 
     override fun delete(obj: CompanyInformation): Boolean {
-        val result = getCollection().deleteOne(CompanyInformation::_id eq obj._id, DocumentUtil.encode(obj, CompanyInformation::class.java))
+        val result =
+            getCollection().deleteOne(CompanyInformation::_id eq obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
 }

@@ -2,7 +2,9 @@ package com.example.diplomska.view
 
 import com.example.diplomska.controller.MainController
 import com.example.diplomska.extensions.toNiceString
-import com.example.diplomska.model.*
+import com.example.diplomska.model.AppData
+import com.example.diplomska.model.User
+import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
@@ -14,7 +16,7 @@ class MainView : View("Main view") {
     private var firstOpen = true
     private var userInfo = SimpleStringProperty()
     private var userInfoLabel = label(userInfo)
-    private var firstLoad=true
+    private var firstLoad = true
 
     override val root = vbox {
         prefWidth = 800.0
@@ -38,7 +40,7 @@ class MainView : View("Main view") {
             firstOpen = false
         }
         currentStage?.focusedProperty()?.onChangeOnce {
-            if(firstLoad) {
+            if (firstLoad) {
                 root.show()
                 userInfo.value = "${controller.getUserData()} Today's date: ${LocalDateTime.now().toNiceString()}"
                 addEmployeTable()
@@ -46,20 +48,21 @@ class MainView : View("Main view") {
                 if (AppData.loggedInUser != null && AppData.loggedInUser?.level == UserLevel.OWNER) { //TODO Just test :) diffrent level for diffrent access
                     //userInfoLabel.hide()
                 }
-                firstLoad=false
+                firstLoad = false
             }
         }
     }
 
-    private fun addEmployeTable(){
+    private fun addEmployeTable() {
         val employeeView = tableview(AppData.employees.asObservable()) {
             readonlyColumn("Name", User::name)
             readonlyColumn("Surname", User::surname)
             readonlyColumn("Username", User::username)
             readonlyColumn("LastLogin", User::lastLogin).cellFormat {
-                text=it.toNiceString()
+                text = it.toNiceString()
             }
-            readonlyColumn("Level", User::level) }
+            readonlyColumn("Level", User::level)
+        }
         root.add(employeeView)
     }
 

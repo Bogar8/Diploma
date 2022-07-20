@@ -16,18 +16,18 @@ class ProductManagementView : View("My View") {
             useMaxWidth = true
             action {
                 runAsync {
-                    controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, null, false))
+                    controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, false))
                 }
             }
         }
 
         tableview(AppData.products.asObservable()) {
-            readonlyColumn("Barcode", Product::barcode)
-            readonlyColumn("Name", Product::name)
-            readonlyColumn("Category", Product::category)
-            readonlyColumn("Stock", Product::stock)
-            readonlyColumn("Last changed", Product::lastChanged).cellFormat {
-                text = it.toNiceString()
+            readonlyColumn("Barcode", Product::barcodeProperty)
+            readonlyColumn("Name", Product::nameProperty)
+            readonlyColumn("Category", Product::categoryProperty)
+            readonlyColumn("Stock", Product::stockProperty)
+            readonlyColumn("Last changed", Product::lastChangedProperty).cellFormat {
+                text = it.value.toNiceString()
             }
             readonlyColumn("Current sell price", Product::sellingHistory).cellFormat {
                 if (it.isNotEmpty())
@@ -56,6 +56,7 @@ class ProductManagementView : View("My View") {
                 }
             }
         }
+
 
         button("Back") {
             useMaxWidth = true

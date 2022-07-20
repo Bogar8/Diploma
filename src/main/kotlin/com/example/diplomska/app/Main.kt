@@ -1,11 +1,10 @@
 package com.example.diplomska.app
 
 
+import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
-import com.example.diplomska.model.User
-import tornadofx.*
 import java.time.LocalDateTime
 import java.util.*
 
@@ -13,39 +12,33 @@ import java.util.*
 fun main() {
     println("SANDBOX")
 
-    val user= User("123","name","surname","username","password")
-    println(user.toJSON().toString())
-    val user2 = User()
-    user2.updateModel(loadJsonObject(user.toJSON().toString()))
-    println(user2.toString())
 
-//    val purchaseHistory: ArrayList<ProductStock> = arrayListOf(
-//        ProductStock(10, 20.99, LocalDateTime.of(2019, 1, 1, 12, 0)),
-//        ProductStock(10, 15.99, LocalDateTime.of(2018, 1, 1, 12, 0)),
-//        ProductStock(50, 18.99, LocalDateTime.of(2018, 12, 1, 12, 0)),
-//        ProductStock(5, 17.99, LocalDateTime.of(2020, 1, 1, 12, 0)),
-//        ProductStock(1, 99.99, LocalDateTime.of(2020, 1, 2, 12, 0))
-//    )
-//    val sellingHistory: ArrayList<ProductStock> = arrayListOf(
-//        ProductStock(10, 25.99, LocalDateTime.of(2019, 1, 1, 12, 0)),
-//        ProductStock(10, 20.99, LocalDateTime.of(2018, 1, 1, 12, 0)),
-//        ProductStock(50, 19.99, LocalDateTime.of(2018, 12, 1, 12, 0)),
-//        ProductStock(5, 18.99, LocalDateTime.of(2020, 1, 1, 12, 0)),
-//        ProductStock(1, 101.99, LocalDateTime.of(2020, 1, 2, 12, 0))
-//    )
-//    val testSample =
-//        Product(
-//            UUID.randomUUID().toString(),
-//            12345,
-//            "name",
-//            Category.FOOD,
-//            0,
-//            null,
-//            true,
-//            sellingHistory,
-//            purchaseHistory
-//        )
-//    ProductDatabase.insert(testSample)
+    val purchaseHistory: ArrayList<ProductStock> = arrayListOf(
+        ProductStock(10, 20.99, LocalDateTime.of(2019, 1, 1, 12, 0)),
+        ProductStock(10, 15.99, LocalDateTime.of(2018, 1, 1, 12, 0)),
+        ProductStock(50, 18.99, LocalDateTime.of(2018, 12, 1, 12, 0)),
+        ProductStock(5, 17.99, LocalDateTime.of(2020, 1, 1, 12, 0)),
+        ProductStock(1, 99.99, LocalDateTime.of(2020, 1, 2, 12, 0))
+    )
+    val sellingHistory: ArrayList<ProductStock> = arrayListOf(
+        ProductStock(10, 25.99, LocalDateTime.of(2019, 1, 1, 12, 0)),
+        ProductStock(10, 20.99, LocalDateTime.of(2018, 1, 1, 12, 0)),
+        ProductStock(50, 19.99, LocalDateTime.of(2018, 12, 1, 12, 0)),
+        ProductStock(5, 18.99, LocalDateTime.of(2020, 1, 1, 12, 0)),
+        ProductStock(1, 101.99, LocalDateTime.of(2020, 1, 2, 12, 0))
+    )
+    val testSample =
+        Product(
+            UUID.randomUUID().toString(),
+            12345,
+            "name",
+            Category.FOOD,
+            0,
+            true,
+            sellingHistory,
+            purchaseHistory
+        )
+    ProductDatabase.insert(testSample)
 //    println(ProductDatabase.getAll())
 //    println(ProductDatabase.getAll())
 //    val x = ProductDatabase.getByBarcode(999)

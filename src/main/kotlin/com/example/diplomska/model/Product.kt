@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 
 import tornadofx.*
 import java.time.LocalDateTime
@@ -14,48 +15,41 @@ import javax.json.JsonObject
 
 
 class Product(
-    _id: String,
-    barcode: Int,
-    name: String,
-    category: Category,
-    stock: Int,
-    imagePath: String?,
-    isActive: Boolean,
+    _id: String = "",
+    barcode: Int = 0,
+    name: String = "",
+    category: Category = Category.NONE,
+    stock: Int = 0,
+    isActive: Boolean = true,
     sellingHistory: ArrayList<ProductStock> = ArrayList(),
     purchaseHistory: ArrayList<ProductStock> = ArrayList(),
     lastChanged: LocalDateTime = LocalDateTime.now()
 ) : JsonModel {
 
     var _idProperty = SimpleStringProperty(_id)
-    var _id by _idProperty
-
+    var _id: String by _idProperty
 
     var barcodeProperty = SimpleIntegerProperty(barcode)
     var barcode by barcodeProperty
 
-
     var nameProperty = SimpleStringProperty(name)
-    var name by nameProperty
-
+    var name: String by nameProperty
 
     var categoryProperty = SimpleObjectProperty(category)
-    var category by categoryProperty
+    var category: Category by categoryProperty
 
     var stockProperty = SimpleIntegerProperty(stock)
     var stock by stockProperty
 
 
-    var imagePathProperty = SimpleStringProperty(imagePath)
-    var imagePath by imagePathProperty
-
     var isActiveProperty = SimpleBooleanProperty(isActive)
     var isActive by isActiveProperty
 
-    var sellingHistory = FXCollections.observableArrayList<ProductStock>(sellingHistory)
-    var purchaseHistory = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
+    var sellingHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(sellingHistory)
+    var purchaseHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
 
     var lastChangedProperty = SimpleObjectProperty(lastChanged)
-    var lastChanged by lastChangedProperty
+    var lastChanged: LocalDateTime by lastChangedProperty
 
 
     override fun updateModel(json: JsonObject) {
@@ -65,7 +59,6 @@ class Product(
             name = string("name")!!
             category = Category.valueOf(string("category")!!)
             stock = int("stock")!!
-            imagePath = string("imagePath")!!
             isActive = boolean("isActive")!!
             sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
             purchaseHistory.setAll(getJsonArray("purchaseHistory").toModel())
@@ -80,7 +73,6 @@ class Product(
             add("name", name)
             add("category", category.name)
             add("stock", stock)
-            add("imagePath", imagePath)
             add("isActive", isActive)
             add("sellingHistory", sellingHistory.toJSON())
             add("purchaseHistory", purchaseHistory.toJSON())
