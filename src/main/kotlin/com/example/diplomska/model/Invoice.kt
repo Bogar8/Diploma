@@ -20,19 +20,19 @@ class Invoice(
     products: ArrayList<InvoiceItem> = ArrayList()
 ) : JsonModel {
 
-    var _idProperty = SimpleStringProperty(_id)
+    val _idProperty = SimpleStringProperty(_id)
     var _id: String by _idProperty
 
-    var totalPriceProperty = SimpleDoubleProperty(totalPrice)
+    val totalPriceProperty = SimpleDoubleProperty(totalPrice)
     var totalPrice by totalPriceProperty
 
-    var sellerProperty = SimpleObjectProperty(seller)
+    val sellerProperty = SimpleObjectProperty(seller)
     var seller: User by sellerProperty
 
-    var dateProperty = SimpleObjectProperty(date)
+    val dateProperty = SimpleObjectProperty(date)
     var date: LocalDateTime by dateProperty
 
-    var products: ObservableList<InvoiceItem> = FXCollections.observableArrayList<InvoiceItem>(products)
+    val products: ObservableList<InvoiceItem> = FXCollections.observableArrayList<InvoiceItem>(products)
 
     override fun updateModel(json: JsonObject) {
         with(json) {

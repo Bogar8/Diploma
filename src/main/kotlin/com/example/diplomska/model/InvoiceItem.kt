@@ -14,16 +14,16 @@ class InvoiceItem(
     pricePerOne: Double = 0.0
 ) : JsonModel {
 
-    var productNameProperty = SimpleStringProperty(productName)
+    val productNameProperty = SimpleStringProperty(productName)
     var productName: String by productNameProperty
 
-    var amountProperty = SimpleIntegerProperty(amount)
+    val amountProperty = SimpleIntegerProperty(amount)
     var amount by amountProperty
 
-    var totalPriceProperty = SimpleDoubleProperty(totalPrice)
+    val totalPriceProperty = SimpleDoubleProperty(totalPrice)
     var totalPrice by totalPriceProperty
 
-    var pricePerOneProperty = SimpleDoubleProperty(pricePerOne)
+    val pricePerOneProperty = SimpleDoubleProperty(pricePerOne)
     var pricePerOne by pricePerOneProperty
 
     override fun updateModel(json: JsonObject) {

@@ -26,29 +26,29 @@ class Product(
     lastChanged: LocalDateTime = LocalDateTime.now()
 ) : JsonModel {
 
-    var _idProperty = SimpleStringProperty(_id)
+    val _idProperty = SimpleStringProperty(_id)
     var _id: String by _idProperty
 
-    var barcodeProperty = SimpleIntegerProperty(barcode)
+    val barcodeProperty = SimpleIntegerProperty(barcode)
     var barcode by barcodeProperty
 
-    var nameProperty = SimpleStringProperty(name)
+    val nameProperty = SimpleStringProperty(name)
     var name: String by nameProperty
 
-    var categoryProperty = SimpleObjectProperty(category)
+    val categoryProperty = SimpleObjectProperty(category)
     var category: Category by categoryProperty
 
-    var stockProperty = SimpleIntegerProperty(stock)
+    val stockProperty = SimpleIntegerProperty(stock)
     var stock by stockProperty
 
 
-    var isActiveProperty = SimpleBooleanProperty(isActive)
+    val isActiveProperty = SimpleBooleanProperty(isActive)
     var isActive by isActiveProperty
 
     var sellingHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(sellingHistory)
     var purchaseHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
 
-    var lastChangedProperty = SimpleObjectProperty(lastChanged)
+    val lastChangedProperty = SimpleObjectProperty(lastChanged)
     var lastChanged: LocalDateTime by lastChangedProperty
 
 

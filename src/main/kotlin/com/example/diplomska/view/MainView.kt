@@ -18,6 +18,7 @@ class MainView : View("Main view") {
     private var userInfoLabel = label(userInfo)
     private var firstLoad = true
 
+
     override val root = vbox {
         prefWidth = 800.0
         prefHeight = 600.0

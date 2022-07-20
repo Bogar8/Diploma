@@ -10,38 +10,37 @@ import tornadofx.*
 
 class ProductManagementView : View("My View") {
     val controller: ProductManagementController by inject()
+    val products = AppData.products.asObservable()
     override val root = vbox {
 
         button("Add product") {
             useMaxWidth = true
             action {
-                runAsync {
-                    controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, false))
-                }
+                   products.add(Product("21", 123, "novoIme", Category.FOOD, 100, false))
             }
         }
 
-        tableview(AppData.products.asObservable()) {
-            readonlyColumn("Barcode", Product::barcodeProperty)
-            readonlyColumn("Name", Product::nameProperty)
-            readonlyColumn("Category", Product::categoryProperty)
-            readonlyColumn("Stock", Product::stockProperty)
-            readonlyColumn("Last changed", Product::lastChangedProperty).cellFormat {
-                text = it.value.toNiceString()
+        tableview(products) {
+            column("Barcode", Product::barcodeProperty)
+            column("Name", Product::nameProperty)
+            column("Category", Product::categoryProperty)
+            column("Stock", Product::stockProperty)
+            column("Last changed", Product::lastChangedProperty).cellFormat {
+                text = it.toNiceString()
             }
-            readonlyColumn("Current sell price", Product::sellingHistory).cellFormat {
+            column("Current sell price", Product::sellingHistory).cellFormat {
                 if (it.isNotEmpty())
                     text = it.last().pricePerOne.toString()
                 else
                     text = "no data"
             }
-            readonlyColumn("Current purchase price", Product::purchaseHistory).cellFormat {
+            column("Current purchase price", Product::purchaseHistory).cellFormat {
                 if (it.isNotEmpty())
                     text = it.last().pricePerOne.toString()
                 else
                     text = "no data"
             }
-            readonlyColumn("Active", Product::isActive).cellFormat {
+            column("Active", Product::isActiveProperty).cellFormat {
                 if (it) {
                     text = "Yes"
                 } else {

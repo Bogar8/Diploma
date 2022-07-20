@@ -20,25 +20,25 @@ class User(
     lastLogin: LocalDateTime = LocalDateTime.now(),
 ) : JsonModel {
 
-    var _idProperty = SimpleStringProperty(_id)
+    val _idProperty = SimpleStringProperty(_id)
     var _id: String by _idProperty
 
-    var nameProperty = SimpleStringProperty(name)
+    val nameProperty = SimpleStringProperty(name)
     var name: String by nameProperty
 
-    var surnameProperty = SimpleStringProperty(surname)
+    val surnameProperty = SimpleStringProperty(surname)
     var surname: String by surnameProperty
 
-    var usernameProperty = SimpleStringProperty(username)
+    val usernameProperty = SimpleStringProperty(username)
     var username: String by usernameProperty
 
-    var passwordProperty = SimpleStringProperty(password)
+    val passwordProperty = SimpleStringProperty(password)
     var password: String by passwordProperty
 
-    var levelProperty = SimpleObjectProperty(level)
+    val levelProperty = SimpleObjectProperty(level)
     var level: UserLevel by levelProperty
 
-    var lastLoginProperty = SimpleObjectProperty(lastLogin)
+    val lastLoginProperty = SimpleObjectProperty(lastLogin)
     var lastLogin: LocalDateTime by lastLoginProperty
 
     override fun updateModel(json: JsonObject) {

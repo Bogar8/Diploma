@@ -16,13 +16,13 @@ class ProductStock(
     date: LocalDateTime = LocalDateTime.now(),
 ) : JsonModel {
 
-    var amountProperty = SimpleIntegerProperty(amount)
+    val amountProperty = SimpleIntegerProperty(amount)
     var amount by amountProperty
 
-    var pricePerOneProperty = SimpleDoubleProperty(pricePerOne)
+    val pricePerOneProperty = SimpleDoubleProperty(pricePerOne)
     var pricePerOne by pricePerOneProperty
 
-    var dateProperty = SimpleObjectProperty(date)
+    val dateProperty = SimpleObjectProperty(date)
     var date: LocalDateTime by dateProperty
 
 

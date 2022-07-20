@@ -13,16 +13,16 @@ class CompanyInformation(
     balance: Double = 0.0,
 ) : JsonModel {
 
-    var _idProperty = SimpleStringProperty(_id)
+    val _idProperty = SimpleStringProperty(_id)
     var _id: String by _idProperty
 
-    var nameProperty = SimpleStringProperty(name)
+    val nameProperty = SimpleStringProperty(name)
     var name: String by nameProperty
 
-    var locationProperty = SimpleStringProperty(location)
+    val locationProperty = SimpleStringProperty(location)
     var location: String by locationProperty
 
-    var balanceProperty = SimpleDoubleProperty(balance)
+    val balanceProperty = SimpleDoubleProperty(balance)
     var balance by balanceProperty
 
 
