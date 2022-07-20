@@ -19,6 +19,9 @@ class LoginView : Fragment("Login") {
     private var isOpened = true
 
     override val root = vbox {
+        prefWidth = 1600.0
+        prefHeight = 900.0
+
         form {
             fieldset {
                 field("Username") {
@@ -40,7 +43,7 @@ class LoginView : Fragment("Login") {
                                 error.value = controller.error
                             } else {
                                 isOpened = false
-                                close()
+                                replaceWith<MainView>()
                             }
                         }
                     }

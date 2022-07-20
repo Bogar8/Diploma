@@ -55,14 +55,6 @@ class ProductManagementView : View("My View") {
                 }
             }
         }
-
-
-        button("Back") {
-            useMaxWidth = true
-            action {
-                replaceWith<MainView>()
-            }
-        }
     }
 
 }
