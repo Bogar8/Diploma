@@ -6,10 +6,9 @@ import tornadofx.*
 
 class ProductManagementController : Controller() {
 
-    var data = AppData.products
-
+    val products = AppData.products.asObservable()
     fun addProduct(product: Product) {
-        AppData.products.add(product)
+        products.add(product)
         log.info("Product added, total products ${AppData.products.size}")
     }
 }

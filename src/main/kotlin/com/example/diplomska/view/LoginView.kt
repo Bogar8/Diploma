@@ -2,6 +2,7 @@ package com.example.diplomska.view
 
 import com.example.diplomska.controller.LoginController
 import javafx.beans.property.SimpleStringProperty
+import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import tornadofx.*
 import kotlin.concurrent.thread
@@ -18,60 +19,63 @@ class LoginView : Fragment("Login") {
     private var progressDouble = 0.001
     private var isOpened = true
 
-    override val root = vbox {
-        prefWidth = 1600.0
-        prefHeight = 900.0
+    override val root = stackpane {
+        prefWidth = 800.0
+        prefHeight = 450.0
+        vbox (alignment = Pos.CENTER) {
+            form {
+                fieldset {
+                    field("Username") {
+                        textfield(model.username).required()
+                    }
+                    field("Password") {
+                        passwordfield(model.password).required()
+                    }
 
-        form {
-            fieldset {
-                field("Username") {
-                    textfield(model.username).required()
-                }
-                field("Password") {
-                    passwordfield(model.password).required()
-                }
-
-                button("Log in") {
-                    enableWhen(model.valid)
-                    useMaxWidth = true
-                    action {
-                        error.value = ""
-                        runAsync {
-                            controller.login(model.username.value, model.password.value)
-                        } ui { login ->
-                            if (!login) {
-                                error.value = controller.error
-                            } else {
-                                isOpened = false
-                                replaceWith<MainView>()
+                    button("Log in") {
+                        enableWhen(model.valid)
+                        useMaxWidth = true
+                        action {
+                            error.value = ""
+                            runAsync {
+                                controller.login(model.username.value, model.password.value)
+                            } ui { login ->
+                                if (!login) {
+                                    error.value = controller.error
+                                } else {
+                                    isOpened = false
+                                    find<MainView>().openModal(owner = null)
+                                    currentStage?.close()
+                                }
                             }
                         }
                     }
                 }
-            }
-            progressbar {
-                useMaxWidth = true
-                progress = progressDouble
-                thread {
-                    while (isOpened) {
-                        if (progressDouble < 95 && controller.waitingForResponse) {
-                            progressDouble += ((200..300).random() / 10000.0)
-                            progress = progressDouble
-                        } else if (error.value.isNullOrEmpty()) {
-                            progressDouble = 0.001
-                            progress = progressDouble
-                        } else {
-                            progressDouble = 1.0
-                            progress = progressDouble
+                progressbar {
+                    useMaxWidth = true
+                    progress = progressDouble
+                    thread {
+                        while (isOpened) {
+                            if (progressDouble < 95 && controller.waitingForResponse) {
+                                progressDouble += ((200..300).random() / 10000.0)
+                                progress = progressDouble
+                            } else if (error.value.isNullOrEmpty()) {
+                                progressDouble = 0.001
+                                progress = progressDouble
+                            } else {
+                                progressDouble = 1.0
+                                progress = progressDouble
+                            }
+                            Thread.sleep(100) //reduces cpu usage
                         }
-                        Thread.sleep(100) //reduces cpu usage
+                        return@thread
                     }
                 }
-            }
-            label {
-                bind(error)
-                style {
-                    textFill = Color.RED
+                label {
+                    bind(error)
+                    style {
+                        textFill = Color.RED
+                    }
                 }
             }
         }

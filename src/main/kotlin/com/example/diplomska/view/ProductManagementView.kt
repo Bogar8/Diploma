@@ -2,25 +2,16 @@ package com.example.diplomska.view
 
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.extensions.toNiceString
-import com.example.diplomska.model.AppData
 import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
 import tornadofx.*
 
 
 class ProductManagementView : View("My View") {
-    val controller: ProductManagementController by inject()
-    val products = AppData.products.asObservable()
+    private val controller: ProductManagementController by inject()
+
     override val root = vbox {
-
-        button("Add product") {
-            useMaxWidth = true
-            action {
-                   products.add(Product("21", 123, "novoIme", Category.FOOD, 100, false))
-            }
-        }
-
-        tableview(products) {
+        tableview(controller.products) {
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
@@ -53,6 +44,13 @@ class ProductManagementView : View("My View") {
                         backgroundColor += c("#FF0000")
                     }
                 }
+            }
+            columnResizePolicy = SmartResize.POLICY
+        }
+        button("Add product") {
+            useMaxWidth = true
+            action {
+                controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, false))
             }
         }
     }
