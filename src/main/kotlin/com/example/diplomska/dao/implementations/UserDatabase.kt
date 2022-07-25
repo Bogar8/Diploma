@@ -94,17 +94,6 @@ object UserDatabase : DaoUser {
     }
 
     override fun update(obj: User): Boolean {
-        val password: String?
-        if (obj.password == "") {
-            password = getById(obj._id)?.password
-        } else {
-            password = SHA512Util.hashString(obj.password)
-        }
-        if (password != null) {
-            obj.password = password
-        } else {
-            return false
-        }
         val result = getCollection().replaceOneById(id = obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
@@ -125,9 +114,4 @@ object UserDatabase : DaoUser {
         return user
     }
 
-     fun updateLastLogin(obj: User): Boolean {
-        obj.lastLogin = LocalDateTime.now()
-        val result = getCollection().replaceOneById(id = obj._id, Document.parse(obj.toJSON().toString()))
-        return result.wasAcknowledged()
-    }
 }

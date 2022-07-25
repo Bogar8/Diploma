@@ -3,6 +3,7 @@ package com.example.diplomska.controller
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
 import com.example.diplomska.model.User
+import com.example.diplomska.util.SHA512Util
 import tornadofx.*
 
 
@@ -16,7 +17,7 @@ class UserManagmentController : Controller() {
             users.add(user)
             return true
         } else {
-            errorMessage="Error when trying to add user"
+            errorMessage = "Error when trying to add user"
             return false
         }
     }
@@ -26,12 +27,18 @@ class UserManagmentController : Controller() {
             users.remove(user)
             return true
         } else {
-            errorMessage="Error when trying to delete user"
+            errorMessage = "Error when trying to delete user"
             return false
         }
     }
 
     fun updateUser(user: User): Boolean {
+        if (user.password == "") {
+            user.password = UserDatabase.getById(user._id)?.password.toString()
+        } else {
+            user.password = SHA512Util.hashString(user.password)
+        }
+
         val usernameUser = UserDatabase.getByUsername(user.username)
         if (usernameUser != null) { //same usernames exist
             if (usernameUser._id == user._id) { //its same user
