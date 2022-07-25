@@ -10,6 +10,7 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.replaceOneById
 import tornadofx.*
+import java.util.*
 
 object CompanyInformationDatabase : DaoCompanyInformation {
     private fun getCollection(): MongoCollection<Document> {
@@ -53,6 +54,7 @@ object CompanyInformationDatabase : DaoCompanyInformation {
         if (sameID != null || sameName != null) {
             return false
         }
+        obj._id = UUID.randomUUID().toString()
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }

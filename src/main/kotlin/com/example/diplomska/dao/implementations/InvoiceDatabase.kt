@@ -9,6 +9,8 @@ import org.bson.Document
 import org.litote.kmongo.*
 import tornadofx.*
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 object InvoiceDatabase : DaoInvoice {
 
@@ -97,6 +99,7 @@ object InvoiceDatabase : DaoInvoice {
         if (sameID != null) {
             return false
         }
+        obj._id = UUID.randomUUID().toString()
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }

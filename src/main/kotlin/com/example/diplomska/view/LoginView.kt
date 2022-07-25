@@ -4,6 +4,7 @@ import com.example.diplomska.controller.LoginController
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
+import javafx.stage.Modality
 import tornadofx.*
 import kotlin.concurrent.thread
 
@@ -22,7 +23,7 @@ class LoginView : Fragment("Login") {
     override val root = stackpane {
         prefWidth = 800.0
         prefHeight = 450.0
-        vbox (alignment = Pos.CENTER) {
+        vbox(alignment = Pos.CENTER) {
             form {
                 fieldset {
                     field("Username") {
@@ -44,7 +45,7 @@ class LoginView : Fragment("Login") {
                                     error.value = controller.error
                                 } else {
                                     isOpened = false
-                                    find<MainView>().openModal(owner = null)
+                                    find<MainView>().openModal(owner = null, modality = Modality.WINDOW_MODAL)
                                     currentStage?.close()
                                 }
                             }

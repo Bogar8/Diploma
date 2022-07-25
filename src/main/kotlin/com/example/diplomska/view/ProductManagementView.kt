@@ -10,8 +10,9 @@ import tornadofx.*
 class ProductManagementView : View("My View") {
     private val controller: ProductManagementController by inject()
 
-    override val root = vbox {
-        tableview(controller.products) {
+    override val root = borderpane {
+        center = tableview(controller.products) {
+            prefHeight = 900.0
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
@@ -47,10 +48,13 @@ class ProductManagementView : View("My View") {
             }
             columnResizePolicy = SmartResize.POLICY
         }
-        button("Add product") {
-            useMaxWidth = true
-            action {
-                controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, false))
+        right = vbox {
+            prefWidth = 200.0
+            button("Add product") {
+                useMaxWidth = true
+                action {
+                    controller.addProduct(Product("21", 123, "novoIme", Category.FOOD, 100, false))
+                }
             }
         }
     }

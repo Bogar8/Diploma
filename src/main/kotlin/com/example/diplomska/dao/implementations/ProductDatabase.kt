@@ -8,6 +8,8 @@ import com.mongodb.client.MongoCollection
 import org.bson.Document
 import org.litote.kmongo.*
 import tornadofx.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 object ProductDatabase : DaoProduct {
 
@@ -106,6 +108,7 @@ object ProductDatabase : DaoProduct {
         if (sameID != null) {
             return false
         }
+        obj._id = UUID.randomUUID().toString()
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }

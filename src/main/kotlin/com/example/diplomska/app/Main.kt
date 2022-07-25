@@ -1,10 +1,9 @@
 package com.example.diplomska.app
 
 
-import com.example.diplomska.dao.implementations.ProductDatabase
-import com.example.diplomska.model.Category
-import com.example.diplomska.model.Product
-import com.example.diplomska.model.ProductStock
+
+import com.example.diplomska.dao.implementations.UserDatabase
+import com.example.diplomska.model.*
 import java.time.LocalDateTime
 import java.util.*
 
@@ -38,7 +37,7 @@ fun main() {
             sellingHistory,
             purchaseHistory
         )
-    ProductDatabase.insert(testSample)
+   UserDatabase.insert(User("123","name","surname","user","user",UserLevel.OWNER))
 //    println(ProductDatabase.getAll())
 //    println(ProductDatabase.getAll())
 //    val x = ProductDatabase.getByBarcode(999)

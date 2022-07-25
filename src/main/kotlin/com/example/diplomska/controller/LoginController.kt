@@ -5,7 +5,6 @@ import com.example.diplomska.dao.implementations.InvoiceDatabase
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
-import com.example.diplomska.util.SHA512Util
 import tornadofx.*
 
 class LoginController : Controller() {
@@ -16,7 +15,7 @@ class LoginController : Controller() {
     fun login(username: String, password: String): Boolean {
         if (!waitingForResponse) {
             waitingForResponse = true
-            val user = UserDatabase.login(username, SHA512Util.hashString(password))
+            val user = UserDatabase.login(username, password)
             return if (user == null) {
                 error = "Username or password is incorrect"
                 log.info { error }

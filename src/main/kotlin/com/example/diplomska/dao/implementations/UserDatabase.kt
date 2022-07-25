@@ -4,11 +4,14 @@ import com.example.diplomska.dao.interfaces.DaoUser
 import com.example.diplomska.model.User
 import com.example.diplomska.model.UserLevel
 import com.example.diplomska.util.DatabaseUtil
+import com.example.diplomska.util.SHA512Util
 import com.mongodb.client.MongoCollection
 import org.bson.Document
 import org.litote.kmongo.*
 import tornadofx.*
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 object UserDatabase : DaoUser {
     private fun getCollection(): MongoCollection<Document> {
@@ -85,6 +88,8 @@ object UserDatabase : DaoUser {
         if (sameID != null || sameUsername != null) {
             return false
         }
+        obj._id = UUID.randomUUID().toString()
+        obj.password = SHA512Util.hashString(obj.password)
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
@@ -100,7 +105,8 @@ object UserDatabase : DaoUser {
     }
 
     override fun login(username: String, password: String): User? {
-        val result = getCollection().findOne(User::username eq username, User::password eq password)
+        val hashPassword = SHA512Util.hashString(password)
+        val result = getCollection().findOne(User::username eq username, User::password eq hashPassword)
         if (result == null) {
             return null
         }
