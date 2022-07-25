@@ -39,37 +39,56 @@ class UserManagmentView : View("My View") {
             button("Edit user") {
                 useMaxWidth = true
                 action {
-                    find<UserEditView>().openWindow()
+                    if (controller.selectedUser._id != "") {
+                        find<UserEditView>().openWindow()
+                    } else {
+                        alert(
+                            Alert.AlertType.ERROR,
+                            "Select user",
+                            "You have to select user first!",
+                            ButtonType.OK,
+                        )
+                    }
                 }
             }
             button("Delete user") {
                 useMaxWidth = true
                 action {
-                    alert(
-                        Alert.AlertType.CONFIRMATION,
-                        "Deleting user",
-                        "Are you sure you want to delete user ${controller.selectedUser.username}",
-                        ButtonType.YES,
-                        ButtonType.NO,
-                        actionFn = { btnType ->
-                            if (btnType.buttonData == ButtonBar.ButtonData.YES) {
-                                if (controller.deleteUser(controller.selectedUser)) {
-                                    alert(
-                                        Alert.AlertType.INFORMATION,
-                                        "Deleting user",
-                                        "User ${controller.selectedUser.username} successfully deleted",
-                                        ButtonType.OK,
-                                    )
-                                } else {
-                                    alert(
-                                        Alert.AlertType.ERROR,
-                                        "Deleting user",
-                                        "Error occurred when deleting user ${controller.selectedUser.username}",
-                                        ButtonType.OK,
-                                    )
+                    if (controller.selectedUser._id != "") {
+                        alert(
+                            Alert.AlertType.CONFIRMATION,
+                            "Deleting user",
+                            "Are you sure you want to delete user ${controller.selectedUser.username}",
+                            ButtonType.YES,
+                            ButtonType.NO,
+                            actionFn = { btnType ->
+                                if (btnType.buttonData == ButtonBar.ButtonData.YES) {
+                                    if (controller.deleteUser(controller.selectedUser)) {
+                                        alert(
+                                            Alert.AlertType.INFORMATION,
+                                            "Deleting user",
+                                            "User ${controller.selectedUser.username} successfully deleted",
+                                            ButtonType.OK,
+                                        )
+                                        controller.selectedUser = User()
+                                    } else {
+                                        alert(
+                                            Alert.AlertType.ERROR,
+                                            "Deleting user",
+                                            "Error occurred when deleting user ${controller.selectedUser.username}",
+                                            ButtonType.OK,
+                                        )
+                                    }
                                 }
-                            }
-                        })
+                            })
+                    } else {
+                        alert(
+                            Alert.AlertType.ERROR,
+                            "Select user",
+                            "You have to select user first!",
+                            ButtonType.OK,
+                        )
+                    }
                 }
             }
         }
