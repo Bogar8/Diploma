@@ -10,7 +10,6 @@ import org.litote.kmongo.*
 import tornadofx.*
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 object InvoiceDatabase : DaoInvoice {
 

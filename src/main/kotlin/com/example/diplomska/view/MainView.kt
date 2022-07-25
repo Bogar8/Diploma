@@ -13,18 +13,18 @@ class MainView : View("Main view") {
     private val userManagementView: UserManagmentView by inject()
 
     override val root = vbox {
-        prefWidth=1600.0
-        prefHeight=900.0
+        prefWidth = 1600.0
+        prefHeight = 900.0
         add(userInfoLabel)
         tabpane {
-            tabClosingPolicy=TabPane.TabClosingPolicy.UNAVAILABLE
+            tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
             tab("Products") {
                 vbox {
                     add(productManagementView.root)
                 }
             }
-            tab("Users"){
-                vbox{
+            tab("Users") {
+                vbox {
                     add(userManagementView.root)
                 }
             }

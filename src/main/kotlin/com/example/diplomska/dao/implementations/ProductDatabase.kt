@@ -9,7 +9,6 @@ import org.bson.Document
 import org.litote.kmongo.*
 import tornadofx.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 object ProductDatabase : DaoProduct {
 
