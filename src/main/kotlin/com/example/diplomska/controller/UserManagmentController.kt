@@ -5,20 +5,18 @@ import com.example.diplomska.model.AppData
 import com.example.diplomska.model.User
 import tornadofx.*
 
-enum class Mode(var mode: String) {
-    ADD("ADD"),
-    EDIT("EDIT")
-}
 
 class UserManagmentController : Controller() {
     val users = AppData.employees.asObservable()
-    var mode: Mode = Mode.ADD
+    var selectedUser: User = User()
+    var errorMessage: String = ""
 
     fun addUser(user: User): Boolean {
         if (UserDatabase.insert(user)) {
             users.add(user)
             return true
         } else {
+            errorMessage="Error when trying to add user"
             return false
         }
     }
@@ -28,7 +26,22 @@ class UserManagmentController : Controller() {
             users.remove(user)
             return true
         } else {
+            errorMessage="Error when trying to delete user"
             return false
+        }
+    }
+
+    fun updateUser(user: User): Boolean {
+        val usernameUser = UserDatabase.getByUsername(user.username)
+        if (usernameUser != null) { //same usernames exist
+            if (usernameUser._id == user._id) { //its same user
+                return UserDatabase.update(user)
+            } else { //its different user
+                errorMessage = "User with that username already exists"
+                return false
+            }
+        } else { //same username doesn't exist
+            return UserDatabase.update(user)
         }
     }
 

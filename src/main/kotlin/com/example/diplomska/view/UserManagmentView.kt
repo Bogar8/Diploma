@@ -11,7 +11,7 @@ import tornadofx.*
 
 class UserManagmentView : View("My View") {
     private val controller: UserManagmentController by inject()
-    private var selectedUser: User = User()
+
     override val root = borderpane {
         center = tableview(controller.users) {
             prefHeight = 900.0
@@ -24,7 +24,7 @@ class UserManagmentView : View("My View") {
             column("Level", User::level)
             setOnMouseClicked {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                    selectedUser = selectionModel.selectedItem
+                    controller.selectedUser = selectionModel.selectedItem
                 }
             }
         }
@@ -39,7 +39,7 @@ class UserManagmentView : View("My View") {
             button("Edit user") {
                 useMaxWidth = true
                 action {
-                    find<UserAddView>().openWindow()
+                    find<UserEditView>().openWindow()
                 }
             }
             button("Delete user") {
@@ -48,23 +48,23 @@ class UserManagmentView : View("My View") {
                     alert(
                         Alert.AlertType.CONFIRMATION,
                         "Deleting user",
-                        "Are you sure you want to delete user ${selectedUser.username}",
+                        "Are you sure you want to delete user ${controller.selectedUser.username}",
                         ButtonType.YES,
                         ButtonType.NO,
                         actionFn = { btnType ->
                             if (btnType.buttonData == ButtonBar.ButtonData.YES) {
-                                if (controller.deleteUser(selectedUser)) {
+                                if (controller.deleteUser(controller.selectedUser)) {
                                     alert(
                                         Alert.AlertType.INFORMATION,
                                         "Deleting user",
-                                        "User ${selectedUser.username} successfully deleted",
+                                        "User ${controller.selectedUser.username} successfully deleted",
                                         ButtonType.OK,
                                     )
                                 } else {
                                     alert(
                                         Alert.AlertType.ERROR,
                                         "Deleting user",
-                                        "Error occurred when deleting user ${selectedUser.username}",
+                                        "Error occurred when deleting user ${controller.selectedUser.username}",
                                         ButtonType.OK,
                                     )
                                 }

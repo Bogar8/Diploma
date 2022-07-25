@@ -79,7 +79,7 @@ class User(
 
     fun updateLoginDate() {
         lastLogin = LocalDateTime.now()
-        UserDatabase.update(this)
+        UserDatabase.updateLastLogin(this)
     }
 }
 

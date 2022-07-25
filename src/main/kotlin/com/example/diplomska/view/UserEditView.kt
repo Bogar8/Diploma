@@ -1,7 +1,6 @@
 package com.example.diplomska.view
 
 import com.example.diplomska.controller.UserManagmentController
-import com.example.diplomska.model.User
 import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
@@ -10,7 +9,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class UserAddView : Fragment("My View") {
+class UserEditView : Fragment("My View") {
     private val controller: UserManagmentController by inject()
     private val model = object : ViewModel() {
         val username = bind { SimpleStringProperty() }
@@ -25,6 +24,14 @@ class UserAddView : Fragment("My View") {
         UserLevel.OWNER.name,
     )
 
+    init {
+        model.username.value = controller.selectedUser.username
+        model.name.value = controller.selectedUser.name
+        model.surname.value = controller.selectedUser.surname
+        model.level.value = controller.selectedUser.level.name
+        model.password.value = ""
+    }
+
     override val root = vbox {
         form {
             fieldset {
@@ -32,7 +39,7 @@ class UserAddView : Fragment("My View") {
                     textfield(model.username).required()
                 }
                 field("Password") {
-                    passwordfield(model.password).required()
+                    passwordfield(model.password)
                 }
                 field("Name") {
                     textfield(model.name).required()
@@ -48,19 +55,19 @@ class UserAddView : Fragment("My View") {
                     button("Save") {
                         enableWhen(model.valid)
                         action {
-                            val user = User(
-                                "",
-                                model.name.value,
-                                model.surname.value,
-                                model.username.value,
-                                model.password.value,
-                                UserLevel.valueOf(model.level.value)
-                            )
-                            if (controller.addUser(user)) {
+                            val user = controller.selectedUser
+                            val copyOfUserJson =
+                                controller.selectedUser.toJSON() //if update fails reset values in table
+                            user.name = model.name.value
+                            user.surname = model.name.value
+                            user.username = model.username.value
+                            user.password = model.password.value
+                            user.level = UserLevel.valueOf(model.level.value)
+                            if (controller.updateUser(user)) {
                                 alert(
                                     Alert.AlertType.INFORMATION,
-                                    "User added",
-                                    "User successfully added",
+                                    "User edit",
+                                    "User successfully edited",
                                     ButtonType.OK,
                                     actionFn = { btnType ->
                                         if (btnType.buttonData == ButtonBar.ButtonData.OK_DONE) {
@@ -68,6 +75,7 @@ class UserAddView : Fragment("My View") {
                                         }
                                     })
                             } else {
+                                controller.selectedUser.updateModel(copyOfUserJson)
                                 alert(Alert.AlertType.ERROR, "Error", controller.errorMessage, ButtonType.OK)
                             }
                         }
