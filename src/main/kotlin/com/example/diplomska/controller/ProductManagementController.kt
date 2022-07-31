@@ -9,6 +9,6 @@ class ProductManagementController : Controller() {
     val products = AppData.products.asObservable()
     fun addProduct(product: Product) {
         products.add(product)
-        log.info("Product added, total products ${AppData.products.size}")
+        log.info("Product ${product.name} added")
     }
 }

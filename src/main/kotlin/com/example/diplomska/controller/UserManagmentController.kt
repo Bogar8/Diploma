@@ -15,9 +15,11 @@ class UserManagmentController : Controller() {
     fun addUser(user: User): Boolean {
         if (UserDatabase.insert(user)) {
             users.add(user)
+            log.info { "User ${user.username} successfully added" }
             return true
         } else {
             errorMessage = "Error when trying to add user"
+            log.info { errorMessage }
             return false
         }
     }
@@ -25,9 +27,11 @@ class UserManagmentController : Controller() {
     fun deleteUser(user: User): Boolean {
         if (UserDatabase.delete(user)) {
             users.remove(user)
+            log.info { "User ${user.username} successfully deleted" }
             return true
         } else {
             errorMessage = "Error when trying to delete user"
+            log.info { errorMessage }
             return false
         }
     }
@@ -42,13 +46,28 @@ class UserManagmentController : Controller() {
         val usernameUser = UserDatabase.getByUsername(user.username)
         if (usernameUser != null) { //same usernames exist
             if (usernameUser._id == user._id) { //its same user
-                return UserDatabase.update(user)
+                return UserDatabase.update(user).also {
+                    if (it)
+                        log.info { "User ${user.username} successfully updated" }
+                    else {
+                        errorMessage = "Error when updating user ${user.username}"
+                        log.info { errorMessage }
+                    }
+                }
             } else { //its different user
-                errorMessage = "User with that username already exists"
+                errorMessage = "User with username ${user.username} already exists"
+                log.info { errorMessage }
                 return false
             }
         } else { //same username doesn't exist
-            return UserDatabase.update(user)
+            return UserDatabase.update(user).also {
+                if (it)
+                    log.info { "User ${user.username} successfully updated" }
+                else {
+                    errorMessage = "Error when updating user ${user.username}"
+                    log.info { errorMessage }
+                }
+            }
         }
     }
 

@@ -38,6 +38,7 @@ class LoginController : Controller() {
         AppData.products = ProductDatabase.getAll()
         AppData.employees = UserDatabase.getAll()
         AppData.companyInformation = CompanyInformationDatabase.getByName("DIPLOMA")
+        log.info { "Data successfully loaded" }
     }
 
 }
