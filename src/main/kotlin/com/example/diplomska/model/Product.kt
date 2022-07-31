@@ -60,8 +60,10 @@ class Product(
             category = Category.valueOf(string("category")!!)
             stock = int("stock")!!
             isActive = boolean("isActive")!!
-            sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
-            purchaseHistory.setAll(getJsonArray("purchaseHistory").toModel())
+            if (getJsonArray("sellingHistory") != null)
+                sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
+            if (getJsonArray("purchaseHistory") != null)
+                purchaseHistory.setAll(getJsonArray("purchaseHistory").toModel())
             lastChanged = LocalDateTime.parse(string("lastChanged"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         }
     }

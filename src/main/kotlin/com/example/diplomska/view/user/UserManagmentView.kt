@@ -1,4 +1,4 @@
-package com.example.diplomska.view
+package com.example.diplomska.view.user
 
 import com.example.diplomska.controller.UserManagmentController
 import com.example.diplomska.extensions.toNiceString

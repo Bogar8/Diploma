@@ -1,6 +1,7 @@
-package com.example.diplomska.view
+package com.example.diplomska.view.user
 
 import com.example.diplomska.controller.UserManagmentController
+import com.example.diplomska.model.User
 import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
@@ -9,7 +10,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class UserEditView : Fragment("My View") {
+class UserAddView : Fragment("My View") {
     private val controller: UserManagmentController by inject()
     private val model = object : ViewModel() {
         val username = bind { SimpleStringProperty() }
@@ -18,19 +19,12 @@ class UserEditView : Fragment("My View") {
         val surname = bind { SimpleStringProperty() }
         val level = bind { SimpleStringProperty() }
     }
-    val texasCities = FXCollections.observableArrayList(
-        UserLevel.SELLER.name,
-        UserLevel.MANAGER.name,
-        UserLevel.OWNER.name,
-    )
 
-    init {
-        model.username.value = controller.selectedUser.username
-        model.name.value = controller.selectedUser.name
-        model.surname.value = controller.selectedUser.surname
-        model.level.value = controller.selectedUser.level.name
-        model.password.value = ""
-    }
+    val userLevels = FXCollections.observableArrayList(
+        UserLevel.OWNER.name,
+        UserLevel.MANAGER.name,
+        UserLevel.SELLER.name,
+    )
 
     override val root = vbox {
         form {
@@ -39,7 +33,7 @@ class UserEditView : Fragment("My View") {
                     textfield(model.username).required()
                 }
                 field("Password") {
-                    passwordfield(model.password)
+                    passwordfield(model.password).required()
                 }
                 field("Name") {
                     textfield(model.name).required()
@@ -48,26 +42,26 @@ class UserEditView : Fragment("My View") {
                     textfield(model.surname).required()
                 }
                 field {
-                    combobox(model.level, texasCities).required()
+                    combobox(model.level, userLevels).required()
                 }
 
                 hbox {
                     button("Save") {
                         enableWhen(model.valid)
                         action {
-                            val user = controller.selectedUser
-                            val copyOfUserJson =
-                                controller.selectedUser.toJSON() //if update fails reset values in table
-                            user.name = model.name.value
-                            user.surname = model.name.value
-                            user.username = model.username.value
-                            user.password = model.password.value
-                            user.level = UserLevel.valueOf(model.level.value)
-                            if (controller.updateUser(user)) {
+                            val user = User(
+                                "",
+                                model.name.value,
+                                model.surname.value,
+                                model.username.value,
+                                model.password.value,
+                                UserLevel.valueOf(model.level.value)
+                            )
+                            if (controller.addUser(user)) {
                                 alert(
                                     Alert.AlertType.INFORMATION,
-                                    "User edit",
-                                    "User successfully edited",
+                                    "User added",
+                                    "User successfully added",
                                     ButtonType.OK,
                                     actionFn = { btnType ->
                                         if (btnType.buttonData == ButtonBar.ButtonData.OK_DONE) {
@@ -75,7 +69,6 @@ class UserEditView : Fragment("My View") {
                                         }
                                     })
                             } else {
-                                controller.selectedUser.updateModel(copyOfUserJson)
                                 alert(Alert.AlertType.ERROR, "Error", controller.errorMessage, ButtonType.OK)
                             }
                         }

@@ -1,8 +1,11 @@
-package com.example.diplomska.view
+package com.example.diplomska.view.product
 
-import com.example.diplomska.controller.UserManagmentController
-import com.example.diplomska.model.User
-import com.example.diplomska.model.UserLevel
+import com.example.diplomska.controller.ProductManagementController
+import com.example.diplomska.model.Category
+import com.example.diplomska.model.Product
+
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.scene.control.Alert
@@ -10,57 +13,54 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class UserAddView : Fragment("My View") {
-    private val controller: UserManagmentController by inject()
+class ProductAddView : Fragment("My View") {
+    private val controller: ProductManagementController by inject()
     private val model = object : ViewModel() {
-        val username = bind { SimpleStringProperty() }
-        val password = bind { SimpleStringProperty() }
         val name = bind { SimpleStringProperty() }
-        val surname = bind { SimpleStringProperty() }
-        val level = bind { SimpleStringProperty() }
+        val barcode = bind {SimpleIntegerProperty()}
+        val category = bind { SimpleStringProperty() }
+        val isActive = bind { SimpleBooleanProperty() }
     }
-    val texasCities = FXCollections.observableArrayList(
-        UserLevel.SELLER.name,
-        UserLevel.MANAGER.name,
-        UserLevel.OWNER.name,
+    val categoryLists = FXCollections.observableArrayList(
+        Category.TECHNOLOGY.name,
+        Category.FOOD.name,
+        Category.SPORTS.name
     )
-
     override val root = vbox {
         form {
             fieldset {
-                field("Username") {
-                    textfield(model.username).required()
-                }
-                field("Password") {
-                    passwordfield(model.password).required()
-                }
                 field("Name") {
                     textfield(model.name).required()
                 }
-                field("Surname") {
-                    textfield(model.surname).required()
+                field("Barcode") {
+                    textfield(model.barcode).required()
                 }
-                field {
-                    combobox(model.level, texasCities).required()
+                field("Category") {
+                    combobox(model.category, categoryLists).required()
+                }
+                field() {
+                    checkbox("Active") {
+                        action { model.isActive.value = isSelected }
+                    }
                 }
 
                 hbox {
                     button("Save") {
                         enableWhen(model.valid)
                         action {
-                            val user = User(
+                            val product = Product(
                                 "",
+                                model.barcode.value,
                                 model.name.value,
-                                model.surname.value,
-                                model.username.value,
-                                model.password.value,
-                                UserLevel.valueOf(model.level.value)
+                                Category.valueOf(model.category.value),
+                                0,
+                                model.isActive.value,
                             )
-                            if (controller.addUser(user)) {
+                            if (controller.addProduct(product)) {
                                 alert(
                                     Alert.AlertType.INFORMATION,
-                                    "User added",
-                                    "User successfully added",
+                                    "Product added",
+                                    "Product ${product.name} successfully added",
                                     ButtonType.OK,
                                     actionFn = { btnType ->
                                         if (btnType.buttonData == ButtonBar.ButtonData.OK_DONE) {

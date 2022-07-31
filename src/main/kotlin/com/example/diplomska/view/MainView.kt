@@ -1,5 +1,7 @@
 package com.example.diplomska.view
 
+import com.example.diplomska.view.product.ProductManagementView
+import com.example.diplomska.view.user.UserManagmentView
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.TabPane
 import tornadofx.*
