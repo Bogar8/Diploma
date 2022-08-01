@@ -13,6 +13,13 @@ class UserManagmentController : Controller() {
     var errorMessage: String = ""
 
     fun addUser(user: User): Boolean {
+        val sameID = UserDatabase.getById(user._id)
+        val sameUsername = UserDatabase.getByUsername(user.username)
+        if (sameID != null || sameUsername != null) {
+            errorMessage = "Error when trying to add user. User with that username already exists"
+            log.info { errorMessage }
+            return false
+        }
         if (UserDatabase.insert(user)) {
             users.add(user)
             log.info { "User ${user.username} successfully added" }

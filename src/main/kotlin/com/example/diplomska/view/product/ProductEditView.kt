@@ -2,8 +2,6 @@ package com.example.diplomska.view.product
 
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.model.Category
-import com.example.diplomska.model.Product
-
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
@@ -13,7 +11,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class ProductAddView : Fragment("My View") {
+class ProductEditView : Fragment("My View") {
     private val controller: ProductManagementController by inject()
     private val model = object : ViewModel() {
         val name = bind { SimpleStringProperty() }
@@ -26,6 +24,14 @@ class ProductAddView : Fragment("My View") {
         Category.FOOD.name,
         Category.SPORTS.name
     )
+
+    init {
+        model.name.value = controller.selectedProduct.name
+        model.barcode.value = controller.selectedProduct.barcode
+        model.category.value = controller.selectedProduct.category.name
+        model.isActive.value = controller.selectedProduct.isActive
+    }
+
     override val root = vbox {
         form {
             fieldset {
@@ -39,28 +45,25 @@ class ProductAddView : Fragment("My View") {
                     combobox(model.category, categoryLists).required()
                 }
                 field {
-                    checkbox("Active") {
-                        action { model.isActive.value = isSelected }
-                    }
+                    checkbox("Active", model.isActive)
                 }
 
                 hbox {
                     button("Save") {
                         enableWhen(model.valid)
                         action {
-                            val product = Product(
-                                "",
-                                model.barcode.value,
-                                model.name.value,
-                                Category.valueOf(model.category.value),
-                                0,
-                                model.isActive.value,
-                            )
-                            if (controller.addProduct(product)) {
+                            val product = controller.selectedProduct
+                            val copyOfUserJson =
+                                controller.selectedProduct.toJSON() //if update fails reset values in table
+                            product.name = model.name.value
+                            product.barcode = model.barcode.value
+                            product.category = Category.valueOf(model.category.value)
+                            product.isActive = model.isActive.value
+                            if (controller.updateProduct(product)) {
                                 alert(
                                     Alert.AlertType.INFORMATION,
-                                    "Product added",
-                                    "Product ${product.name} successfully added",
+                                    "Product updated",
+                                    "Product ${product.name} successfully updated",
                                     ButtonType.OK,
                                     actionFn = { btnType ->
                                         if (btnType.buttonData == ButtonBar.ButtonData.OK_DONE) {
@@ -68,6 +71,7 @@ class ProductAddView : Fragment("My View") {
                                         }
                                     })
                             } else {
+                                controller.selectedProduct.updateModel(copyOfUserJson)
                                 alert(Alert.AlertType.ERROR, "Error", controller.errorMessage, ButtonType.OK)
                             }
                         }

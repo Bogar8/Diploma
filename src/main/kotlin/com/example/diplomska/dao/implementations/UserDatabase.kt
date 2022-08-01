@@ -82,11 +82,6 @@ object UserDatabase : DaoUser {
     }
 
     override fun insert(obj: User): Boolean {
-        val sameID = getById(obj._id)
-        val sameUsername = getByUsername(obj.username)
-        if (sameID != null || sameUsername != null) {
-            return false
-        }
         obj._id = UUID.randomUUID().toString()
         obj.password = SHA512Util.hashString(obj.password)
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))

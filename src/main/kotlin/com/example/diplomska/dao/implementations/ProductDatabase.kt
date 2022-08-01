@@ -103,10 +103,6 @@ object ProductDatabase : DaoProduct {
     }
 
     override fun insert(obj: Product): Boolean {
-        val sameID = getById(obj._id)
-        if (sameID != null) {
-            return false
-        }
         obj._id = UUID.randomUUID().toString()
         val result = getCollection().insertOne(Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()

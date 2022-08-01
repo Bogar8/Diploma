@@ -7,6 +7,8 @@ import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
 import tornadofx.*
 
+
+
 class LoginController : Controller() {
 
     var waitingForResponse: Boolean = false
@@ -40,5 +42,4 @@ class LoginController : Controller() {
         AppData.companyInformation = CompanyInformationDatabase.getByName("DIPLOMA")
         log.info { "Data successfully loaded" }
     }
-
 }

@@ -20,6 +20,7 @@ class LoginView : Fragment("Login") {
     private var progressDouble = 0.001
     private var isOpened = true
 
+
     override val root = stackpane {
         prefWidth = 800.0
         prefHeight = 450.0

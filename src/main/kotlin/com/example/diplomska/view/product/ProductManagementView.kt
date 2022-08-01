@@ -3,6 +3,9 @@ package com.example.diplomska.view.product
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.Product
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonBar
+import javafx.scene.control.ButtonType
 import tornadofx.*
 
 
@@ -45,6 +48,11 @@ class ProductManagementView : View("My View") {
                     }
                 }
             }
+            setOnMouseClicked {
+                if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                    controller.selectedProduct = selectionModel.selectedItem
+                }
+            }
             columnResizePolicy = SmartResize.POLICY
         }
         right = vbox {
@@ -55,60 +63,61 @@ class ProductManagementView : View("My View") {
                     find<ProductAddView>().openWindow()
                 }
             }
-//            button("Edit user") {
-//                useMaxWidth = true
-//                action {
-//                    if (controller.selectedUser._id != "") {
-//                        find<UserEditView>().openWindow()
-//                    } else {
-//                        alert(
-//                            Alert.AlertType.ERROR,
-//                            "Select user",
-//                            "You have to select user first!",
-//                            ButtonType.OK,
-//                        )
-//                    }
-//                }
-//            }
-//            button("Delete user") {
-//                useMaxWidth = true
-//                action {
-//                    if (controller.selectedProduct._id != "") {
-//                        alert(
-//                            Alert.AlertType.CONFIRMATION,
-//                            "Deleting user",
-//                            "Are you sure you want to delete user ${controller.selectedUser.username}",
-//                            ButtonType.YES,
-//                            ButtonType.NO,
-//                            actionFn = { btnType ->
-//                                if (btnType.buttonData == ButtonBar.ButtonData.YES) {
-//                                    if (controller.deleteUser(controller.selectedUser)) {
-//                                        alert(
-//                                            Alert.AlertType.INFORMATION,
-//                                            "Deleting user",
-//                                            "User ${controller.selectedUser.username} successfully deleted",
-//                                            ButtonType.OK,
-//                                        )
-//                                        controller.selectedUser = User()
-//                                    } else {
-//                                        alert(
-//                                            Alert.AlertType.ERROR,
-//                                            "Deleting user",
-//                                            "Error occurred when deleting user ${controller.selectedUser.username}",
-//                                            ButtonType.OK,
-//                                        )
-//                                    }
-//                                }
-//                            })
-//                    } else {
-//                        alert(
-//                            Alert.AlertType.ERROR,
-//                            "Select user",
-//                            "You have to select user first!",
-//                            ButtonType.OK,
-//                        )
-//                    }
-//                }
+            button("Edit product") {
+                useMaxWidth = true
+                action {
+                    if (controller.selectedProduct._id != "") {
+                        find<ProductEditView>().openWindow()
+                    } else {
+                        alert(
+                            Alert.AlertType.ERROR,
+                            "Select product",
+                            "You have to select product first!",
+                            ButtonType.OK,
+                        )
+                    }
+                }
+            }
+            button("Delete product") {
+                useMaxWidth = true
+                action {
+                    if (controller.selectedProduct._id != "") {
+                        alert(
+                            Alert.AlertType.CONFIRMATION,
+                            "Deleting user",
+                            "Are you sure you want to delete product ${controller.selectedProduct.name}",
+                            ButtonType.YES,
+                            ButtonType.NO,
+                            actionFn = { btnType ->
+                                if (btnType.buttonData == ButtonBar.ButtonData.YES) {
+                                    if (controller.deleteProduct(controller.selectedProduct)) {
+                                        alert(
+                                            Alert.AlertType.INFORMATION,
+                                            "Deleting user",
+                                            "Product ${controller.selectedProduct.name} successfully deleted",
+                                            ButtonType.OK,
+                                        )
+                                        controller.selectedProduct = Product()
+                                    } else {
+                                        alert(
+                                            Alert.AlertType.ERROR,
+                                            "Deleting user",
+                                            "Error occurred when deleting product ${controller.selectedProduct.name}",
+                                            ButtonType.OK,
+                                        )
+                                    }
+                                }
+                            })
+                    } else {
+                        alert(
+                            Alert.AlertType.ERROR,
+                            "Select product",
+                            "You have to select product first!",
+                            ButtonType.OK,
+                        )
+                    }
+                }
+            }
         }
     }
 }
