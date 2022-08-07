@@ -18,6 +18,7 @@ class Product(
     category: Category = Category.NONE,
     stock: Int = 0,
     sellingPrice: Double = 0.0,
+    lastPurchasePrice: Double = 0.0,
     isActive: Boolean = true,
     sellingHistory: ArrayList<ProductStock> = ArrayList(),
     purchaseHistory: ArrayList<ProductStock> = ArrayList(),
@@ -42,11 +43,15 @@ class Product(
     val sellingPriceProperty = SimpleDoubleProperty(sellingPrice)
     var sellingPrice by sellingPriceProperty
 
+    val lastPurchasePriceProperty = SimpleDoubleProperty(lastPurchasePrice)
+    var lastPurchasePrice by lastPurchasePriceProperty
+
     val isActiveProperty = SimpleBooleanProperty(isActive)
     var isActive by isActiveProperty
 
-    var sellingHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(sellingHistory)
-    var purchaseHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
+    val sellingHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(sellingHistory)
+    val purchaseHistory: ObservableList<ProductStock> = FXCollections.observableArrayList<ProductStock>(purchaseHistory)
+
 
     val lastChangedProperty = SimpleObjectProperty(lastChanged)
     var lastChanged: LocalDateTime by lastChangedProperty
@@ -60,6 +65,7 @@ class Product(
             category = Category.valueOf(string("category")!!)
             stock = int("stock")!!
             sellingPrice = double("sellingPrice")!!
+            lastPurchasePrice = double("lastPurchasePrice")!!
             isActive = boolean("isActive")!!
             if (getJsonArray("sellingHistory") != null)
                 sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
@@ -77,6 +83,7 @@ class Product(
             add("category", category.name)
             add("stock", stock)
             add("sellingPrice", sellingPrice)
+            add("lastPurchasePrice", lastPurchasePrice)
             add("isActive", isActive)
             add("sellingHistory", sellingHistory.toJSON())
             add("purchaseHistory", purchaseHistory.toJSON())
@@ -98,7 +105,7 @@ class Product(
     }
 
     fun getCurrentPurchasePrice(): Double {
-        return purchaseHistory.last().pricePerOne
+        return lastPurchasePrice
     }
 
     fun getProfit(): Double {

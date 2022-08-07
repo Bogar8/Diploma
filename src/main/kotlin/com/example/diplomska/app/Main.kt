@@ -33,6 +33,7 @@ fun main() {
             Category.FOOD,
             0,
             10.0,
+            10.0,
             true,
             sellingHistory,
             purchaseHistory

@@ -3,6 +3,7 @@ package com.example.diplomska.controller
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.AppData
 import com.example.diplomska.model.Product
+import com.example.diplomska.model.ProductStock
 import tornadofx.*
 
 class ProductManagementController : Controller() {
@@ -56,6 +57,24 @@ class ProductManagementController : Controller() {
                 log.info { errorMessage }
                 return false
             }
+        }
+    }
+
+    fun addStockToProduct(stock: ProductStock): Boolean {
+        val lastPurchasePrice = selectedProduct.lastPurchasePrice
+        selectedProduct.purchaseHistory.add(stock)
+        selectedProduct.stock += stock.amount
+        selectedProduct.lastPurchasePrice = stock.pricePerOne
+        if (updateProduct(selectedProduct)) {
+            log.info { "Stock to ${selectedProduct.name} successfully updated" }
+            return true
+        } else {
+            selectedProduct.purchaseHistory.remove(stock)
+            selectedProduct.stock -= stock.amount
+            selectedProduct.lastPurchasePrice = lastPurchasePrice
+            errorMessage = "Error when adding stock to product ${selectedProduct.name}"
+            log.info { errorMessage }
+            return false
         }
     }
 }

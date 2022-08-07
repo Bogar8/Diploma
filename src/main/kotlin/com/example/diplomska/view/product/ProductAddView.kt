@@ -88,6 +88,7 @@ class ProductAddView : Fragment("My View") {
                                 Category.valueOf(model.category.value),
                                 0,
                                 model.sellingPrice.value.toDouble(),
+                                0.0,
                                 model.isActive.value,
                             )
                             if (controller.addProduct(product)) {

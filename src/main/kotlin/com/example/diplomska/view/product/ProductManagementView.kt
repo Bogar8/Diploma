@@ -23,9 +23,9 @@ class ProductManagementView : View("My View") {
                 text = it.toNiceString()
             }
             column("Current sell price", Product::sellingPriceProperty)
-            column("Current purchase price", Product::purchaseHistory).cellFormat {
-                if (it.isNotEmpty())
-                    text = it.last().pricePerOne.toString()
+            column("Current purchase price", Product::lastPurchasePriceProperty).cellFormat {
+                if(it.toDouble() > 0)
+                    text = it.toString()
                 else
                     text = "no data"
             }
@@ -63,6 +63,21 @@ class ProductManagementView : View("My View") {
                 action {
                     if (controller.selectedProduct._id != "") {
                         find<ProductEditView>().openWindow()
+                    } else {
+                        alert(
+                            Alert.AlertType.ERROR,
+                            "Select product",
+                            "You have to select product first!",
+                            ButtonType.OK,
+                        )
+                    }
+                }
+            }
+            button("Add stock to product") {
+                useMaxWidth = true
+                action {
+                    if (controller.selectedProduct._id != "") {
+                        find<ProductAddStockView>().openWindow()
                     } else {
                         alert(
                             Alert.AlertType.ERROR,
