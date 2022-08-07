@@ -5,7 +5,6 @@ import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
 
 import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.scene.control.Alert
@@ -17,8 +16,9 @@ class ProductAddView : Fragment("My View") {
     private val controller: ProductManagementController by inject()
     private val model = object : ViewModel() {
         val name = bind { SimpleStringProperty() }
-        val barcode = bind { SimpleIntegerProperty() }
+        val barcode = bind { SimpleStringProperty() }
         val category = bind { SimpleStringProperty() }
+        val sellingPrice = bind { SimpleStringProperty() }
         val isActive = bind { SimpleBooleanProperty() }
     }
     val categoryLists = FXCollections.observableArrayList(
@@ -30,7 +30,7 @@ class ProductAddView : Fragment("My View") {
         form {
             fieldset {
                 field("Name") {
-                    textfield(model.name){
+                    textfield(model.name) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("Name field is required")
@@ -42,7 +42,7 @@ class ProductAddView : Fragment("My View") {
                     }
                 }
                 field("Barcode") {
-                    textfield(model.barcode){
+                    textfield(model.barcode) {
                         filterInput { it.controlNewText.isInt() }
                         validator {
                             if (it.isNullOrBlank())
@@ -56,6 +56,20 @@ class ProductAddView : Fragment("My View") {
                 }
                 field("Category") {
                     combobox(model.category, categoryLists).required()
+                }
+
+                field("Selling price") {
+                    textfield(model.sellingPrice) {
+                        filterInput { it.controlNewText.isDouble() }
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("selling price field is required")
+                            else if (it.toDouble() < 0)
+                                error("selling price can't be negative")
+                            else
+                                null
+                        }
+                    }
                 }
                 field {
                     checkbox("Active") {
@@ -73,6 +87,7 @@ class ProductAddView : Fragment("My View") {
                                 model.name.value,
                                 Category.valueOf(model.category.value),
                                 0,
+                                model.sellingPrice.value.toDouble(),
                                 model.isActive.value,
                             )
                             if (controller.addProduct(product)) {

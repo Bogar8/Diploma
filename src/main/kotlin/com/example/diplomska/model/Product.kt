@@ -1,10 +1,7 @@
 package com.example.diplomska.model
 
 import com.example.diplomska.extensions.*
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleIntegerProperty
-import javafx.beans.property.SimpleObjectProperty
-import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.*
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 
@@ -16,10 +13,11 @@ import javax.json.JsonObject
 
 class Product(
     _id: String = "",
-    barcode: Int = 0,
+    barcode: String = "",
     name: String = "",
     category: Category = Category.NONE,
     stock: Int = 0,
+    sellingPrice: Double = 0.0,
     isActive: Boolean = true,
     sellingHistory: ArrayList<ProductStock> = ArrayList(),
     purchaseHistory: ArrayList<ProductStock> = ArrayList(),
@@ -29,7 +27,7 @@ class Product(
     val _idProperty = SimpleStringProperty(_id)
     var _id: String by _idProperty
 
-    val barcodeProperty = SimpleIntegerProperty(barcode)
+    val barcodeProperty = SimpleStringProperty(barcode)
     var barcode by barcodeProperty
 
     val nameProperty = SimpleStringProperty(name)
@@ -41,6 +39,8 @@ class Product(
     val stockProperty = SimpleIntegerProperty(stock)
     var stock by stockProperty
 
+    val sellingPriceProperty = SimpleDoubleProperty(sellingPrice)
+    var sellingPrice by sellingPriceProperty
 
     val isActiveProperty = SimpleBooleanProperty(isActive)
     var isActive by isActiveProperty
@@ -55,10 +55,11 @@ class Product(
     override fun updateModel(json: JsonObject) {
         with(json) {
             _id = string("_id")!!
-            barcode = int("barcode")!!
+            barcode = string("barcode")!!
             name = string("name")!!
             category = Category.valueOf(string("category")!!)
             stock = int("stock")!!
+            sellingPrice = double("sellingPrice")!!
             isActive = boolean("isActive")!!
             if (getJsonArray("sellingHistory") != null)
                 sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
@@ -75,6 +76,7 @@ class Product(
             add("name", name)
             add("category", category.name)
             add("stock", stock)
+            add("sellingPrice", sellingPrice)
             add("isActive", isActive)
             add("sellingHistory", sellingHistory.toJSON())
             add("purchaseHistory", purchaseHistory.toJSON())
@@ -92,7 +94,7 @@ class Product(
     }
 
     fun getCurrentSellingPrice(): Double {
-        return sellingHistory.last().pricePerOne
+        return sellingPrice
     }
 
     fun getCurrentPurchasePrice(): Double {

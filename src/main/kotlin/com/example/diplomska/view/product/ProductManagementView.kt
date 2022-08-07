@@ -22,12 +22,7 @@ class ProductManagementView : View("My View") {
             column("Last changed", Product::lastChangedProperty).cellFormat {
                 text = it.toNiceString()
             }
-            column("Current sell price", Product::sellingHistory).cellFormat {
-                if (it.isNotEmpty())
-                    text = it.last().pricePerOne.toString()
-                else
-                    text = "no data"
-            }
+            column("Current sell price", Product::sellingPriceProperty)
             column("Current purchase price", Product::purchaseHistory).cellFormat {
                 if (it.isNotEmpty())
                     text = it.last().pricePerOne.toString()

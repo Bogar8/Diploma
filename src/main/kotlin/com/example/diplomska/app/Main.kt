@@ -28,10 +28,11 @@ fun main() {
     val testSample =
         Product(
             UUID.randomUUID().toString(),
-            12345,
+            "12345",
             "name",
             Category.FOOD,
             0,
+            10.0,
             true,
             sellingHistory,
             purchaseHistory

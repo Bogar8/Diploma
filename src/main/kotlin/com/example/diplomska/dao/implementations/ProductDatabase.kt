@@ -16,7 +16,7 @@ object ProductDatabase : DaoProduct {
         return DatabaseUtil.getDatabaseConnection().getCollection(Product.DATABASE_NAME)
     }
 
-    override fun getByBarcode(barcode: Int): Product? {
+    override fun getByBarcode(barcode: String): Product? {
         val answer = getCollection().findOne { Product::barcode eq barcode }
         if (answer != null) {
             val product = Product()
