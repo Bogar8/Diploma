@@ -8,7 +8,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-
+//TODO: FILTER SEARCH textfield with combobox for each field or just by name?
 class ProductManagementView : View("My View") {
     private val controller: ProductManagementController by inject()
 

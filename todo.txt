@@ -1,0 +1,4 @@
+Filter in product view
+Make selling view with list of product and search/filter to add to basket second hald of screen is basket with product in it? create sell / remove from basked / add more entries etc.
+Hide elements based on user rights
+Styling of all views
