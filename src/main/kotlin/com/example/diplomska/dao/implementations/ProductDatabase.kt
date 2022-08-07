@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection
 import org.bson.Document
 import org.litote.kmongo.*
 import tornadofx.*
+import java.time.LocalDateTime
 import java.util.*
 
 object ProductDatabase : DaoProduct {
@@ -109,6 +110,7 @@ object ProductDatabase : DaoProduct {
     }
 
     override fun update(obj: Product): Boolean {
+        obj.lastChanged = LocalDateTime.now()
         val result = getCollection().replaceOneById(id = obj._id, Document.parse(obj.toJSON().toString()))
         return result.wasAcknowledged()
     }
