@@ -36,10 +36,29 @@ class ProductEditView : Fragment("My View") {
         form {
             fieldset {
                 field("Name") {
-                    textfield(model.name).required()
+                    textfield(model.name) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("Name field is required")
+                            else if (it.length < 2)
+                                error("Name must be 2 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field("Barcode") {
-                    textfield(model.barcode).required()
+                    textfield(model.barcode) {
+                        filterInput { it.controlNewText.isInt() }
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("barcode field is required")
+                            else if (it.length < 5)
+                                error("barcode must be 5 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field("Category") {
                     combobox(model.category, categoryLists).required()
