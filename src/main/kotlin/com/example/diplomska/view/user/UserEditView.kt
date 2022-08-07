@@ -36,16 +36,50 @@ class UserEditView : Fragment("My View") {
         form {
             fieldset {
                 field("Username") {
-                    textfield(model.username).required()
+                    textfield(model.username) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("Username field is required")
+                            else if (it.length < 3)
+                                error("Username must be 3 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field("Password") {
-                    passwordfield(model.password)
+                    passwordfield(model.password) {
+                        validator {
+                            if (!it.isNullOrBlank() && it.length < 8)
+                                error("Username must be 8 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field("Name") {
-                    textfield(model.name).required()
+                    textfield(model.name) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("Name field is required")
+                            else if (it.length < 2)
+                                error("Name must be 2 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field("Surname") {
-                    textfield(model.surname).required()
+                    textfield(model.surname) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("Surname field is required")
+                            else if (it.length < 2)
+                                error("Surname must be 2 chars long")
+                            else
+                                null
+                        }
+                    }
                 }
                 field {
                     combobox(model.level, texasCities).required()

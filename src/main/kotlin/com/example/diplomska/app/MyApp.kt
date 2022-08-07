@@ -7,6 +7,7 @@ import tornadofx.*
 
 
 class MyApp : App(LoginView::class, Styles::class){
+
 //    val logger: Logger = Logger.getLogger("MyLog")
 //    val fh: FileHandler  = FileHandler("MyLoggs.log")
 //    init {
