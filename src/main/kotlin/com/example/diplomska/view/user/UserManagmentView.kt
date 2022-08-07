@@ -15,13 +15,13 @@ class UserManagmentView : View("My View") {
     override val root = borderpane {
         center = tableview(controller.users) {
             prefHeight = 900.0
-            column("Name", User::name)
+            column("Name", User::nameProperty)
             column("Surname", User::surname)
-            column("Username", User::username)
-            column("LastLogin", User::lastLogin).cellFormat {
+            column("Username", User::usernameProperty)
+            column("LastLogin", User::lastLoginProperty).cellFormat {
                 text = it.toNiceString()
             }
-            column("Level", User::level)
+            column("Level", User::levelProperty)
             setOnMouseClicked {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedUser = selectionModel.selectedItem
