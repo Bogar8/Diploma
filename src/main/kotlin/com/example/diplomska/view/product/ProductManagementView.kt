@@ -43,7 +43,7 @@ class ProductManagementView : View("My View") {
                     }
                 }
             }
-            setOnMouseClicked {
+           onUserSelect(1) {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedProduct = selectionModel.selectedItem
                 }

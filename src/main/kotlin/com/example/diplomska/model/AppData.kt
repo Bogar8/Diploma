@@ -7,7 +7,7 @@ class AppData {
         var products: ArrayList<Product> = ArrayList()
         var employees: ArrayList<User> = ArrayList()
         var invoices: ArrayList<Invoice> = ArrayList()
-        var loggedInUser: User? = null
+        var loggedInUser: User = User()
 
         override fun toString(): String {
             return "$loggedInUser\n$companyInformation\nproducts:$products\nemployees:$employees\n" +

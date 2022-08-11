@@ -22,7 +22,7 @@ class UserManagmentView : View("My View") {
                 text = it.toNiceString()
             }
             column("Level", User::levelProperty)
-            setOnMouseClicked {
+            onUserSelect(1) {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedUser = selectionModel.selectedItem
                 }

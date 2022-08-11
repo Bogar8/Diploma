@@ -1,15 +1,15 @@
 package com.example.diplomska.app
 
 
-import com.example.diplomska.dao.implementations.UserDatabase
+
 import com.example.diplomska.model.*
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 fun main() {
     println("SANDBOX")
-
 
     val purchaseHistory: ArrayList<ProductStock> = arrayListOf(
         ProductStock(10, 20.99, LocalDateTime.of(2019, 1, 1, 12, 0)),
@@ -38,7 +38,7 @@ fun main() {
             sellingHistory,
             purchaseHistory
         )
-    UserDatabase.insert(User("123", "name", "surname", "user", "user", UserLevel.OWNER))
+
 //    println(ProductDatabase.getAll())
 //    println(ProductDatabase.getAll())
 //    val x = ProductDatabase.getByBarcode(999)

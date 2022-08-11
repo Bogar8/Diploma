@@ -5,13 +5,14 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 import javax.json.JsonObject
+import kotlin.math.roundToInt
 
 
 class InvoiceItem(
     productName: String = "",
     amount: Int = 0,
-    totalPrice: Double = 0.0,
-    pricePerOne: Double = 0.0
+    pricePerOne: Double = 0.0,
+    totalPrice: Double = ((amount * pricePerOne) * 100).roundToInt() / 100.0
 ) : JsonModel {
 
     val productNameProperty = SimpleStringProperty(productName)
