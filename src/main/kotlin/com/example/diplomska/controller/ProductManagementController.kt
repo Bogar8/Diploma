@@ -4,11 +4,13 @@ import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.AppData
 import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
+import javafx.collections.FXCollections
 import tornadofx.*
 
 class ProductManagementController : Controller() {
     var errorMessage: String = ""
     val products = AppData.products.asObservable()
+    var filteredProducts = FXCollections.observableArrayList<Product>(products)
     var selectedProduct = Product()
     fun addProduct(product: Product): Boolean {
         val sameID = ProductDatabase.getById(product._id)
@@ -76,5 +78,10 @@ class ProductManagementController : Controller() {
             log.info { errorMessage }
             return false
         }
+    }
+
+
+    fun setFilteredData(filter: String) {
+        filteredProducts.setAll(products.filter { it.name.contains(filter) || it.barcode.contains(filter) })
     }
 }

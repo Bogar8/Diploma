@@ -13,7 +13,7 @@ class ProductManagementView : View("My View") {
     private val controller: ProductManagementController by inject()
 
     override val root = borderpane {
-        center = tableview(controller.products) {
+        center = tableview(controller.filteredProducts) {
             prefHeight = 900.0
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
@@ -24,7 +24,7 @@ class ProductManagementView : View("My View") {
             }
             column("Current sell price", Product::sellingPriceProperty)
             column("Current purchase price", Product::lastPurchasePriceProperty).cellFormat {
-                if(it.toDouble() > 0)
+                if (it.toDouble() > 0)
                     text = it.toString()
                 else
                     text = "no data"
@@ -43,7 +43,7 @@ class ProductManagementView : View("My View") {
                     }
                 }
             }
-           onUserSelect(1) {
+            onUserSelect(1) {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedProduct = selectionModel.selectedItem
                 }
@@ -52,6 +52,14 @@ class ProductManagementView : View("My View") {
         }
         right = vbox {
             prefWidth = 200.0
+
+            label("Search by barcode or name")
+            textfield {
+                textProperty().addListener { observable, oldValue, newValue ->
+                    controller.setFilteredData(newValue)
+                }
+            }
+
             button("Add product") {
                 useMaxWidth = true
                 action {
