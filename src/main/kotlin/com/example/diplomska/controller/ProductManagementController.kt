@@ -5,12 +5,13 @@ import com.example.diplomska.model.AppData
 import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import tornadofx.*
 
 class ProductManagementController : Controller() {
     var errorMessage: String = ""
     val products = AppData.products.asObservable()
-    var filteredProducts = FXCollections.observableArrayList<Product>(products)
+    var filteredProducts: ObservableList<Product> = FXCollections.observableArrayList<Product>(products)
     var selectedProduct = Product()
     fun addProduct(product: Product): Boolean {
         val sameID = ProductDatabase.getById(product._id)
@@ -82,6 +83,6 @@ class ProductManagementController : Controller() {
 
 
     fun setFilteredData(filter: String) {
-        filteredProducts.setAll(products.filter { it.name.contains(filter) || it.barcode.contains(filter) })
+        filteredProducts.setAll(products.filter { it.name.lowercase().contains(filter) || it.barcode.lowercase().contains(filter) })
     }
 }

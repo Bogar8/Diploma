@@ -13,7 +13,7 @@ class UserManagmentView : View("My View") {
     private val controller: UserManagmentController by inject()
 
     override val root = borderpane {
-        center = tableview(controller.users) {
+        center = tableview(controller.filteredUsers) {
             prefHeight = 900.0
             column("Name", User::nameProperty)
             column("Surname", User::surname)
@@ -27,9 +27,16 @@ class UserManagmentView : View("My View") {
                     controller.selectedUser = selectionModel.selectedItem
                 }
             }
+            columnResizePolicy = SmartResize.POLICY
         }
         right = vbox {
             prefWidth = 200.0
+            label("Search users")
+            textfield {
+                textProperty().addListener { observable, oldValue, newValue ->
+                    controller.setFilteredData(newValue.lowercase())
+                }
+            }
             button("Add user") {
                 useMaxWidth = true
                 action {

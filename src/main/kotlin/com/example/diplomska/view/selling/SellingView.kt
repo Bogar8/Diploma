@@ -14,41 +14,56 @@ class SellingView : View("My View") {
     override val root = borderpane {
         center = hbox {
             prefHeight = 900.0
-            tableview(controller.products) {
-                column("Barcode", Product::barcodeProperty)
-                column("Name", Product::nameProperty)
-                column("Category", Product::categoryProperty)
-                column("Stock", Product::stockProperty)
-                column("Current sell price", Product::sellingPriceProperty)
-                onUserSelect(1) {
-                    if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                        controller.selectedProduct = selectionModel.selectedItem
+            vbox {
+                prefHeight = 900.0
+                label("Product list")
+                tableview(controller.filteredProducts) {
+                    prefWidth = 600.0
+                    column("Barcode", Product::barcodeProperty)
+                    column("Name", Product::nameProperty)
+                    column("Category", Product::categoryProperty)
+                    column("Stock", Product::stockProperty)
+                    column("Current sell price", Product::sellingPriceProperty)
+                    onUserSelect(1) {
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedProduct = selectionModel.selectedItem
+                        }
                     }
+                    onUserSelect(2) {
+                        addProduct()
+                    }
+                    columnResizePolicy = SmartResize.POLICY
                 }
-                onUserSelect(2) {
-                    addProduct()
-                }
-                columnResizePolicy = SmartResize.POLICY
             }
-
-            tableview(controller.basket) {
-                column("Name", InvoiceItem::productNameProperty)
-                column("Amount", InvoiceItem::amountProperty)
-                column("Price per one", InvoiceItem::pricePerOneProperty)
-                column("Total price", InvoiceItem::totalPriceProperty)
-                onUserSelect(1) {
-                    if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                        controller.selectedInvoiceItem = selectionModel.selectedItem
+            vbox{
+                prefHeight = 900.0
+                label("Basket")
+                tableview(controller.basket) {
+                    prefWidth = 600.0
+                    column("Name", InvoiceItem::productNameProperty)
+                    column("Amount", InvoiceItem::amountProperty)
+                    column("Price per one", InvoiceItem::pricePerOneProperty)
+                    column("Total price", InvoiceItem::totalPriceProperty)
+                    onUserSelect(1) {
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedInvoiceItem = selectionModel.selectedItem
+                        }
                     }
+                    onUserSelect(2) {
+                        removeProduct()
+                    }
+                    columnResizePolicy = SmartResize.POLICY
                 }
-                onUserSelect(2) {
-                    removeProduct()
-                }
-                columnResizePolicy = SmartResize.POLICY
             }
         }
         right = vbox {
             prefWidth = 200.0
+            label("Search by barcode or name")
+            textfield {
+                textProperty().addListener { observable, oldValue, newValue ->
+                    controller.setFilteredData(newValue.lowercase())
+                }
+            }
             button("Add product to basket") {
                 useMaxWidth = true
                 action {

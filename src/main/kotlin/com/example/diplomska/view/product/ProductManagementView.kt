@@ -56,7 +56,7 @@ class ProductManagementView : View("My View") {
             label("Search by barcode or name")
             textfield {
                 textProperty().addListener { observable, oldValue, newValue ->
-                    controller.setFilteredData(newValue)
+                    controller.setFilteredData(newValue.lowercase())
                 }
             }
 

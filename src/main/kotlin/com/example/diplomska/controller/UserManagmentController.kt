@@ -4,11 +4,13 @@ import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
 import com.example.diplomska.model.User
 import com.example.diplomska.util.SHA512Util
+import javafx.collections.FXCollections
 import tornadofx.*
 
 
 class UserManagmentController : Controller() {
     val users = AppData.employees.asObservable()
+    var filteredUsers = FXCollections.observableArrayList<User>(users)
     var selectedUser: User = User()
     var errorMessage: String = ""
 
@@ -76,6 +78,15 @@ class UserManagmentController : Controller() {
                 }
             }
         }
+    }
+
+    fun setFilteredData(filter: String) {
+        filteredUsers.setAll(users.filter {
+            it.name.lowercase().contains(filter) || it.username.lowercase().contains(filter) || it.surname.lowercase()
+                .contains(
+                    filter
+                )
+        })
     }
 
 }

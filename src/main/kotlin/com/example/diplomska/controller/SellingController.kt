@@ -4,19 +4,23 @@ import com.example.diplomska.dao.implementations.InvoiceDatabase
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.*
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import tornadofx.*
 
 class SellingController : Controller() {
-    var products = FXCollections.observableArrayList<Product>()
+    var products = FXCollections.observableArrayList<Product>(AppData.products)
+    var filteredProducts: ObservableList<Product> = FXCollections.observableArrayList<Product>(products)
     var basket = FXCollections.observableArrayList<InvoiceItem>()
     var productsInBasket =
         HashMap<Product, Int>() // keeping amount of each product in basket for updating stock and purchase history
     var selectedProduct = Product()
     var selectedInvoiceItem = InvoiceItem()
+    var filterInUse: String = ""
 
     fun refreshData() {
         val data = AppData.products.filter { it.isActive && it.stock > 0 }
         products.setAll(data)
+        setFilteredData(filterInUse)
     }
 
     fun addProductToBasket(): Boolean {
@@ -82,6 +86,11 @@ class SellingController : Controller() {
                 ProductDatabase.update(it.key)
             }
         }
+    }
+
+    fun setFilteredData(filter: String) {
+        filteredProducts.setAll(products.filter { it.name.lowercase().contains(filter) || it.barcode.contains(filter) })
+        filterInUse = filter
     }
 
 }
