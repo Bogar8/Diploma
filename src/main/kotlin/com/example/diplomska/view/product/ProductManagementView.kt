@@ -6,6 +6,7 @@ import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
+import javafx.stage.Modality
 import tornadofx.*
 
 //TODO: FILTER SEARCH textfield with combobox for each field or just by name?
@@ -63,14 +64,14 @@ class ProductManagementView : View("My View") {
             button("Add product") {
                 useMaxWidth = true
                 action {
-                    find<ProductAddView>().openWindow()
+                    find<ProductAddView>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
             button("Edit product") {
                 useMaxWidth = true
                 action {
                     if (controller.selectedProduct._id != "") {
-                        find<ProductEditView>().openWindow()
+                        find<ProductEditView>().openWindow(modality = Modality.APPLICATION_MODAL)
                     } else {
                         alert(
                             Alert.AlertType.ERROR,
@@ -85,7 +86,7 @@ class ProductManagementView : View("My View") {
                 useMaxWidth = true
                 action {
                     if (controller.selectedProduct._id != "") {
-                        find<ProductAddStockView>().openWindow()
+                        find<ProductAddStockView>().openWindow(modality = Modality.APPLICATION_MODAL)
                     } else {
                         alert(
                             Alert.AlertType.ERROR,

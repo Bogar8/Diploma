@@ -24,6 +24,9 @@ class MainView : View("Main view") {
     override val root = vbox {
         prefWidth = 1600.0
         prefHeight = 900.0
+//        currentStage?.isResizable=false
+//        currentStage?.isFullScreen=true
+//        currentStage?.isMaximized=true
         add(userInfoLabel)
         tabpane {
             tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE

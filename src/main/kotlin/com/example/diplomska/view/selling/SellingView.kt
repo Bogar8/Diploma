@@ -19,6 +19,7 @@ class SellingView : View("My View") {
                 label("Product list")
                 tableview(controller.filteredProducts) {
                     prefWidth = 600.0
+                    prefHeight = 900.0
                     column("Barcode", Product::barcodeProperty)
                     column("Name", Product::nameProperty)
                     column("Category", Product::categoryProperty)
@@ -40,6 +41,7 @@ class SellingView : View("My View") {
                 label("Basket")
                 tableview(controller.basket) {
                     prefWidth = 600.0
+                    prefHeight = 900.0
                     column("Name", InvoiceItem::productNameProperty)
                     column("Amount", InvoiceItem::amountProperty)
                     column("Price per one", InvoiceItem::pricePerOneProperty)

@@ -6,6 +6,7 @@ import com.example.diplomska.model.User
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
+import javafx.stage.Modality
 import tornadofx.*
 
 
@@ -40,14 +41,14 @@ class UserManagmentView : View("My View") {
             button("Add user") {
                 useMaxWidth = true
                 action {
-                    find<UserAddView>().openWindow()
+                    find<UserAddView>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
             button("Edit user") {
                 useMaxWidth = true
                 action {
                     if (controller.selectedUser._id != "") {
-                        find<UserEditView>().openWindow()
+                        find<UserEditView>().openWindow(modality = Modality.APPLICATION_MODAL)
                     } else {
                         alert(
                             Alert.AlertType.ERROR,
