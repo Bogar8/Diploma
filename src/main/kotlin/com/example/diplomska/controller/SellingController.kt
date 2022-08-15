@@ -7,7 +7,6 @@ import javafx.collections.FXCollections
 import tornadofx.*
 
 class SellingController : Controller() {
-    var errorMessage: String = ""
     var products = FXCollections.observableArrayList<Product>()
     var basket = FXCollections.observableArrayList<InvoiceItem>()
     var productsInBasket =
@@ -62,6 +61,7 @@ class SellingController : Controller() {
         log.info { "Invoice created by seller ${invoice.seller.name} ${invoice.seller.surname} for ${invoice.products.size} products." }
         InvoiceDatabase.insert(invoice)
         updateProductStockAndSavePurchaseHistory()
+        invoice.saveToFile()
         productsInBasket = HashMap<Product, Int>()
         basket.setAll()
     }

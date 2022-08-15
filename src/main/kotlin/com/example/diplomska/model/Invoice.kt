@@ -7,9 +7,11 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.json.JsonObject
+import kotlin.math.roundToInt
 
 
 class Invoice(
@@ -60,5 +62,23 @@ class Invoice(
 
     override fun toString(): String {
         return "id:$_id total price:$totalPrice seller:${seller.toInvoiceString()} date:${date.toNiceString()}\nproducts:$products"
+    }
+
+    fun saveToFile() {
+        val directory = File(AppData.invoiceFolder)
+        if (!directory.exists()) {
+            directory.mkdir()
+        }
+        var text = "Invoice id: $_id\n" +
+                "Date: ${date.toNiceString()}\n" +
+                "Seller: ${seller.name} ${seller.surname}\n" +
+                String.format("%-30s %-10s %-10s %-10s", "Product", "amount", "per one", "total") + "\n"
+
+        products.forEach {
+            val total = ((it.amount * it.pricePerOne) * 100).roundToInt() / 100.0
+            text += String.format("%-30s %-10s %-10s %-10s", it.productName, it.amount, it.pricePerOne, total) + "\n"
+        }
+        text += "Total price: $totalPrice"
+        File(AppData.invoiceFolder, "invoice_{$_id}_${date.toNiceString()}").writeText(text)
     }
 }

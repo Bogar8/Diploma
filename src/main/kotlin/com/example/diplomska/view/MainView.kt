@@ -1,5 +1,6 @@
 package com.example.diplomska.view
 
+
 import com.example.diplomska.controller.SellingController
 import com.example.diplomska.view.product.ProductManagementView
 import com.example.diplomska.view.selling.SellingView
@@ -17,6 +18,7 @@ class MainView : View("Main view") {
     private val userManagementView: UserManagmentView by inject()
     private val sellingView: SellingView by inject()
     private val sellingController: SellingController by inject()
+
 
 
     override val root = vbox {
