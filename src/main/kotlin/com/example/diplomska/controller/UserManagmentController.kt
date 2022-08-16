@@ -13,6 +13,7 @@ class UserManagmentController : Controller() {
     var filteredUsers = FXCollections.observableArrayList<User>(users)
     var selectedUser: User = User()
     var errorMessage: String = ""
+    var filterInUse: String = ""
 
     fun addUser(user: User): Boolean {
         val sameID = UserDatabase.getById(user._id)
@@ -25,6 +26,7 @@ class UserManagmentController : Controller() {
         if (UserDatabase.insert(user)) {
             users.add(user)
             log.info { "User ${user.username} successfully added" }
+            setFilteredData(filterInUse)
             return true
         } else {
             errorMessage = "Error when trying to add user"
@@ -37,6 +39,7 @@ class UserManagmentController : Controller() {
         if (UserDatabase.delete(user)) {
             users.remove(user)
             log.info { "User ${user.username} successfully deleted" }
+            setFilteredData(filterInUse)
             return true
         } else {
             errorMessage = "Error when trying to delete user"
@@ -56,9 +59,10 @@ class UserManagmentController : Controller() {
         if (usernameUser != null) { //same usernames exist
             if (usernameUser._id == user._id) { //its same user
                 return UserDatabase.update(user).also {
-                    if (it)
+                    if (it) {
                         log.info { "User ${user.username} successfully updated" }
-                    else {
+                        setFilteredData(filterInUse)
+                    } else {
                         errorMessage = "Error when updating user ${user.username}"
                         log.info { errorMessage }
                     }
@@ -70,9 +74,10 @@ class UserManagmentController : Controller() {
             }
         } else { //same username doesn't exist
             return UserDatabase.update(user).also {
-                if (it)
+                if (it) {
                     log.info { "User ${user.username} successfully updated" }
-                else {
+                    setFilteredData(filterInUse)
+                } else {
                     errorMessage = "Error when updating user ${user.username}"
                     log.info { errorMessage }
                 }
@@ -87,6 +92,7 @@ class UserManagmentController : Controller() {
                     filter
                 )
         })
+        filterInUse = filter
     }
 
 }

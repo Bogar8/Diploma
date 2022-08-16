@@ -13,6 +13,7 @@ class ProductManagementController : Controller() {
     val products = AppData.products.asObservable()
     var filteredProducts: ObservableList<Product> = FXCollections.observableArrayList<Product>(products)
     var selectedProduct = Product()
+    var filterInUse: String = ""
     fun addProduct(product: Product): Boolean {
         val sameID = ProductDatabase.getById(product._id)
         val sameBarcode = ProductDatabase.getByBarcode(product.barcode)
@@ -24,6 +25,7 @@ class ProductManagementController : Controller() {
             if (ProductDatabase.insert(product)) {
                 products.add(product)
                 log.info { "Product ${product.name} successfully added" }
+                setFilteredData(filterInUse)
                 return true
             } else {
                 errorMessage = "Error when trying to add user"
@@ -37,6 +39,7 @@ class ProductManagementController : Controller() {
         if (ProductDatabase.delete(product)) {
             products.remove(product)
             log.info { "Product ${product.name} successfully deleted" }
+            setFilteredData(filterInUse)
             return true
         } else {
             errorMessage = "Error when trying to delete product ${product.name}"
@@ -54,6 +57,7 @@ class ProductManagementController : Controller() {
         } else {
             if (ProductDatabase.update(product)) {
                 log.info { "Product ${product.name} successfully updated" }
+                setFilteredData(filterInUse)
                 return true
             } else {
                 errorMessage = "Error when updating product ${product.name}"
@@ -70,6 +74,7 @@ class ProductManagementController : Controller() {
         selectedProduct.lastPurchasePrice = stock.pricePerOne
         if (updateProduct(selectedProduct)) {
             log.info { "Stock to ${selectedProduct.name} successfully updated" }
+            setFilteredData(filterInUse)
             return true
         } else {
             selectedProduct.purchaseHistory.remove(stock)
@@ -84,5 +89,6 @@ class ProductManagementController : Controller() {
 
     fun setFilteredData(filter: String) {
         filteredProducts.setAll(products.filter { it.name.lowercase().contains(filter) || it.barcode.lowercase().contains(filter) })
+        filterInUse=filter
     }
 }
