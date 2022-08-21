@@ -35,6 +35,7 @@ class SellingController : Controller() {
         productsInBasket[selectedProduct] = amount + 1
         val newItem = InvoiceItem(selectedProduct.name, amount + 1, selectedProduct.sellingPrice)
         basket.add(newItem)
+        basket.sortBy { it.productName }
         log.info { "Product ${newItem.productName} successfully added to basket" }
         return true
     }
@@ -52,6 +53,7 @@ class SellingController : Controller() {
             } else {
                 selectedInvoiceItem = InvoiceItem()
             }
+            basket.sortBy { it.productName }
         }
     }
 

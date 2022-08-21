@@ -38,6 +38,7 @@ class UserManagmentView : View("My View") {
                     controller.setFilteredData(newValue.lowercase())
                 }
             }
+            label("")
             button("Add user") {
                 useMaxWidth = true
                 action {

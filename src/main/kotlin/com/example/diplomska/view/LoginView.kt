@@ -1,10 +1,12 @@
 package com.example.diplomska.view
 
 import com.example.diplomska.controller.LoginController
+import com.example.diplomska.model.AppData
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.stage.Modality
+import javafx.stage.StageStyle
 import tornadofx.*
 import kotlin.concurrent.thread
 
@@ -46,7 +48,12 @@ class LoginView : Fragment("Login") {
                                     error.value = controller.error
                                 } else {
                                     isOpened = false
-                                    find<MainView>().openModal(owner = null, modality = Modality.WINDOW_MODAL)
+                                    AppData.stage = find<MainView>().openWindow(
+                                        owner = null,
+                                        modality = Modality.WINDOW_MODAL,
+                                        stageStyle = StageStyle.UTILITY
+                                    )
+                                    AppData.stage?.isMaximized = true
                                     currentStage?.close()
                                 }
                             }

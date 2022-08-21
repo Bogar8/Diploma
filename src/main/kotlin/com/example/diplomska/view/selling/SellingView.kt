@@ -36,7 +36,7 @@ class SellingView : View("My View") {
                     columnResizePolicy = SmartResize.POLICY
                 }
             }
-            vbox{
+            vbox {
                 prefHeight = 900.0
                 label("Basket")
                 tableview(controller.basket) {
@@ -52,7 +52,9 @@ class SellingView : View("My View") {
                         }
                     }
                     onUserSelect(2) {
+                        val selected = selectionModel.selectedIndex
                         removeProduct()
+                        selectionModel.select(selected)
                     }
                     columnResizePolicy = SmartResize.POLICY
                 }
@@ -66,6 +68,7 @@ class SellingView : View("My View") {
                     controller.setFilteredData(newValue.lowercase())
                 }
             }
+            label("")
             button("Add product to basket") {
                 useMaxWidth = true
                 action {
@@ -81,7 +84,7 @@ class SellingView : View("My View") {
             button("Done") {
                 useMaxWidth = true
                 action {
-                    if (controller.basket.size>0) {
+                    if (controller.basket.size > 0) {
                         controller.printInvoice()
                     } else {
                         alert(

@@ -15,7 +15,7 @@ class ProductManagementView : View("My View") {
 
     override val root = borderpane {
         center = tableview(controller.filteredProducts) {
-            prefHeight = 900.0
+            prefHeight=900.0
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
@@ -60,7 +60,7 @@ class ProductManagementView : View("My View") {
                     controller.setFilteredData(newValue.lowercase())
                 }
             }
-
+            label("")
             button("Add product") {
                 useMaxWidth = true
                 action {
