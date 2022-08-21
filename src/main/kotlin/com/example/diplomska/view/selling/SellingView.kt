@@ -52,12 +52,13 @@ class SellingView : View("My View") {
                         }
                     }
                     onUserSelect(2) {
-                        val selected = selectionModel.selectedIndex
                         removeProduct()
-                        selectionModel.select(selected)
                     }
                     columnResizePolicy = SmartResize.POLICY
                 }
+            }
+            label("Total price"){
+                textProperty().bind(controller.totalPriceStringProperty)
             }
         }
         right = vbox {

@@ -3,9 +3,11 @@ package com.example.diplomska.controller
 import com.example.diplomska.dao.implementations.InvoiceDatabase
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.*
+import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
+import kotlin.math.roundToInt
 
 class SellingController : Controller() {
     var products = FXCollections.observableArrayList<Product>(AppData.products)
@@ -16,6 +18,8 @@ class SellingController : Controller() {
     var selectedProduct = Product()
     var selectedInvoiceItem = InvoiceItem()
     var filterInUse: String = ""
+    var totalPrice = 0.0
+    var totalPriceStringProperty = SimpleStringProperty("Total price $totalPrice")
 
     fun refreshData() {
         val data = AppData.products.filter { it.isActive && it.stock > 0 }
@@ -24,45 +28,49 @@ class SellingController : Controller() {
     }
 
     fun addProductToBasket(): Boolean {
-        val item = hasItem(selectedProduct.name)
-        var amount = 0
-        if (item != null) {
-            amount = item.amount
-            if (selectedProduct.stock < amount + 1)
+        var item = hasItem(selectedProduct.name)
+        if (item != null) { //item already in basket
+            if (selectedProduct.stock < item.amount + 1) //stock limit
                 return false
-            basket.remove(item)
+
+            item.amount++
+            item.totalPrice = ((item.amount * item.pricePerOne) * 100).roundToInt() / 100.0
+            productsInBasket[selectedProduct] = item.amount
+        } else { // item not in basket
+            item = InvoiceItem(selectedProduct.name, 1, selectedProduct.sellingPrice)
+            productsInBasket[selectedProduct] = 1
+            basket.add(item)
         }
-        productsInBasket[selectedProduct] = amount + 1
-        val newItem = InvoiceItem(selectedProduct.name, amount + 1, selectedProduct.sellingPrice)
-        basket.add(newItem)
         basket.sortBy { it.productName }
-        log.info { "Product ${newItem.productName} successfully added to basket" }
+        log.info { "Product ${item.productName} successfully added to basket" }
+        totalPrice = getTotalPriceOfBasket()
+        totalPriceStringProperty.set("Total price $totalPrice")
         return true
     }
 
     fun removeFromBasket() {
         val item = hasItem(selectedInvoiceItem.productName)
         if (item != null) {
-            val amount = item.amount
-            basket.remove(item)
-            productsInBasket[selectedProduct] = amount - 1
+            item.amount--
+            item.totalPrice = ((item.amount * item.pricePerOne) * 100).roundToInt() / 100.0
+            productsInBasket[selectedProduct] = item.amount
             log.info { "Product ${item.productName} successfully removed from basket" }
-            if (amount - 1 > 0) {
-                val newItem = InvoiceItem(item.productName, amount - 1, item.pricePerOne)
-                basket.add(newItem)
-            } else {
+            if (item.amount <= 0) {
+                basket.remove(item)
                 selectedInvoiceItem = InvoiceItem()
             }
             basket.sortBy { it.productName }
+            totalPrice = getTotalPriceOfBasket()
+            totalPriceStringProperty.set("Total price $totalPrice")
         }
     }
 
     fun printInvoice() {
         val invoice = Invoice()
         invoice.seller = AppData.loggedInUser
+        invoice.totalPrice = getTotalPriceOfBasket()
         basket.forEach {
             invoice.products.add(it)
-            invoice.totalPrice += it.totalPrice
         }
         log.info { "Invoice created by seller ${invoice.seller.name} ${invoice.seller.surname} for ${invoice.products.size} products." }
         InvoiceDatabase.insert(invoice)
@@ -70,6 +78,7 @@ class SellingController : Controller() {
         invoice.saveToFile()
         productsInBasket = HashMap<Product, Int>()
         basket.setAll()
+        refreshData()
     }
 
     private fun hasItem(name: String): InvoiceItem? {
@@ -93,6 +102,14 @@ class SellingController : Controller() {
     fun setFilteredData(filter: String) {
         filteredProducts.setAll(products.filter { it.name.lowercase().contains(filter) || it.barcode.contains(filter) })
         filterInUse = filter
+    }
+
+    private fun getTotalPriceOfBasket(): Double {
+        var totalPrice = 0.0
+        basket.forEach {
+            totalPrice += it.totalPrice
+        }
+        return (totalPrice * 100).roundToInt() / 100.0
     }
 
 }
