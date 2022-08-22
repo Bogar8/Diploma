@@ -12,14 +12,16 @@ class SellingView : View("My View") {
     private val controller: SellingController by inject()
 
     override val root = borderpane {
+        prefHeight=1080.0
         center = hbox {
-            prefHeight = 900.0
             vbox {
                 prefHeight = 900.0
-                label("Product list")
+                borderpane {
+                    center = label("Product list")
+                }
                 tableview(controller.filteredProducts) {
                     prefWidth = 600.0
-                    prefHeight = 900.0
+                    prefHeight=1080.0
                     column("Barcode", Product::barcodeProperty)
                     column("Name", Product::nameProperty)
                     column("Category", Product::categoryProperty)
@@ -37,11 +39,13 @@ class SellingView : View("My View") {
                 }
             }
             vbox {
-                prefHeight = 900.0
-                label("Basket")
+                prefHeight=1080.0
+                borderpane {
+                    center = label("Basket")
+                }
                 tableview(controller.basket) {
                     prefWidth = 600.0
-                    prefHeight = 900.0
+                    prefHeight=1080.0
                     column("Name", InvoiceItem::productNameProperty)
                     column("Amount", InvoiceItem::amountProperty)
                     column("Price per one", InvoiceItem::pricePerOneProperty)
@@ -57,8 +61,15 @@ class SellingView : View("My View") {
                     columnResizePolicy = SmartResize.POLICY
                 }
             }
-            label("Total price"){
-                textProperty().bind(controller.totalPriceStringProperty)
+            vbox {
+                label("Total price") {
+                    textProperty().bind(controller.totalPriceStringProperty)
+                }
+                style {
+                    paddingLeft = 20
+                    paddingTop = 20
+                    fontSize = 25.px
+                }
             }
         }
         right = vbox {

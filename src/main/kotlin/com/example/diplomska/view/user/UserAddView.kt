@@ -77,12 +77,20 @@ class UserAddView : Fragment("My View") {
                         }
                     }
                 }
-                field {
-                    combobox(model.level, userLevels).required()
+                field ("Role"){
+                    combobox(model.level, userLevels) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("User has to have role")
+                            else
+                                null
+                        }
+                        prefWidth = 300.0
+                    }
                 }
 
-                hbox {
-                    button("Save") {
+                borderpane {
+                  left=  button("Save") {
                         enableWhen(model.valid)
                         action {
                             val user = User(
@@ -109,7 +117,7 @@ class UserAddView : Fragment("My View") {
                             }
                         }
                     }
-                    button("Close") {
+                    right= button("Close") {
                         action {
                             close()
                         }

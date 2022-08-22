@@ -1,14 +1,9 @@
 package com.example.diplomska.view.product
 
 import com.example.diplomska.controller.ProductManagementController
-import com.example.diplomska.model.Category
-import com.example.diplomska.model.Product
 import com.example.diplomska.model.ProductStock
-
-import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
-import javafx.collections.FXCollections
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
@@ -51,8 +46,8 @@ class ProductAddStockView : Fragment("My View") {
                     }
                 }
 
-                hbox {
-                    button("Save") {
+                borderpane {
+                    left = button("Save") {
                         enableWhen(model.valid)
                         action {
                             val stock = ProductStock(model.amount.value, model.pricePerOne.value.toDouble())
@@ -72,7 +67,7 @@ class ProductAddStockView : Fragment("My View") {
                             }
                         }
                     }
-                    button("Close") {
+                    right = button("Close") {
                         action {
                             close()
                         }

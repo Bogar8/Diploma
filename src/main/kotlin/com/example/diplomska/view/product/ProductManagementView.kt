@@ -6,6 +6,7 @@ import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
+import javafx.scene.paint.Color
 import javafx.stage.Modality
 import tornadofx.*
 
@@ -15,7 +16,7 @@ class ProductManagementView : View("My View") {
 
     override val root = borderpane {
         center = tableview(controller.filteredProducts) {
-            prefHeight=900.0
+            prefHeight=1080.0
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
@@ -38,9 +39,9 @@ class ProductManagementView : View("My View") {
                 }
                 style {
                     if (it) {
-                        backgroundColor += c("#00FF00")
+                        backgroundColor += Color.LIGHTGREEN
                     } else {
-                        backgroundColor += c("#FF0000")
+                        backgroundColor += c("#FF6863")
                     }
                 }
             }

@@ -15,7 +15,7 @@ class UserManagmentView : View("My View") {
 
     override val root = borderpane {
         center = tableview(controller.filteredUsers) {
-            prefHeight = 900.0
+            prefHeight=1080.0
             column("Name", User::nameProperty)
             column("Surname", User::surname)
             column("Username", User::usernameProperty)

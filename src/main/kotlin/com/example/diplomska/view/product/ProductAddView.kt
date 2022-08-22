@@ -55,7 +55,15 @@ class ProductAddView : Fragment("My View") {
                     }
                 }
                 field("Category") {
-                    combobox(model.category, categoryLists).required()
+                    combobox(model.category, categoryLists){
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("User has to have role")
+                            else
+                                null
+                        }
+                        prefWidth = 300.0
+                    }
                 }
 
                 field("Selling price") {
@@ -77,8 +85,8 @@ class ProductAddView : Fragment("My View") {
                     }
                 }
 
-                hbox {
-                    button("Save") {
+               borderpane() {
+                    left = button("Save") {
                         enableWhen(model.valid)
                         action {
                             val product = Product(
@@ -107,7 +115,7 @@ class ProductAddView : Fragment("My View") {
                             }
                         }
                     }
-                    button("Close") {
+                  right=  button("Close") {
                         action {
                             close()
                         }

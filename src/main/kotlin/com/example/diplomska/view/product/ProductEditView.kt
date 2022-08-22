@@ -62,7 +62,15 @@ class ProductEditView : Fragment("My View") {
                     }
                 }
                 field("Category") {
-                    combobox(model.category, categoryLists).required()
+                    combobox(model.category, categoryLists){
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("User has to have role")
+                            else
+                                null
+                        }
+                        prefWidth = 300.0
+                    }
                 }
 
                 field("Selling price") {
@@ -82,8 +90,8 @@ class ProductEditView : Fragment("My View") {
                     checkbox("Active", model.isActive)
                 }
 
-                hbox {
-                    button("Save") {
+                borderpane {
+                    left = button("Save") {
                         enableWhen(model.valid)
                         action {
                             val product = controller.selectedProduct
@@ -111,7 +119,7 @@ class ProductEditView : Fragment("My View") {
                             }
                         }
                     }
-                    button("Close") {
+                    right = button("Close") {
                         action {
                             close()
                         }

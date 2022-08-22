@@ -18,7 +18,7 @@ class UserEditView : Fragment("My View") {
         val surname = bind { SimpleStringProperty() }
         val level = bind { SimpleStringProperty() }
     }
-    val texasCities = FXCollections.observableArrayList(
+    val userLevels = FXCollections.observableArrayList(
         UserLevel.SELLER.name,
         UserLevel.MANAGER.name,
         UserLevel.OWNER.name,
@@ -81,12 +81,20 @@ class UserEditView : Fragment("My View") {
                         }
                     }
                 }
-                field {
-                    combobox(model.level, texasCities).required()
+                field ("Role"){
+                    combobox(model.level, userLevels) {
+                        validator {
+                            if (it.isNullOrBlank())
+                                error("User has to have role")
+                            else
+                                null
+                        }
+                        prefWidth = 300.0
+                    }
                 }
 
-                hbox {
-                    button("Save") {
+                borderpane {
+                    left = button("Save") {
                         enableWhen(model.valid)
                         action {
                             val user = controller.selectedUser
@@ -114,7 +122,7 @@ class UserEditView : Fragment("My View") {
                             }
                         }
                     }
-                    button("Close") {
+                    right = button("Close") {
                         action {
                             close()
                         }

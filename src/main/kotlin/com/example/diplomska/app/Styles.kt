@@ -14,5 +14,18 @@ class Styles : Stylesheet() {
             fontSize = 20.px
             fontWeight = FontWeight.BOLD
         }
+        button {
+            padding = box(10.px)
+        }
+        field {
+            padding = box(10.px)
+        }
+        textField {
+            padding = box(5.px)
+        }
+        comboBox {
+            padding = box(5.px)
+        }
+
     }
 }
