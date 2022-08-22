@@ -10,7 +10,7 @@ class Styles : Stylesheet() {
 
     init {
         totalPrice{
-            fontSize = 25.px
+            fontSize = 20.px
         }
 
         label{
