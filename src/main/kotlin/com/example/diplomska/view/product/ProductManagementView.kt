@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType
 import javafx.scene.paint.Color
 import javafx.stage.Modality
 import tornadofx.*
+import java.io.File
 
 //TODO: FILTER SEARCH textfield with combobox for each field or just by name?
 class ProductManagementView : View("My View") {
@@ -16,7 +17,7 @@ class ProductManagementView : View("My View") {
 
     override val root = borderpane {
         center = tableview(controller.filteredProducts) {
-            prefHeight=1080.0
+            prefHeight = 1080.0
             column("Barcode", Product::barcodeProperty)
             column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
@@ -63,6 +64,12 @@ class ProductManagementView : View("My View") {
             }
             label("")
             button("Add product") {
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/add.png").toURI().toString()
+                ) {
+                    this.fitHeight=35.0
+                    this.fitWidth=35.0
+                }
                 useMaxWidth = true
                 action {
                     find<ProductAddView>().openWindow(modality = Modality.APPLICATION_MODAL)
@@ -70,6 +77,12 @@ class ProductManagementView : View("My View") {
             }
             button("Edit product") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/edit.png").toURI().toString()
+                ) {
+                    this.fitHeight=30.0
+                    this.fitWidth=30.0
+                }
                 action {
                     if (controller.selectedProduct._id != "") {
                         find<ProductEditView>().openWindow(modality = Modality.APPLICATION_MODAL)
@@ -83,8 +96,14 @@ class ProductManagementView : View("My View") {
                     }
                 }
             }
-            button("Add stock to product") {
+            button("Add stock") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/stock.png").toURI().toString()
+                ) {
+                    this.fitHeight=35.0
+                    this.fitWidth=35.0
+                }
                 action {
                     if (controller.selectedProduct._id != "") {
                         find<ProductAddStockView>().openWindow(modality = Modality.APPLICATION_MODAL)
@@ -100,6 +119,12 @@ class ProductManagementView : View("My View") {
             }
             button("Delete product") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/remove.png").toURI().toString()
+                ) {
+                    this.fitHeight=35.0
+                    this.fitWidth=35.0
+                }
                 action {
                     if (controller.selectedProduct._id != "") {
                         alert(

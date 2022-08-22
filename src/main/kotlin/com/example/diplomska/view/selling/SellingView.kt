@@ -1,18 +1,20 @@
 package com.example.diplomska.view.selling
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.SellingController
 import com.example.diplomska.model.InvoiceItem
 import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import tornadofx.*
+import java.io.File
 
 
 class SellingView : View("My View") {
     private val controller: SellingController by inject()
 
     override val root = borderpane {
-        prefHeight=1080.0
+        prefHeight = 1080.0
         center = hbox {
             vbox {
                 prefHeight = 900.0
@@ -21,7 +23,7 @@ class SellingView : View("My View") {
                 }
                 tableview(controller.filteredProducts) {
                     prefWidth = 600.0
-                    prefHeight=1080.0
+                    prefHeight = 1080.0
                     column("Barcode", Product::barcodeProperty)
                     column("Name", Product::nameProperty)
                     column("Category", Product::categoryProperty)
@@ -39,13 +41,13 @@ class SellingView : View("My View") {
                 }
             }
             vbox {
-                prefHeight=1080.0
+                prefHeight = 1080.0
                 borderpane {
                     center = label("Basket")
                 }
                 tableview(controller.basket) {
                     prefWidth = 600.0
-                    prefHeight=1080.0
+                    prefHeight = 1080.0
                     column("Name", InvoiceItem::productNameProperty)
                     column("Amount", InvoiceItem::amountProperty)
                     column("Price per one", InvoiceItem::pricePerOneProperty)
@@ -64,11 +66,11 @@ class SellingView : View("My View") {
             vbox {
                 label("Total price") {
                     textProperty().bind(controller.totalPriceStringProperty)
+                    addClass(Styles.totalPrice)
                 }
                 style {
                     paddingLeft = 20
                     paddingTop = 20
-                    fontSize = 25.px
                 }
             }
         }
@@ -81,20 +83,38 @@ class SellingView : View("My View") {
                 }
             }
             label("")
-            button("Add product to basket") {
+            button("Add product") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/add-cart.png").toURI().toString()
+                ) {
+                    this.fitHeight = 40.0
+                    this.fitWidth = 40.0
+                }
                 action {
                     addProduct()
                 }
             }
-            button("Remove product from basket") {
+            button("Remove product") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/remove-cart.png").toURI().toString()
+                ) {
+                    this.fitHeight = 40.0
+                    this.fitWidth = 40.0
+                }
                 action {
                     removeProduct()
                 }
             }
             button("Done") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/invoice.png").toURI().toString()
+                ) {
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
+                }
                 action {
                     if (controller.basket.size > 0) {
                         controller.printInvoice()

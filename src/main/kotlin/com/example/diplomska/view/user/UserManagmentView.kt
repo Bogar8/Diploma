@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import javafx.stage.Modality
 import tornadofx.*
+import java.io.File
 
 
 class UserManagmentView : View("My View") {
@@ -41,12 +42,24 @@ class UserManagmentView : View("My View") {
             label("")
             button("Add user") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/add-user.png").toURI().toString()
+                ) {
+                    this.fitHeight=35.0
+                    this.fitWidth=35.0
+                }
                 action {
                     find<UserAddView>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
             button("Edit user") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/edit-user.png").toURI().toString()
+                ) {
+                    this.fitHeight=40.0
+                    this.fitWidth=40.0
+                }
                 action {
                     if (controller.selectedUser._id != "") {
                         find<UserEditView>().openWindow(modality = Modality.APPLICATION_MODAL)
@@ -62,6 +75,12 @@ class UserManagmentView : View("My View") {
             }
             button("Delete user") {
                 useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/delete-user.png").toURI().toString()
+                ) {
+                    this.fitHeight=35.0
+                    this.fitWidth=35.0
+                }
                 action {
                     if (controller.selectedUser._id != "") {
                         alert(
