@@ -7,7 +7,7 @@ import tornadofx.*
 import kotlin.system.exitProcess
 
 
-class MyApp : App(LoginView::class, Styles::class){
+class MyApp : App(LoginView::class, Styles::class) {
 
 //    val logger: Logger = Logger.getLogger("MyLog")
 //    val fh: FileHandler  = FileHandler("MyLoggs.log")
@@ -25,6 +25,8 @@ class MyApp : App(LoginView::class, Styles::class){
 
     override fun start(stage: Stage) {
         stage.isResizable = false
+        stage.isMaximized = true
+
         super.start(stage)
     }
 
