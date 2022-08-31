@@ -1,5 +1,6 @@
 package com.example.diplomska.view.product
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.model.Category
 import com.example.diplomska.model.Product
@@ -27,6 +28,7 @@ class ProductAddView : Fragment("My View") {
         Category.SPORTS.name
     )
     override val root = vbox {
+        addClass(Styles.background)
         form {
             fieldset {
                 field("Name") {
@@ -55,7 +57,7 @@ class ProductAddView : Fragment("My View") {
                     }
                 }
                 field("Category") {
-                    combobox(model.category, categoryLists){
+                    combobox(model.category, categoryLists) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("User has to have role")
@@ -85,7 +87,7 @@ class ProductAddView : Fragment("My View") {
                     }
                 }
 
-               borderpane() {
+                borderpane {
                     left = button("Save") {
                         enableWhen(model.valid)
                         action {
@@ -115,7 +117,7 @@ class ProductAddView : Fragment("My View") {
                             }
                         }
                     }
-                  right=  button("Close") {
+                    right = button("Close") {
                         action {
                             close()
                         }

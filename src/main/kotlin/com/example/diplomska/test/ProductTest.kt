@@ -25,7 +25,7 @@ internal class ProductTest {
         ProductStock(1, 101.99, LocalDateTime.of(2020, 1, 2, 12, 0))
     )
     private val testSample: Product =
-        Product("null", "12345", "name", Category.FOOD, 0, 10.0,10.0,true, sellingHistory, purchaseHistory)
+        Product("null", "12345", "name", Category.FOOD, 0, 10.0, 10.0, true, sellingHistory, purchaseHistory)
 
     @Test
     fun testTotalPurchasePrice() {

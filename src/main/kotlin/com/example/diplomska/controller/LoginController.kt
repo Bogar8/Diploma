@@ -8,7 +8,6 @@ import com.example.diplomska.model.AppData
 import tornadofx.*
 
 
-
 class LoginController : Controller() {
 
     var waitingForResponse: Boolean = false

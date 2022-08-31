@@ -6,26 +6,31 @@ import com.example.diplomska.model.InvoiceItem
 import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
+import javafx.scene.control.Label
 import tornadofx.*
 import java.io.File
 
 
 class SellingView : View("My View") {
     private val controller: SellingController by inject()
-
     override val root = borderpane {
+        addClass(Styles.background)
         prefHeight = 1080.0
         center = hbox {
             vbox {
                 prefHeight = 900.0
                 borderpane {
                     center = label("Product list")
+                    addClass(Styles.whiteBorder)
+                    addClass(Styles.backgroundSecondary)
                 }
                 tableview(controller.filteredProducts) {
+                    placeholder = Label("No products found")
                     prefWidth = 600.0
                     prefHeight = 1080.0
+                    columnResizePolicy = SmartResize.POLICY
                     column("Barcode", Product::barcodeProperty)
-                    column("Name", Product::nameProperty)
+                    column("Name", Product::nameProperty).remainingWidth()
                     column("Category", Product::categoryProperty)
                     column("Stock", Product::stockProperty)
                     column("Current sell price", Product::sellingPriceProperty)
@@ -44,11 +49,15 @@ class SellingView : View("My View") {
                 prefHeight = 1080.0
                 borderpane {
                     center = label("Basket")
+                    addClass(Styles.whiteBorder)
+                    addClass(Styles.backgroundSecondary)
                 }
                 tableview(controller.basket) {
+                    placeholder = Label("No products in basket")
                     prefWidth = 600.0
                     prefHeight = 1080.0
-                    column("Name", InvoiceItem::productNameProperty)
+                    columnResizePolicy = SmartResize.POLICY
+                    column("Name", InvoiceItem::productNameProperty).remainingWidth()
                     column("Amount", InvoiceItem::amountProperty)
                     column("Price per one", InvoiceItem::pricePerOneProperty)
                     column("Total price", InvoiceItem::totalPriceProperty)
@@ -75,6 +84,14 @@ class SellingView : View("My View") {
             }
         }
         right = vbox {
+            style {
+                borderColor += box(
+                    top = c(Styles.primaryColor),
+                    right = c(Styles.primaryTable),
+                    left = c("#FFFFFF"),
+                    bottom = c(Styles.primaryTable)
+                )
+            }
             prefWidth = 200.0
             label("Search by barcode or name")
             textfield {

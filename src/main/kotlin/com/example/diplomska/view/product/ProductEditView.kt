@@ -1,5 +1,6 @@
 package com.example.diplomska.view.product
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.model.Category
 import javafx.beans.property.SimpleBooleanProperty
@@ -34,6 +35,7 @@ class ProductEditView : Fragment("My View") {
     }
 
     override val root = vbox {
+        addClass(Styles.background)
         form {
             fieldset {
                 field("Name") {
@@ -62,7 +64,7 @@ class ProductEditView : Fragment("My View") {
                     }
                 }
                 field("Category") {
-                    combobox(model.category, categoryLists){
+                    combobox(model.category, categoryLists) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("User has to have role")

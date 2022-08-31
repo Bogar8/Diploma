@@ -1,11 +1,13 @@
 package com.example.diplomska.view.product
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
+import javafx.scene.control.Label
 import javafx.scene.paint.Color
 import javafx.stage.Modality
 import tornadofx.*
@@ -16,10 +18,13 @@ class ProductManagementView : View("My View") {
     private val controller: ProductManagementController by inject()
 
     override val root = borderpane {
+        addClass(Styles.background)
         center = tableview(controller.filteredProducts) {
+            placeholder = Label("No products found")
             prefHeight = 1080.0
+            columnResizePolicy = SmartResize.POLICY
             column("Barcode", Product::barcodeProperty)
-            column("Name", Product::nameProperty)
+            column("Name", Product::nameProperty).remainingWidth()
             column("Category", Product::categoryProperty)
             column("Stock", Product::stockProperty)
             column("Last changed", Product::lastChangedProperty).cellFormat {
@@ -67,8 +72,8 @@ class ProductManagementView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/add.png").toURI().toString()
                 ) {
-                    this.fitHeight=35.0
-                    this.fitWidth=35.0
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
                 }
                 useMaxWidth = true
                 action {
@@ -80,8 +85,8 @@ class ProductManagementView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/edit.png").toURI().toString()
                 ) {
-                    this.fitHeight=30.0
-                    this.fitWidth=30.0
+                    this.fitHeight = 30.0
+                    this.fitWidth = 30.0
                 }
                 action {
                     if (controller.selectedProduct._id != "") {
@@ -101,8 +106,8 @@ class ProductManagementView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/stock.png").toURI().toString()
                 ) {
-                    this.fitHeight=35.0
-                    this.fitWidth=35.0
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
                 }
                 action {
                     if (controller.selectedProduct._id != "") {
@@ -122,8 +127,8 @@ class ProductManagementView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/remove.png").toURI().toString()
                 ) {
-                    this.fitHeight=35.0
-                    this.fitWidth=35.0
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
                 }
                 action {
                     if (controller.selectedProduct._id != "") {

@@ -88,7 +88,9 @@ class ProductManagementController : Controller() {
 
 
     fun setFilteredData(filter: String) {
-        filteredProducts.setAll(products.filter { it.name.lowercase().contains(filter) || it.barcode.lowercase().contains(filter) })
-        filterInUse=filter
+        filteredProducts.setAll(products.filter {
+            it.name.lowercase().contains(filter) || it.barcode.lowercase().contains(filter)
+        })
+        filterInUse = filter
     }
 }

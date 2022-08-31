@@ -5,5 +5,5 @@ import java.time.format.DateTimeFormatter
 
 
 fun LocalDateTime.toNiceString(): String {
-    return this.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+    return this.format(DateTimeFormatter.ofPattern("dd. MMMM yyyy hh:mm"))
 }

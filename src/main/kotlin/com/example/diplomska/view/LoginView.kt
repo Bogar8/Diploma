@@ -1,5 +1,6 @@
 package com.example.diplomska.view
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.LoginController
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
@@ -21,8 +22,9 @@ class LoginView : Fragment("Login") {
 
 
     override val root = stackpane {
+        addClass(Styles.background)
         prefWidth = 1600.0
-        prefHeight= 900.0
+        prefHeight = 900.0
         vbox(alignment = Pos.CENTER) {
             form {
                 fieldset {

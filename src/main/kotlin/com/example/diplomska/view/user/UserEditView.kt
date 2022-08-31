@@ -1,5 +1,6 @@
 package com.example.diplomska.view.user
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.UserManagmentController
 import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
@@ -33,6 +34,7 @@ class UserEditView : Fragment("My View") {
     }
 
     override val root = vbox {
+        addClass(Styles.background)
         form {
             fieldset {
                 field("Username") {
@@ -81,7 +83,7 @@ class UserEditView : Fragment("My View") {
                         }
                     }
                 }
-                field ("Role"){
+                field("Role") {
                     combobox(model.level, userLevels) {
                         validator {
                             if (it.isNullOrBlank())

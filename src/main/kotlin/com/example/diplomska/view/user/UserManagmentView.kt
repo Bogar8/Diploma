@@ -1,11 +1,13 @@
 package com.example.diplomska.view.user
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.UserManagmentController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.User
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
+import javafx.scene.control.Label
 import javafx.stage.Modality
 import tornadofx.*
 import java.io.File
@@ -16,10 +18,13 @@ class UserManagmentView : View("My View") {
 
     override val root = borderpane {
         center = tableview(controller.filteredUsers) {
-            prefHeight=1080.0
+            addClass(Styles.background)
+            columnResizePolicy = SmartResize.POLICY
+            placeholder = Label("No products found")
+            prefHeight = 1080.0
             column("Name", User::nameProperty)
             column("Surname", User::surname)
-            column("Username", User::usernameProperty)
+            column("Username", User::usernameProperty).remainingWidth()
             column("LastLogin", User::lastLoginProperty).cellFormat {
                 text = it.toNiceString()
             }
@@ -45,8 +50,8 @@ class UserManagmentView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/add-user.png").toURI().toString()
                 ) {
-                    this.fitHeight=35.0
-                    this.fitWidth=35.0
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
                 }
                 action {
                     find<UserAddView>().openWindow(modality = Modality.APPLICATION_MODAL)
@@ -57,8 +62,8 @@ class UserManagmentView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/edit-user.png").toURI().toString()
                 ) {
-                    this.fitHeight=40.0
-                    this.fitWidth=40.0
+                    this.fitHeight = 40.0
+                    this.fitWidth = 40.0
                 }
                 action {
                     if (controller.selectedUser._id != "") {
@@ -78,8 +83,8 @@ class UserManagmentView : View("My View") {
                 graphic = imageview(
                     File("src/main/kotlin/com/example/diplomska/assets/delete-user.png").toURI().toString()
                 ) {
-                    this.fitHeight=35.0
-                    this.fitWidth=35.0
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
                 }
                 action {
                     if (controller.selectedUser._id != "") {

@@ -1,5 +1,6 @@
 package com.example.diplomska.view.user
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.UserManagmentController
 import com.example.diplomska.model.User
 import com.example.diplomska.model.UserLevel
@@ -27,6 +28,7 @@ class UserAddView : Fragment("My View") {
     )
 
     override val root = vbox {
+        addClass(Styles.background)
         form {
             fieldset {
                 field("Username") {
@@ -34,7 +36,7 @@ class UserAddView : Fragment("My View") {
                         validator {
                             if (it.isNullOrBlank())
                                 error("Username field is required")
-                            else if(it.length < 3)
+                            else if (it.length < 3)
                                 error("Username must be 3 chars long")
                             else
                                 null
@@ -42,11 +44,11 @@ class UserAddView : Fragment("My View") {
                     }
                 }
                 field("Password") {
-                    passwordfield(model.password){
+                    passwordfield(model.password) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("Password field is required")
-                            else if(it.length < 8)
+                            else if (it.length < 8)
                                 error("Username must be 8 chars long")
                             else
                                 null
@@ -54,11 +56,11 @@ class UserAddView : Fragment("My View") {
                     }
                 }
                 field("Name") {
-                    textfield(model.name){
+                    textfield(model.name) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("Name field is required")
-                            else if(it.length < 2)
+                            else if (it.length < 2)
                                 error("Name must be 2 chars long")
                             else
                                 null
@@ -66,18 +68,18 @@ class UserAddView : Fragment("My View") {
                     }
                 }
                 field("Surname") {
-                    textfield(model.surname){
+                    textfield(model.surname) {
                         validator {
                             if (it.isNullOrBlank())
                                 error("Surname field is required")
-                            else if(it.length < 2)
+                            else if (it.length < 2)
                                 error("Surname must be 2 chars long")
                             else
                                 null
                         }
                     }
                 }
-                field ("Role"){
+                field("Role") {
                     combobox(model.level, userLevels) {
                         validator {
                             if (it.isNullOrBlank())
@@ -90,7 +92,7 @@ class UserAddView : Fragment("My View") {
                 }
 
                 borderpane {
-                  left=  button("Save") {
+                    left = button("Save") {
                         enableWhen(model.valid)
                         action {
                             val user = User(
@@ -117,7 +119,7 @@ class UserAddView : Fragment("My View") {
                             }
                         }
                     }
-                    right= button("Close") {
+                    right = button("Close") {
                         action {
                             close()
                         }

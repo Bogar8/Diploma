@@ -1,11 +1,11 @@
 package com.example.diplomska.app
 
 
-
-import com.example.diplomska.model.*
+import com.example.diplomska.model.Category
+import com.example.diplomska.model.Product
+import com.example.diplomska.model.ProductStock
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 fun main() {

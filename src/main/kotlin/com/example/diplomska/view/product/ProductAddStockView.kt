@@ -1,5 +1,6 @@
 package com.example.diplomska.view.product
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.ProductManagementController
 import com.example.diplomska.model.ProductStock
 import javafx.beans.property.SimpleIntegerProperty
@@ -17,6 +18,7 @@ class ProductAddStockView : Fragment("My View") {
     }
 
     override val root = vbox {
+        addClass(Styles.background)
         form {
             fieldset {
                 field("Amount") {
