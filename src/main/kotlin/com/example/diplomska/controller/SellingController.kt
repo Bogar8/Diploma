@@ -74,6 +74,7 @@ class SellingController : Controller() {
         }
         log.info { "Invoice created by seller ${invoice.seller.name} ${invoice.seller.surname} for ${invoice.products.size} products." }
         InvoiceDatabase.insert(invoice)
+        AppData.invoices.add(invoice)
         updateProductStockAndSavePurchaseHistory()
         invoice.saveToFile()
         productsInBasket = HashMap<Product, Int>()

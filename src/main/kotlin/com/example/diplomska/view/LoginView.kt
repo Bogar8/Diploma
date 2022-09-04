@@ -2,8 +2,13 @@ package com.example.diplomska.view
 
 import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.LoginController
+import com.example.diplomska.controller.MainController
+import com.example.diplomska.model.AppData
+import com.example.diplomska.model.UserLevel
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 import javafx.scene.paint.Color
 import tornadofx.*
 import kotlin.concurrent.thread
@@ -19,6 +24,7 @@ class LoginView : Fragment("Login") {
     private var error = SimpleStringProperty()
     private var progressDouble = 0.001
     private var isOpened = true
+    private val mainController: MainController by inject()
 
 
     override val root = stackpane {
@@ -48,6 +54,9 @@ class LoginView : Fragment("Login") {
                                 } else {
                                     isOpened = false
                                     replaceWith<MainView>()
+                                    if (AppData.loggedInUser.level != UserLevel.SELLER) {
+                                        checkOutOfStock()
+                                    }
                                 }
                             }
                         }
@@ -90,5 +99,28 @@ class LoginView : Fragment("Login") {
         progressDouble = 0.001
         error.value = ""
         isOpened = true
+    }
+
+    private fun checkOutOfStock() {
+        val outOfStock = mainController.getOutOfStockProducts()
+        var first = true
+        if (outOfStock.size > 0) {
+            var outOfStockProducts = ""
+            outOfStock.forEach {
+                if (first) {
+                    outOfStockProducts += it.name
+                    first = false
+                } else {
+                    outOfStockProducts += ", ${it.name}"
+                }
+
+            }
+            alert(
+                Alert.AlertType.ERROR,
+                "Products are out of stock",
+                outOfStockProducts,
+                ButtonType.OK,
+            )
+        }
     }
 }

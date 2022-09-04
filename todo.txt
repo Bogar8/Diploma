@@ -1,4 +1,3 @@
 Hide elements based on user rights
-Styling of all views
-product statistic
-user statistic
+Total profit between dates statistic ( total buying totalk selling and total profit charts for each product?)
+Show all invoices history (between dates)?

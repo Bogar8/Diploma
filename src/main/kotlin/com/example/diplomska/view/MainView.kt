@@ -3,8 +3,10 @@ package com.example.diplomska.view
 
 import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.SellingController
+import com.example.diplomska.controller.StatisticUserController
 import com.example.diplomska.view.product.ProductManagementView
 import com.example.diplomska.view.selling.SellingView
+import com.example.diplomska.view.statisticUser.StatisticUserView
 import com.example.diplomska.view.user.UserManagmentView
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.TabPane
@@ -19,6 +21,8 @@ class MainView : View("Main view") {
     private val userManagementView: UserManagmentView by inject()
     private val sellingView: SellingView by inject()
     private val sellingController: SellingController by inject()
+    private val statisticUserView: StatisticUserView by inject()
+    private val statisticUserController: StatisticUserController by inject()
 
 
     override val root = vbox {
@@ -48,6 +52,17 @@ class MainView : View("Main view") {
                 this.selectedProperty().addListener { observable, oldValue, newValue ->
                     if (newValue) {
                         sellingController.refreshData()
+                    }
+                }
+            }
+            tab("Invoice statistics") {
+                addClass(Styles.background)
+                vbox {
+                    add(statisticUserView.root)
+                }
+                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                    if (newValue) {
+                        statisticUserController.setChartData()
                     }
                 }
             }

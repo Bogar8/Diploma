@@ -1,13 +1,14 @@
 package com.example.diplomska.controller
 
-import com.example.diplomska.model.AppData
+import com.example.diplomska.dao.implementations.ProductDatabase
+import com.example.diplomska.model.Product
 import tornadofx.*
 
 
 class MainController : Controller() {
 
-    fun getUserData(): String {
-        return "User: ${AppData.loggedInUser.name} ${AppData.loggedInUser.surname}"
+    fun getOutOfStockProducts(): ArrayList<Product> {
+        return ProductDatabase.getOutOfStock()
     }
 
 }

@@ -94,5 +94,4 @@ class UserManagmentController : Controller() {
         })
         filterInUse = filter
     }
-
 }
