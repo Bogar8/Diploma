@@ -7,6 +7,7 @@ import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
+import javafx.stage.Modality
 import tornadofx.*
 import java.io.File
 
@@ -67,7 +68,10 @@ class SellingView : View("Selling") {
                         }
                     }
                     onUserSelect(2) {
-                        removeProduct()
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedInvoiceItem = selectionModel.selectedItem
+                            setAmount()
+                        }
                     }
                     columnResizePolicy = SmartResize.POLICY
                 }
@@ -124,6 +128,18 @@ class SellingView : View("Selling") {
                     removeProduct()
                 }
             }
+            button("Set amount") {
+                useMaxWidth = true
+//                graphic = imageview(
+//                    File("src/main/kotlin/com/example/diplomska/assets/invoice.png").toURI().toString()
+//                ) {
+//                    this.fitHeight = 35.0
+//                    this.fitWidth = 35.0
+//                }
+                action {
+                    setAmount()
+                }
+            }
             button("Done") {
                 useMaxWidth = true
                 graphic = imageview(
@@ -151,6 +167,19 @@ class SellingView : View("Selling") {
     private fun removeProduct() {
         if (controller.selectedInvoiceItem.productName != "") {
             controller.removeFromBasket()
+        } else {
+            alert(
+                Alert.AlertType.ERROR,
+                "Select invoice item",
+                "You have to select invoice item first!",
+                ButtonType.OK,
+            )
+        }
+    }
+
+    private fun setAmount() {
+        if (controller.selectedInvoiceItem.productName != "") {
+            find<SetAmountView>().openWindow(modality = Modality.APPLICATION_MODAL)
         } else {
             alert(
                 Alert.AlertType.ERROR,

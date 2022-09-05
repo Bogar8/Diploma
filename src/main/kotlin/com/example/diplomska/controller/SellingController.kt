@@ -10,9 +10,9 @@ import tornadofx.*
 import kotlin.math.roundToInt
 
 class SellingController : Controller() {
-    var products = FXCollections.observableArrayList<Product>(AppData.products)
+    var products: ObservableList<Product> = FXCollections.observableArrayList<Product>(AppData.products)
     var filteredProducts: ObservableList<Product> = FXCollections.observableArrayList<Product>(products)
-    var basket = FXCollections.observableArrayList<InvoiceItem>()
+    var basket: ObservableList<InvoiceItem> = FXCollections.observableArrayList<InvoiceItem>()
     var productsInBasket =
         HashMap<Product, Int>() // keeping amount of each product in basket for updating stock and purchase history
     var selectedProduct = Product()
@@ -51,14 +51,10 @@ class SellingController : Controller() {
     fun removeFromBasket() {
         val item = hasItem(selectedInvoiceItem.productName)
         if (item != null) {
-            item.amount--
-            item.totalPrice = ((item.amount * item.pricePerOne) * 100).roundToInt() / 100.0
-            productsInBasket[selectedProduct] = item.amount
+            basket.remove(item)
+            selectedInvoiceItem = InvoiceItem()
+            productsInBasket[selectedProduct] = 0
             log.info { "Product ${item.productName} successfully removed from basket" }
-            if (item.amount <= 0) {
-                basket.remove(item)
-                selectedInvoiceItem = InvoiceItem()
-            }
             basket.sortBy { it.productName }
             totalPrice = getTotalPriceOfBasket()
             totalPriceStringProperty.set("Total price $totalPrice")
@@ -111,6 +107,23 @@ class SellingController : Controller() {
             totalPrice += it.totalPrice
         }
         return (totalPrice * 100).roundToInt() / 100.0
+    }
+
+    fun setItemAmount(amount: Int): Boolean {
+        if (amount == 0) {
+            removeFromBasket()
+            return true
+        }
+
+        val index = basket.indexOf(selectedInvoiceItem)
+        if (selectedProduct.stock < amount) //stock limit
+            return false
+
+
+        basket[index].amount = amount
+        basket[index].totalPrice = ((basket[index].amount * basket[index].pricePerOne) * 100).roundToInt() / 100.0
+        productsInBasket[selectedProduct] = basket[index].amount
+        return true
     }
 
 }
