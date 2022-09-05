@@ -8,6 +8,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
 import java.io.File
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.json.JsonObject
@@ -68,6 +69,10 @@ class Invoice(
         if (!directory.exists()) {
             directory.mkdir()
         }
+        val subDirectory = File(AppData.invoiceFolder + LocalDate.now())
+        if (!subDirectory.exists()) {
+            subDirectory.mkdir()
+        }
         var text = "Invoice id: $_id\n" +
                 "Date: ${date.toNiceString()}\n" +
                 "Seller: ${seller.name} ${seller.surname}\n" +
@@ -78,7 +83,7 @@ class Invoice(
             text += String.format("%-30s %-10s %-10s %-10s", it.productName, it.amount, it.pricePerOne, total) + "\n"
         }
         text += "Total price: $totalPrice"
-        File(AppData.invoiceFolder, "invoice_{$_id}_${date.toNiceString()}").writeText(text)
+        File(subDirectory, "invoice_{$_id}.txt").writeText(text)
     }
 
     fun getNumberOfItemsInInvoice(): Int {
