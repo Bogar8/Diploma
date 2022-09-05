@@ -14,7 +14,7 @@ import tornadofx.*
 import java.io.File
 
 //TODO: FILTER SEARCH textfield with combobox for each field or just by name?
-class ProductManagementView : View("My View") {
+class ProductManagementView : View("Products managment") {
     private val controller: ProductManagementController by inject()
 
     override val root = borderpane {
@@ -60,7 +60,6 @@ class ProductManagementView : View("My View") {
         }
         right = vbox {
             prefWidth = 200.0
-
             label("Search by barcode or name")
             textfield {
                 textProperty().addListener { observable, oldValue, newValue ->

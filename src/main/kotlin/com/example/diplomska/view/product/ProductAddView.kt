@@ -13,7 +13,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class ProductAddView : Fragment("My View") {
+class ProductAddView : Fragment("Add Product") {
     private val controller: ProductManagementController by inject()
     private val model = object : ViewModel() {
         val name = bind { SimpleStringProperty() }

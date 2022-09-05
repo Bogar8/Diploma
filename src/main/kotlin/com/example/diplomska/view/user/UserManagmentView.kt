@@ -13,7 +13,7 @@ import tornadofx.*
 import java.io.File
 
 
-class UserManagmentView : View("My View") {
+class UserManagmentView : View("User managment") {
     private val controller: UserManagmentController by inject()
 
     override val root = borderpane {

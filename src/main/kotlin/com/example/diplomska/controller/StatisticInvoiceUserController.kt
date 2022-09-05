@@ -11,8 +11,9 @@ import tornadofx.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import kotlin.math.roundToInt
 
-class StatisticUserController : Controller() {
+class StatisticInvoiceUserController : Controller() {
 
     var chartData = FXCollections.observableArrayList<PieChart.Data>()
     var totalAmountProperty = SimpleStringProperty("Total: ")
@@ -30,7 +31,12 @@ class StatisticUserController : Controller() {
         totalAmountProperty.set("Total: ${AppData.invoices.size}")
         AppData.employees.forEach {
             val amount = getNumberInvoicesForUser(it).toDouble()
-            chartData.add(PieChart.Data("${it.username} $amount (${amount / AppData.invoices.size * 100}%)", amount))
+            chartData.add(
+                PieChart.Data(
+                    "${it.username} $amount (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
+                    amount
+                )
+            )
         }
     }
 

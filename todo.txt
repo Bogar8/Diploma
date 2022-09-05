@@ -1,3 +1,4 @@
 Hide elements based on user rights
 Total profit between dates statistic ( total buying totalk selling and total profit charts for each product?)
 Show all invoices history (between dates)?
+Add total amount when selling

@@ -10,7 +10,7 @@ import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import tornadofx.*
 
-class UserEditView : Fragment("My View") {
+class UserEditView : Fragment("Edit user") {
     private val controller: UserManagmentController by inject()
     private val model = object : ViewModel() {
         val username = bind { SimpleStringProperty() }

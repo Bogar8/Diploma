@@ -1,7 +1,7 @@
-package com.example.diplomska.view.statisticUser
+package com.example.diplomska.view.statistic
 
 import com.example.diplomska.app.Styles
-import com.example.diplomska.controller.StatisticUserController
+import com.example.diplomska.controller.StatisticInvoiceUserController
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
@@ -9,8 +9,8 @@ import tornadofx.*
 import java.io.File
 import java.time.LocalDate
 
-class StatisticUserView : View("My View") {
-    private val statisticController: StatisticUserController by inject()
+class StatisticInvoiceUserView : View("Invoice per user statistic") {
+    private val statisticController: StatisticInvoiceUserController by inject()
     val datePropertyStart = SimpleObjectProperty<LocalDate>()
     val datePropertyEnd = SimpleObjectProperty<LocalDate>()
     override val root = borderpane {

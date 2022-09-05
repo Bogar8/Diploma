@@ -35,7 +35,6 @@ class Invoice(
     var date: LocalDateTime by dateProperty
 
     val products: ObservableList<InvoiceItem> = FXCollections.observableArrayList<InvoiceItem>(products)
-
     override fun updateModel(json: JsonObject) {
         with(json) {
             _id = string("_id")!!
@@ -80,5 +79,13 @@ class Invoice(
         }
         text += "Total price: $totalPrice"
         File(AppData.invoiceFolder, "invoice_{$_id}_${date.toNiceString()}").writeText(text)
+    }
+
+    fun getNumberOfItemsInInvoice(): Int {
+        var amount = 0
+        products.forEach {
+            amount += it.amount
+        }
+        return amount
     }
 }

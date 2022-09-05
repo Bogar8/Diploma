@@ -11,7 +11,7 @@ import tornadofx.*
 import java.io.File
 
 
-class SellingView : View("My View") {
+class SellingView : View("Selling") {
     private val controller: SellingController by inject()
     override val root = borderpane {
         addClass(Styles.background)

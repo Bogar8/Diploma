@@ -116,7 +116,7 @@ class LoginView : Fragment("Login") {
 
             }
             alert(
-                Alert.AlertType.ERROR,
+                Alert.AlertType.INFORMATION,
                 "Products are out of stock",
                 outOfStockProducts,
                 ButtonType.OK,
