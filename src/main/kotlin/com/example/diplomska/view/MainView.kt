@@ -57,7 +57,7 @@ class MainView : View("Prodajalko") {
                 vbox {
                     add(sellingView.root)
                 }
-                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                this.selectedProperty().addListener { _, _, newValue ->
                     if (newValue) {
                         sellingController.refreshData()
                     }
@@ -68,7 +68,7 @@ class MainView : View("Prodajalko") {
                 vbox {
                     add(statisticInvoiceUserView.root)
                 }
-                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                this.selectedProperty().addListener { _, _, newValue ->
                     if (newValue) {
                         statisticUserController.setChartData()
                     }
@@ -79,7 +79,7 @@ class MainView : View("Prodajalko") {
                 vbox {
                     add(statisticProductProfitView.root)
                 }
-                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                this.selectedProperty().addListener { _, _, newValue ->
                     if (newValue) {
                         statisticProductProfitController.setChartData()
                     }
@@ -90,7 +90,7 @@ class MainView : View("Prodajalko") {
                 vbox {
                     add(invoiceHistory.root)
                 }
-                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                this.selectedProperty().addListener { _, _, newValue ->
                     if (newValue) {
                         invoiceHistoryController.setInvoices()
                     }

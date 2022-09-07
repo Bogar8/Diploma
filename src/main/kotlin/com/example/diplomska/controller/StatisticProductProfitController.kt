@@ -36,13 +36,13 @@ class StatisticProductProfitController : Controller() {
             chartDataPurchase.add(
                 XYChart.Data<String, Number>(
                     it.name,
-                    (it.getTotalPurchasePrice() * 100).toInt() / 100.0
+                    (it.getTotalPurchasePrice() * 100).roundToInt() / 100.0
                 )
             )
             chartDataSelling.add(
                 XYChart.Data<String, Number>(
                     it.name,
-                    (it.getTotalSoldPrice() * 100).toInt() / 100.0
+                    (it.getTotalSoldPrice() * 100).roundToInt() / 100.0
                 )
             )
             val profit = (it.getProfit() * 100).roundToInt() / 100.0
@@ -68,13 +68,13 @@ class StatisticProductProfitController : Controller() {
             chartDataPurchase.add(
                 XYChart.Data<String, Number>(
                     it.name,
-                    (it.getTotalPurchasePriceBetweenDates(dateStartTime, dateEndTime) * 100).toInt() / 100.0
+                    (it.getTotalPurchasePriceBetweenDates(dateStartTime, dateEndTime) * 100).roundToInt() / 100.0
                 )
             )
             chartDataSelling.add(
                 XYChart.Data<String, Number>(
                     it.name,
-                    (it.getTotalSoldPriceBetweenDates(dateStartTime, dateEndTime) * 100).toInt() / 100.0
+                    (it.getTotalSoldPriceBetweenDates(dateStartTime, dateEndTime) * 100).roundToInt() / 100.0
                 )
             )
             val profit = (it.getProfitBetweenDates(dateStartTime, dateEndTime) * 100).roundToInt() / 100.0

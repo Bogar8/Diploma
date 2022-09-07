@@ -66,7 +66,7 @@ class ProductManagementView : View("Products managment") {
             prefWidth = 200.0
             label("Search by barcode or name")
             textfield {
-                textProperty().addListener { observable, oldValue, newValue ->
+                textProperty().addListener { _, _, newValue ->
                     controller.setFilteredData(newValue.lowercase())
                 }
             }

@@ -40,7 +40,7 @@ class UserManagmentView : View("User managment") {
             prefWidth = 200.0
             label("Search users")
             textfield {
-                textProperty().addListener { observable, oldValue, newValue ->
+                textProperty().addListener { _, _, newValue ->
                     controller.setFilteredData(newValue.lowercase())
                 }
             }

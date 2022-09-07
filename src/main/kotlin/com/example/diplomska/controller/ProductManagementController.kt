@@ -7,6 +7,7 @@ import com.example.diplomska.model.ProductStock
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
+import kotlin.math.roundToInt
 
 class ProductManagementController : Controller() {
     var errorMessage: String = ""
@@ -22,7 +23,7 @@ class ProductManagementController : Controller() {
             log.info { errorMessage }
             return false
         } else {
-            product.sellingPrice = (product.sellingPrice * 100).toInt() / 100.0
+            product.sellingPrice = (product.sellingPrice * 100).roundToInt() / 100.0
             if (ProductDatabase.insert(product)) {
                 products.add(product)
                 log.info { "Product ${product.name} successfully added" }
