@@ -34,7 +34,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4" level="project" />
     <orderEntry type="library" name="Maven: no.tornado:tornadofx:1.7.20" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: javax.json:javax.json-api:1.1.2" level="project" />
@@ -46,26 +46,26 @@
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test-junit:1.7.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.7.10" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-core:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-sync:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:bson:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:4.6.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.mongodb:bson-record-codec:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-property:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-data:4.6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-core:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-sync:4.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:bson:4.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:4.7.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.mongodb:bson-record-codec:4.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-property:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-data:4.7.0" level="project" />
     <orderEntry type="library" name="Maven: org.litote:kreflect:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-jackson-mapping:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-shared:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-id:4.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-id-jackson:4.6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-jackson-mapping:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-shared:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-id:4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.litote.kmongo:kmongo-id-jackson:4.7.0" level="project" />
     <orderEntry type="library" name="Maven: org.litote.jackson:jackson-module-loader:0.4.0" level="project" />
     <orderEntry type="library" name="Maven: de.undercouch:bson4jackson:2.13.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-kotlin:2.13.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.13.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.3" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>
