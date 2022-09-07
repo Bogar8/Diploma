@@ -90,15 +90,29 @@ class InvoiceHistory : View("Invoice history") {
                     }
                 }
             }
-            label()
+            button("Reset date filter") {
+                useMaxWidth = true
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/undo-arrow.png").toURI().toString()
+                ) {
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
+                }
+                action {
+                    datePropertyStart.set(LocalDate.now())
+                    datePropertyEnd.set(LocalDate.now())
+                    controller.setInvoices()
+                    controller.selectedInvoice = Invoice()
+                }
+            }
             button("Open invoice") {
                 useMaxWidth = true
-//                graphic = imageview(
-//                    File("src/main/kotlin/com/example/diplomska/assets/edit.png").toURI().toString()
-//                ) {
-//                    this.fitHeight = 30.0
-//                    this.fitWidth = 30.0
-//                }
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/open.png").toURI().toString()
+                ) {
+                    this.fitHeight = 35.0
+                    this.fitWidth = 35.0
+                }
                 action {
                     if (controller.selectedInvoice._id != "") {
                         invoiceProductController.setProducts(controller.selectedInvoice)

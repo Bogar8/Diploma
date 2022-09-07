@@ -23,10 +23,13 @@ class InvoiceHistoryController : Controller() {
     }
 
     fun setInvoicesDataBetweenDates(dateStart: LocalDate, dateEnd: LocalDate) {
-        invoices.setAll(InvoiceDatabase.getBetweenDates(
-            LocalDateTime.of(dateStart, LocalTime.of(0, 0)),
-            LocalDateTime.of(dateEnd, LocalTime.of(23, 59))
-        ))
+        selectedInvoice = Invoice()
+        invoices.setAll(
+            InvoiceDatabase.getBetweenDates(
+                LocalDateTime.of(dateStart, LocalTime.of(0, 0)),
+                LocalDateTime.of(dateEnd, LocalTime.of(23, 59))
+            )
+        )
         invoices.sortByDescending { it.date }
         totalAmountOfInvoices.set("Total: ${invoices.size}")
     }
