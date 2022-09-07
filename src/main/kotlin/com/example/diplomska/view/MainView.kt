@@ -5,10 +5,12 @@ import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.InvoiceHistoryController
 import com.example.diplomska.controller.SellingController
 import com.example.diplomska.controller.StatisticInvoiceUserController
+import com.example.diplomska.controller.StatisticProductProfitController
 import com.example.diplomska.view.invoice.InvoiceHistory
 import com.example.diplomska.view.product.ProductManagementView
 import com.example.diplomska.view.selling.SellingView
 import com.example.diplomska.view.statistic.StatisticInvoiceUserView
+import com.example.diplomska.view.statistic.StatisticProductProfitView
 import com.example.diplomska.view.user.UserManagmentView
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.TabPane
@@ -27,6 +29,8 @@ class MainView : View("Prodajalko") {
     private val statisticUserController: StatisticInvoiceUserController by inject()
     private val invoiceHistory: InvoiceHistory by inject()
     private val invoiceHistoryController: InvoiceHistoryController by inject()
+    private val statisticProductProfitView: StatisticProductProfitView by inject()
+    private val statisticProductProfitController : StatisticProductProfitController by inject()
 
 
     override val root = vbox {
@@ -67,6 +71,17 @@ class MainView : View("Prodajalko") {
                 this.selectedProperty().addListener { observable, oldValue, newValue ->
                     if (newValue) {
                         statisticUserController.setChartData()
+                    }
+                }
+            }
+            tab("Product statistics") {
+                addClass(Styles.background)
+                vbox {
+                    add(statisticProductProfitView.root)
+                }
+                this.selectedProperty().addListener { observable, oldValue, newValue ->
+                    if (newValue) {
+                        statisticProductProfitController.setChartData()
                     }
                 }
             }
