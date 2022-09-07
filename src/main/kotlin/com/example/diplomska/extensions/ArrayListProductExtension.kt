@@ -35,6 +35,23 @@ fun ArrayList<Product>.getTotalProfitBetweenDates(dateFrom: LocalDateTime, dateT
     return totalProfit
 }
 
+fun ArrayList<Product>.getTotalPurchasePriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+    var total = 0.0
+    this.forEach {
+        total += it.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
+    }
+    return total
+}
+
+fun ArrayList<Product>.getTotalSoldPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+    var total = 0.0
+    this.forEach {
+        total += it.getTotalSoldPriceBetweenDates(dateFrom, dateTo)
+    }
+    return total
+}
+
+
 fun ArrayList<Product>.sortByNameAsc() {
     this.sortBy { it.name }
 }
