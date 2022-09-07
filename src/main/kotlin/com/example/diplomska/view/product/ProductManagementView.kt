@@ -137,7 +137,7 @@ class ProductManagementView : View("Products managment") {
                     if (controller.selectedProduct._id != "") {
                         alert(
                             Alert.AlertType.CONFIRMATION,
-                            "Deleting user",
+                            "Deleting product",
                             "Are you sure you want to delete product ${controller.selectedProduct.name}",
                             ButtonType.YES,
                             ButtonType.NO,
@@ -146,7 +146,7 @@ class ProductManagementView : View("Products managment") {
                                     if (controller.deleteProduct(controller.selectedProduct)) {
                                         alert(
                                             Alert.AlertType.INFORMATION,
-                                            "Deleting user",
+                                            "Deleting product",
                                             "Product ${controller.selectedProduct.name} successfully deleted",
                                             ButtonType.OK,
                                         )
@@ -154,7 +154,7 @@ class ProductManagementView : View("Products managment") {
                                     } else {
                                         alert(
                                             Alert.AlertType.ERROR,
-                                            "Deleting user",
+                                            "Deleting product",
                                             "Error occurred when deleting product ${controller.selectedProduct.name}",
                                             ButtonType.OK,
                                         )
