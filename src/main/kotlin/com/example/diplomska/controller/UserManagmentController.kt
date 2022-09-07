@@ -5,12 +5,13 @@ import com.example.diplomska.model.AppData
 import com.example.diplomska.model.User
 import com.example.diplomska.util.SHA512Util
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import tornadofx.*
 
 
 class UserManagmentController : Controller() {
-    val users = AppData.employees.asObservable()
-    var filteredUsers = FXCollections.observableArrayList<User>(users)
+    private val users = AppData.employees.asObservable()
+    var filteredUsers: ObservableList<User> = FXCollections.observableArrayList<User>(users)
     var selectedUser: User = User()
     var errorMessage: String = ""
     var filterInUse: String = ""

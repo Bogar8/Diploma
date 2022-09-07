@@ -30,7 +30,7 @@ class MainView : View("Prodajalko") {
     private val invoiceHistory: InvoiceHistory by inject()
     private val invoiceHistoryController: InvoiceHistoryController by inject()
     private val statisticProductProfitView: StatisticProductProfitView by inject()
-    private val statisticProductProfitController : StatisticProductProfitController by inject()
+    private val statisticProductProfitController: StatisticProductProfitController by inject()
 
 
     override val root = vbox {

@@ -2,7 +2,9 @@ package com.example.diplomska.view.statistic
 
 import com.example.diplomska.controller.StatisticProductProfitController
 import javafx.beans.property.SimpleObjectProperty
-
+import javafx.scene.chart.CategoryAxis
+import javafx.scene.chart.NumberAxis
+import javafx.scene.layout.Priority
 import tornadofx.*
 import java.time.LocalDate
 
@@ -12,11 +14,16 @@ class StatisticProductProfitView : View("Invoice per user statistic") {
     val datePropertyEnd = SimpleObjectProperty<LocalDate>()
     override val root = borderpane {
         prefHeight = 1080.0
+        useMaxWidth = true
         center = hbox {
-            piechart("Product purchase", controller.chartDataPurchase)
-            piechart("Product selling", controller.chartDataSelling)
-            piechart("Product profit", controller.chartDataProfit)
-
+            barchart("Product purchase/sell", CategoryAxis(controller.productNameList), NumberAxis()) {
+                series("Purchase", controller.chartDataPurchase)
+                series("Sell", controller.chartDataSelling)
+                hgrow = Priority.ALWAYS
+            }
+            piechart("Product profit", controller.chartDataProfit) {
+                hgrow = Priority.ALWAYS
+            }
         }
 
         right = vbox {

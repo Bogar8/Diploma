@@ -53,7 +53,10 @@ class LoginView : Fragment("Login") {
                                     error.value = controller.error
                                 } else {
                                     isOpened = false
-                                    replaceWith(MainView::class, ViewTransition.Slide(2.seconds, ViewTransition.Direction.LEFT))
+                                    replaceWith(
+                                        MainView::class,
+                                        ViewTransition.Slide(2.seconds, ViewTransition.Direction.LEFT)
+                                    )
                                     if (AppData.loggedInUser.level != UserLevel.SELLER) {
                                         checkOutOfStock()
                                     }

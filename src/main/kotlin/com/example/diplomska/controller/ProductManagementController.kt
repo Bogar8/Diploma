@@ -22,6 +22,7 @@ class ProductManagementController : Controller() {
             log.info { errorMessage }
             return false
         } else {
+            product.sellingPrice = (product.sellingPrice * 100).toInt() / 100.0
             if (ProductDatabase.insert(product)) {
                 products.add(product)
                 log.info { "Product ${product.name} successfully added" }

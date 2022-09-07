@@ -12,7 +12,7 @@ fun ArrayList<Product>.getTotalProfit(): Double {
 }
 
 fun ArrayList<Product>.getTotalPurchasePrice(): Double {
-    var total= 0.0
+    var total = 0.0
     this.forEach {
         total += it.getTotalPurchasePrice()
     }

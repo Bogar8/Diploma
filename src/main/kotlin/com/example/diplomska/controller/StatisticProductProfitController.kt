@@ -1,41 +1,43 @@
 package com.example.diplomska.controller
 
 import com.example.diplomska.extensions.getTotalProfit
-import com.example.diplomska.extensions.getTotalPurchasePrice
-import com.example.diplomska.extensions.getTotalSoldPrice
 import com.example.diplomska.model.AppData
 import javafx.collections.FXCollections
 import javafx.scene.chart.PieChart
+import javafx.scene.chart.XYChart
 import tornadofx.*
 import kotlin.math.roundToInt
 
 class StatisticProductProfitController : Controller() {
 
-    val chartDataPurchase = FXCollections.observableArrayList<PieChart.Data>()
-    val chartDataSelling = FXCollections.observableArrayList<PieChart.Data>()
+    val chartDataPurchase = FXCollections.observableArrayList<XYChart.Data<String, Number>>()
+    val chartDataSelling = FXCollections.observableArrayList<XYChart.Data<String, Number>>()
     val chartDataProfit = FXCollections.observableArrayList<PieChart.Data>()
+    val productNameList = FXCollections.observableArrayList<String>()
 
+    fun setAllProductNameList() {
+        productNameList.setAll()
+        AppData.products.forEach {
+            productNameList.add(it.name)
+        }
+    }
 
     fun setChartData() {
+        setAllProductNameList()
         chartDataPurchase.setAll()
         chartDataProfit.setAll()
         chartDataSelling.setAll()
-        val totalPurchase = AppData.products.getTotalPurchasePrice()
-        val totalSold = AppData.products.getTotalSoldPrice()
         val totalProfit = AppData.products.getTotalProfit()
-
         AppData.products.forEach {
-            val purchased = (it.getTotalPurchasePrice() * 100).roundToInt() / 100.0
             chartDataPurchase.add(
-                PieChart.Data(
-                    "${it.name} ${(purchased / totalPurchase * 100 * 100).roundToInt() / 100.0}% ($purchased €)",
+                XYChart.Data<String, Number>(
+                    it.name,
                     it.getTotalPurchasePrice()
                 )
             )
-            val sold = (it.getTotalSoldPrice() * 100).roundToInt() / 100.0
             chartDataSelling.add(
-                PieChart.Data(
-                    "${it.name} ${(sold / totalSold * 100 * 100).roundToInt() / 100.0}% ($sold €)",
+                XYChart.Data<String, Number>(
+                    it.name,
                     it.getTotalSoldPrice()
                 )
             )
