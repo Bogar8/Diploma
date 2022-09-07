@@ -36,6 +36,10 @@ class ProductManagementView : View("Products managment") {
                     text = it.toString()
                 else
                     text = "no data"
+
+                style{
+                    padding = box(10.px, 0.px, 0.px, 10.px)
+                }
             }
             column("Active", Product::isActiveProperty).cellFormat {
                 if (it) {
