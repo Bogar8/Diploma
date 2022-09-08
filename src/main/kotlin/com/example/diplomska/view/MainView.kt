@@ -6,6 +6,8 @@ import com.example.diplomska.controller.InvoiceHistoryController
 import com.example.diplomska.controller.SellingController
 import com.example.diplomska.controller.StatisticInvoiceUserController
 import com.example.diplomska.controller.StatisticProductProfitController
+import com.example.diplomska.model.AppData
+import com.example.diplomska.model.UserLevel
 import com.example.diplomska.view.invoice.InvoiceHistory
 import com.example.diplomska.view.product.ProductManagementView
 import com.example.diplomska.view.selling.SellingView
@@ -32,7 +34,6 @@ class MainView : View("Prodajalko") {
     private val statisticProductProfitView: StatisticProductProfitView by inject()
     private val statisticProductProfitController: StatisticProductProfitController by inject()
 
-
     override val root = vbox {
         addClass(Styles.background)
         prefWidth = 1920.0
@@ -40,18 +41,6 @@ class MainView : View("Prodajalko") {
         add(userInfoLabel)
         tabpane {
             tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
-            tab("Products") {
-                addClass(Styles.background)
-                vbox {
-                    add(productManagementView.root)
-                }
-            }
-            tab("Users") {
-                addClass(Styles.background)
-                vbox {
-                    add(userManagementView.root)
-                }
-            }
             tab("Sell") {
                 addClass(Styles.background)
                 vbox {
@@ -61,6 +50,29 @@ class MainView : View("Prodajalko") {
                     if (newValue) {
                         sellingController.refreshData()
                     }
+                }
+            }
+            tab("Products") {
+                addClass(Styles.background)
+                vbox {
+                    add(productManagementView.root)
+                }
+            }
+            tab("Invoice history") {
+                addClass(Styles.background)
+                vbox {
+                    add(invoiceHistory.root)
+                }
+                this.selectedProperty().addListener { _, _, newValue ->
+                    if (newValue) {
+                        invoiceHistoryController.setInvoices()
+                    }
+                }
+            }
+            tab("Users") {
+                addClass(Styles.background)
+                vbox {
+                    add(userManagementView.root)
                 }
             }
             tab("Invoice statistics") {
@@ -85,20 +97,18 @@ class MainView : View("Prodajalko") {
                     }
                 }
             }
-            tab("Invoice history") {
-                addClass(Styles.background)
-                vbox {
-                    add(invoiceHistory.root)
-                }
-                this.selectedProperty().addListener { _, _, newValue ->
-                    if (newValue) {
-                        invoiceHistoryController.setInvoices()
-                    }
-                }
-            }
+            setTabsDependingOnUserLevel(this)
         }
     }
+
+    private fun setTabsDependingOnUserLevel(tabpane: TabPane) {
+        if (AppData.loggedInUser.level == UserLevel.SELLER)
+            tabpane.tabs.remove(1, tabpane.tabs.size)
+        else if (AppData.loggedInUser.level == UserLevel.MANAGER)
+            tabpane.tabs.remove(3, tabpane.tabs.size)
+
+        sellingController.refreshData()
+    }
+
 }
-
-
 
