@@ -28,13 +28,13 @@ internal class ProductTest {
         Product("null", "12345", "name", Category.FOOD, 0, 10.0, 10.0, true, sellingHistory, purchaseHistory)
 
     @Test
-    fun testTotalPurchasePrice() {
-        val expected: Double = 1509.24
-        assertEquals(expected, testSample.getTotalPurchasePrice(), doubleDelta)
+    fun testTotalPurchasedPrice() {
+        val expected = 1509.24
+        assertEquals(expected, testSample.getTotalPurchasedPrice(), doubleDelta)
     }
 
     @Test
-    fun testTotalPurchasePriceBetweenDates() {
+    fun testTotalPurchasedPriceBetweenDates() {
         val date1 = LocalDateTime.of(2018, 1, 1, 12, 0)
         val date2 = LocalDateTime.of(2020, 1, 2, 12, 0)
         val date3 = LocalDateTime.of(2018, 1, 1, 12, 0)
@@ -42,21 +42,21 @@ internal class ProductTest {
         val date5 = LocalDateTime.of(2022, 1, 1, 12, 0)
         val date6 = LocalDateTime.of(2019, 1, 1, 12, 0)
         val date7 = LocalDateTime.of(2019, 12, 31, 12, 0)
-        val expectedDate1toDate2: Double = 1509.24
-        val expectedDate3toDate4: Double = 1109.4
-        val expectedDate5toDate5: Double = 0.0
-        val expectedDate6toDate7: Double = 209.9
+        val expectedDate1toDate2 = 1509.24
+        val expectedDate3toDate4 = 1109.4
+        val expectedDate5toDate5 = 0.0
+        val expectedDate6toDate7 = 209.9
 
-        assertEquals(expectedDate1toDate2, testSample.getTotalPurchasePriceBetweenDates(date1, date2), doubleDelta)
-        assertEquals(expectedDate3toDate4, testSample.getTotalPurchasePriceBetweenDates(date3, date4), doubleDelta)
-        assertEquals(expectedDate5toDate5, testSample.getTotalPurchasePriceBetweenDates(date5, date5), doubleDelta)
-        assertEquals(expectedDate6toDate7, testSample.getTotalPurchasePriceBetweenDates(date6, date7), doubleDelta)
+        assertEquals(expectedDate1toDate2, testSample.getTotalPurchasedPriceBetweenDates(date1, date2), doubleDelta)
+        assertEquals(expectedDate3toDate4, testSample.getTotalPurchasedPriceBetweenDates(date3, date4), doubleDelta)
+        assertEquals(expectedDate5toDate5, testSample.getTotalPurchasedPriceBetweenDates(date5, date5), doubleDelta)
+        assertEquals(expectedDate6toDate7, testSample.getTotalPurchasedPriceBetweenDates(date6, date7), doubleDelta)
     }
 
     @Test
     fun testGetNumberOfPurchased() {
         val expected = 76
-        assertEquals(expected, testSample.getTotalPurchaseAmount())
+        assertEquals(expected, testSample.getTotalPurchasedAmount())
     }
 
     @Test
@@ -73,15 +73,15 @@ internal class ProductTest {
         val expectedDate5toDate5 = 0
         val expectedDate6toDate7 = 10
 
-        assertEquals(expectedDate1toDate2, testSample.getTotalPurchaseAmountBetweenDates(date1, date2))
-        assertEquals(expectedDate3toDate4, testSample.getTotalPurchaseAmountBetweenDates(date3, date4))
-        assertEquals(expectedDate5toDate5, testSample.getTotalPurchaseAmountBetweenDates(date5, date5))
-        assertEquals(expectedDate6toDate7, testSample.getTotalPurchaseAmountBetweenDates(date6, date7))
+        assertEquals(expectedDate1toDate2, testSample.getTotalPurchasedAmountBetweenDates(date1, date2))
+        assertEquals(expectedDate3toDate4, testSample.getTotalPurchasedAmountBetweenDates(date3, date4))
+        assertEquals(expectedDate5toDate5, testSample.getTotalPurchasedAmountBetweenDates(date5, date5))
+        assertEquals(expectedDate6toDate7, testSample.getTotalPurchasedAmountBetweenDates(date6, date7))
     }
 
     @Test
     fun testGetProfit() {
-        val expected: Double = 157.0
+        val expected= 157.0
         assertEquals(expected, testSample.getProfit(), doubleDelta)
     }
 
@@ -94,10 +94,10 @@ internal class ProductTest {
         val date5 = LocalDateTime.of(2022, 1, 1, 12, 0)
         val date6 = LocalDateTime.of(2019, 1, 1, 12, 0)
         val date7 = LocalDateTime.of(2019, 12, 31, 12, 0)
-        val expectedDate1toDate2: Double = 157.0
-        val expectedDate3toDate4: Double = 100.0
-        val expectedDate5toDate5: Double = 0.0
-        val expectedDate6toDate7: Double = 50.0
+        val expectedDate1toDate2 = 157.0
+        val expectedDate3toDate4 = 100.0
+        val expectedDate5toDate5 = 0.0
+        val expectedDate6toDate7 = 50.0
 
         assertEquals(expectedDate1toDate2, testSample.getProfitBetweenDates(date1, date2), doubleDelta)
         assertEquals(expectedDate3toDate4, testSample.getProfitBetweenDates(date3, date4), doubleDelta)

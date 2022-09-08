@@ -11,10 +11,10 @@ fun ArrayList<Product>.getTotalProfit(): Double {
     return totalProfit
 }
 
-fun ArrayList<Product>.getTotalPurchasePrice(): Double {
+fun ArrayList<Product>.getTotalPurchasedPrice(): Double {
     var total = 0.0
     this.forEach {
-        total += it.getTotalPurchasePrice()
+        total += it.getTotalPurchasedPrice()
     }
     return total
 }
@@ -35,10 +35,10 @@ fun ArrayList<Product>.getTotalProfitBetweenDates(dateFrom: LocalDateTime, dateT
     return totalProfit
 }
 
-fun ArrayList<Product>.getTotalPurchasePriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+fun ArrayList<Product>.getTotalPurchasedPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
     var total = 0.0
     this.forEach {
-        total += it.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
+        total += it.getTotalPurchasedPriceBetweenDates(dateFrom, dateTo)
     }
     return total
 }

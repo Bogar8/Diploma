@@ -33,7 +33,7 @@ class StatisticInvoiceUserController : Controller() {
             val amount = getNumberInvoicesForUser(it).toDouble()
             chartData.add(
                 PieChart.Data(
-                    "${it.username} $amount (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
+                    "${it.username} ${amount.toInt()} (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
                     amount
                 )
             )
@@ -52,7 +52,7 @@ class StatisticInvoiceUserController : Controller() {
             val amount = getNumberInvoicesForUserBetweenDates(it, invoicesBetweenDates).toDouble()
             chartData.add(
                 PieChart.Data(
-                    "${it.username} $amount (${amount / invoicesBetweenDates.size * 100}%)",
+                    "${it.username} ${amount.toInt()} (${(amount / invoicesBetweenDates.size * 100 * 100).roundToInt() / 100.0}%)",
                     amount
                 )
             )

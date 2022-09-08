@@ -31,13 +31,13 @@ class ProductManagementView : View("Products managment") {
                 text = it.toNiceString()
             }
             column("Current sell price", Product::sellingPriceProperty)
-            column("Current purchase price", Product::lastPurchasePriceProperty).cellFormat {
+            column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {
                 if (it.toDouble() > 0)
                     text = it.toString()
                 else
                     text = "no data"
 
-                style{
+                style {
                     padding = box(10.px, 0.px, 0.px, 10.px)
                 }
             }

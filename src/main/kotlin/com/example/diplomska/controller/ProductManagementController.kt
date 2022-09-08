@@ -70,10 +70,10 @@ class ProductManagementController : Controller() {
     }
 
     fun addStockToProduct(stock: ProductStock): Boolean {
-        val lastPurchasePrice = selectedProduct.lastPurchasePrice
+        val lastPurchasedPrice = selectedProduct.lastPurchasedPrice
         selectedProduct.purchaseHistory.add(stock)
         selectedProduct.stock += stock.amount
-        selectedProduct.lastPurchasePrice = stock.pricePerOne
+        selectedProduct.lastPurchasedPrice = stock.pricePerOne
         if (updateProduct(selectedProduct)) {
             log.info { "Stock to ${selectedProduct.name} successfully updated" }
             setFilteredData(filterInUse)
@@ -81,7 +81,7 @@ class ProductManagementController : Controller() {
         } else {
             selectedProduct.purchaseHistory.remove(stock)
             selectedProduct.stock -= stock.amount
-            selectedProduct.lastPurchasePrice = lastPurchasePrice
+            selectedProduct.lastPurchasedPrice = lastPurchasedPrice
             errorMessage = "Error when adding stock to product ${selectedProduct.name}"
             log.info { errorMessage }
             return false

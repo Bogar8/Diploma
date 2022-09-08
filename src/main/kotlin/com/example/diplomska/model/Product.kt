@@ -18,7 +18,7 @@ class Product(
     category: Category = Category.NONE,
     stock: Int = 0,
     sellingPrice: Double = 0.0,
-    lastPurchasePrice: Double = 0.0,
+    lastPurchasedPrice: Double = 0.0,
     isActive: Boolean = true,
     sellingHistory: ArrayList<ProductStock> = ArrayList(),
     purchaseHistory: ArrayList<ProductStock> = ArrayList(),
@@ -43,8 +43,8 @@ class Product(
     val sellingPriceProperty = SimpleDoubleProperty(sellingPrice)
     var sellingPrice by sellingPriceProperty
 
-    val lastPurchasePriceProperty = SimpleDoubleProperty(lastPurchasePrice)
-    var lastPurchasePrice by lastPurchasePriceProperty
+    val lastPurchasedPriceProperty = SimpleDoubleProperty(lastPurchasedPrice)
+    var lastPurchasedPrice by lastPurchasedPriceProperty
 
     val isActiveProperty = SimpleBooleanProperty(isActive)
     var isActive by isActiveProperty
@@ -65,7 +65,7 @@ class Product(
             category = Category.valueOf(string("category")!!)
             stock = int("stock")!!
             sellingPrice = double("sellingPrice")!!
-            lastPurchasePrice = double("lastPurchasePrice")!!
+            lastPurchasedPrice = double("lastPurchasedPrice")!!
             isActive = boolean("isActive")!!
             if (getJsonArray("sellingHistory") != null)
                 sellingHistory.setAll(getJsonArray("sellingHistory").toModel())
@@ -83,7 +83,7 @@ class Product(
             add("category", category.name)
             add("stock", stock)
             add("sellingPrice", sellingPrice)
-            add("lastPurchasePrice", lastPurchasePrice)
+            add("lastPurchasedPrice", lastPurchasedPrice)
             add("isActive", isActive)
             add("sellingHistory", sellingHistory.toJSON())
             add("purchaseHistory", purchaseHistory.toJSON())
@@ -104,32 +104,32 @@ class Product(
         return sellingPrice
     }
 
-    fun getCurrentPurchasePrice(): Double {
-        return lastPurchasePrice
+    fun getCurrentPurchasedPrice(): Double {
+        return lastPurchasedPrice
     }
 
     fun getProfit(): Double {
-        return this.getTotalSoldPrice() - this.getTotalPurchasePrice()
+        return this.getTotalSoldPrice() - this.getTotalPurchasedPrice()
     }
 
     fun getProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
         return this.getTotalSoldPriceBetweenDates(dateFrom, dateTo) -
-                this.getTotalPurchasePriceBetweenDates(dateFrom, dateTo)
+                this.getTotalPurchasedPriceBetweenDates(dateFrom, dateTo)
     }
 
-    fun getTotalPurchasePrice(): Double {
+    fun getTotalPurchasedPrice(): Double {
         return purchaseHistory.getTotalPrice()
     }
 
-    fun getTotalPurchasePriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
+    fun getTotalPurchasedPriceBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
         return purchaseHistory.getTotalPriceBetweenDates(dateFrom, dateTo)
     }
 
-    fun getTotalPurchaseAmount(): Int {
+    fun getTotalPurchasedAmount(): Int {
         return purchaseHistory.getTotalAmount()
     }
 
-    fun getTotalPurchaseAmountBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Int {
+    fun getTotalPurchasedAmountBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Int {
         return purchaseHistory.getTotalAmountBetweenDates(dateFrom, dateTo)
     }
 

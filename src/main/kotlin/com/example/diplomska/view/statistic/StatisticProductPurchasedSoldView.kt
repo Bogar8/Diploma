@@ -1,7 +1,10 @@
 package com.example.diplomska.view.statistic
 
-import com.example.diplomska.controller.StatisticProductProfitController
+
+import com.example.diplomska.controller.StatisticProductPurchasedSoldController
 import javafx.beans.property.SimpleObjectProperty
+import javafx.scene.chart.CategoryAxis
+import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.layout.Priority
@@ -9,8 +12,8 @@ import tornadofx.*
 import java.io.File
 import java.time.LocalDate
 
-class StatisticProductProfitView : View("Invoice per user statistic") {
-    private val controller: StatisticProductProfitController by inject()
+class StatisticProductPurchasedSoldView : View("Invoice per user statistic") {
+    private val controller: StatisticProductPurchasedSoldController by inject()
     val datePropertyStart = SimpleObjectProperty<LocalDate>()
     val datePropertyEnd = SimpleObjectProperty<LocalDate>()
 
@@ -18,8 +21,11 @@ class StatisticProductProfitView : View("Invoice per user statistic") {
         prefHeight = 1080.0
         useMaxWidth = true
         center = hbox {
-            piechart("Product profit", controller.chartDataProfit) {
+            barchart("Product purchase/sell", CategoryAxis(controller.productNameList), NumberAxis()) {
+                series("Purchase", controller.chartDataPurchased)
+                series("Sell", controller.chartDataSelling)
                 hgrow = Priority.ALWAYS
+                animated = false //barchart sometimes bugs out and needs to be refreshed again if using animations
             }
         }
 
