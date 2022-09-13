@@ -131,7 +131,7 @@ class SellingView : View("Selling") {
             button("Set amount") {
                 useMaxWidth = true
                 graphic = imageview(
-                    File("src/main/kotlin/com/example/diplomska/assets/edit-user.png").toURI().toString()
+                    File("src/main/kotlin/com/example/diplomska/assets/edit.png").toURI().toString()
                 ) {
                     this.fitHeight = 40.0
                     this.fitWidth = 40.0
