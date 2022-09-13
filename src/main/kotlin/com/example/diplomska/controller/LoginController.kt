@@ -6,6 +6,9 @@ import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.dao.implementations.UserDatabase
 import com.example.diplomska.model.AppData
 import tornadofx.*
+import java.time.LocalDateTime
+import java.util.logging.FileHandler
+import java.util.logging.Logger
 
 
 class LoginController : Controller() {
@@ -35,6 +38,14 @@ class LoginController : Controller() {
     }
 
     private fun getData() {
+        try {
+            val date = LocalDateTime.now()
+            val handler =
+                FileHandler("logger_${date.dayOfMonth}-${date.month}-${date.year}-${date.hour}_${date.minute}-${date.second}.log")
+            Logger.getLogger("").addHandler(handler)
+        } catch (_: Exception) {
+
+        }
         AppData.invoices = InvoiceDatabase.getAll()
         AppData.invoices.sortByDescending { it.date }
         AppData.products = ProductDatabase.getAll()
