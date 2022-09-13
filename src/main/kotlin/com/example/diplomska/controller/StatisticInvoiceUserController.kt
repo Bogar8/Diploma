@@ -6,6 +6,7 @@ import com.example.diplomska.model.Invoice
 import com.example.diplomska.model.User
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import javafx.scene.chart.PieChart
 import tornadofx.*
 import java.time.LocalDate
@@ -15,7 +16,7 @@ import kotlin.math.roundToInt
 
 class StatisticInvoiceUserController : Controller() {
 
-    var chartData = FXCollections.observableArrayList<PieChart.Data>()
+    var chartData: ObservableList<PieChart.Data> = FXCollections.observableArrayList<PieChart.Data>()
     var totalAmountProperty = SimpleStringProperty("Total: ")
 
     private fun getNumberInvoicesForUser(user: User): Int {
@@ -38,6 +39,7 @@ class StatisticInvoiceUserController : Controller() {
                 )
             )
         }
+        log.info("Invoice user chart data has been set")
     }
 
     fun setChartDataBetweenDates(dateStart: LocalDate, dateEnd: LocalDate) {
@@ -57,5 +59,7 @@ class StatisticInvoiceUserController : Controller() {
                 )
             )
         }
+
+        log.info("Invoice user chart data has been set between $dateStart and $dateEnd")
     }
 }

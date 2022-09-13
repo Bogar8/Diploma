@@ -20,6 +20,7 @@ class InvoiceHistoryController : Controller() {
         invoices.setAll(AppData.invoices)
         invoices.sortByDescending { it.date }
         totalAmountOfInvoices.set("Total: ${invoices.size}")
+        log.info("Invoice history data set")
     }
 
     fun setInvoicesDataBetweenDates(dateStart: LocalDate, dateEnd: LocalDate) {
@@ -32,5 +33,6 @@ class InvoiceHistoryController : Controller() {
         )
         invoices.sortByDescending { it.date }
         totalAmountOfInvoices.set("Total: ${invoices.size}")
+        log.info("Invoice history data set between $dateStart and $dateEnd")
     }
 }

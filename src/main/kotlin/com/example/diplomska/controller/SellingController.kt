@@ -123,6 +123,7 @@ class SellingController : Controller() {
         basket[index].amount = amount
         basket[index].totalPrice = ((basket[index].amount * basket[index].pricePerOne) * 100).roundToInt() / 100.0
         productsInBasket[selectedProduct] = basket[index].amount
+        log.info("Amount of ${selectedProduct.name} has been set to $amount")
         return true
     }
 

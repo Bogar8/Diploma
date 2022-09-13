@@ -2,6 +2,7 @@ package com.example.diplomska.controller
 
 import com.example.diplomska.extensions.getTotalProfit
 import com.example.diplomska.extensions.getTotalProfitBetweenDates
+import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.AppData
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -28,6 +29,7 @@ class StatisticProductProfitController : Controller() {
                 )
             )
         }
+        log.info("Product profit chart data has been set ")
     }
 
 
@@ -45,5 +47,6 @@ class StatisticProductProfitController : Controller() {
                 )
             )
         }
+        log.info("Product profit chart data has been set between ${dateStartTime.toNiceString()} and ${dateEndTime.toNiceString()}")
     }
 }

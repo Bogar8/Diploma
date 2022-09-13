@@ -1,5 +1,6 @@
 package com.example.diplomska.controller
 
+import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.AppData
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -40,6 +41,7 @@ class StatisticProductPurchasedSoldController : Controller() {
                 )
             )
         }
+        log.info("Product purchased / sold chart data has been set")
     }
 
 
@@ -63,5 +65,6 @@ class StatisticProductPurchasedSoldController : Controller() {
                 )
             )
         }
+        log.info("Product purchased / sold chart data has been set between ${dateStartTime.toNiceString()} and ${dateEndTime.toNiceString()}")
     }
 }

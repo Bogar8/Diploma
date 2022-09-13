@@ -12,5 +12,6 @@ class ProductPurchaseHistoryController : Controller() {
     fun setProducts(product: Product) {
         productStocks.setAll(product.purchaseHistory)
         productStocks.sortByDescending { it.date }
+        log.info("Product stock history for ${product.name} has been set")
     }
 }

@@ -11,5 +11,6 @@ class InvoiceProductController : Controller() {
 
     fun setProducts(invoice: Invoice) {
         products.setAll(invoice.products)
+        log.info("Products of invoice have been set")
     }
 }

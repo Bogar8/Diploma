@@ -8,6 +8,7 @@ import tornadofx.*
 class MainController : Controller() {
 
     fun getOutOfStockProducts(): ArrayList<Product> {
+        log.info("Out of stock products are checked")
         return ProductDatabase.getOutOfStock()
     }
 

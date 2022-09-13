@@ -15,7 +15,7 @@ class ProductManagementController : Controller() {
     var filteredProducts: ObservableList<Product> = FXCollections.observableArrayList(products)
     var selectedProduct = Product()
     var filterInUse: String = ""
-    
+
     fun addProduct(product: Product): Boolean {
         val sameID = ProductDatabase.getById(product._id)
         val sameBarcode = ProductDatabase.getByBarcode(product.barcode)

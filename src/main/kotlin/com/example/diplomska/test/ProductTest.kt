@@ -81,7 +81,7 @@ internal class ProductTest {
 
     @Test
     fun testGetProfit() {
-        val expected= 157.0
+        val expected = 157.0
         assertEquals(expected, testSample.getProfit(), doubleDelta)
     }
 
