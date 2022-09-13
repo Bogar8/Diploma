@@ -27,6 +27,7 @@ class InvoiceHistory : View("Invoice history") {
             placeholder = Label("No invoices found")
             prefHeight = 1080.0
             columnResizePolicy = SmartResize.POLICY
+            column("ID", Invoice::_idProperty)
             column("Seller", Invoice::sellerProperty).cellFormat {
                 text = "${it.name} ${it.surname} (${it.username})"
             }

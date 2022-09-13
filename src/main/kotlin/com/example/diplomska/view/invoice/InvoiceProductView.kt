@@ -11,13 +11,16 @@ class InvoiceProductView : Fragment("Products of invoice") {
         addClass(Styles.background)
         prefWidth = 1200.0
         prefHeight = 800.0
-        center = tableview(controller.products) {
-            columnResizePolicy = SmartResize.POLICY
-            column("Product", InvoiceItem::productNameProperty)
-            column("Amount", InvoiceItem::amountProperty)
-            column("Price per one", InvoiceItem::pricePerOneProperty)
-            column("Total price", InvoiceItem::totalPriceProperty).remainingWidth()
-            columnResizePolicy = SmartResize.POLICY
+        center = vbox{
+            label(controller.invoiceId)
+            tableview(controller.products) {
+                columnResizePolicy = SmartResize.POLICY
+                column("Product", InvoiceItem::productNameProperty)
+                column("Amount", InvoiceItem::amountProperty)
+                column("Price per one", InvoiceItem::pricePerOneProperty)
+                column("Total price", InvoiceItem::totalPriceProperty).remainingWidth()
+                columnResizePolicy = SmartResize.POLICY
+            }
         }
     }
 }

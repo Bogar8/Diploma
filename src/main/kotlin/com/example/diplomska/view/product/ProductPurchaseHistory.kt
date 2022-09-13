@@ -13,17 +13,21 @@ class ProductPurchaseHistory : Fragment("Products purchase history") {
         addClass(Styles.background)
         prefWidth = 1200.0
         prefHeight = 800.0
-        center = tableview(controller.productStocks) {
-            prefHeight = 1080.0
-            columnResizePolicy = SmartResize.POLICY
-            column("Amount", ProductStock::amountProperty)
-            column("Price per one", ProductStock::pricePerOneProperty)
-            column("Total", Double::class) {
-                value { (it.value.pricePerOne * it.value.amount * 100).roundToInt() / 100.0 }
-            }
-            column("Date", ProductStock::dateProperty).remainingWidth().cellFormat {
-                text = it.toNiceString()
+        center = vbox {
+            label(controller.productName)
+            tableview(controller.productStocks) {
+                prefHeight = 1080.0
+                columnResizePolicy = SmartResize.POLICY
+                column("Amount", ProductStock::amountProperty)
+                column("Price per one", ProductStock::pricePerOneProperty)
+                column("Total", Double::class) {
+                    value { (it.value.pricePerOne * it.value.amount * 100).roundToInt() / 100.0 }
+                }
+                column("Date", ProductStock::dateProperty).remainingWidth().cellFormat {
+                    text = it.toNiceString()
+                }
             }
         }
     }
 }
+
