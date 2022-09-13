@@ -36,8 +36,11 @@ class LoginController : Controller() {
 
     private fun getData() {
         AppData.invoices = InvoiceDatabase.getAll()
+        AppData.invoices.sortByDescending { it.date }
         AppData.products = ProductDatabase.getAll()
+        AppData.products.sortBy { it.name }
         AppData.employees = UserDatabase.getAll()
+        AppData.employees.sortBy { it.username }
         AppData.companyInformation = CompanyInformationDatabase.getByName("DIPLOMA")
         log.info { "Data successfully loaded" }
     }

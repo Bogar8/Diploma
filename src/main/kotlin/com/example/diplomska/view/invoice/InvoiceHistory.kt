@@ -52,7 +52,6 @@ class InvoiceHistory : View("Invoice history") {
                     find<InvoiceProductView>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
-            columnResizePolicy = SmartResize.POLICY
         }
         right = vbox {
             prefWidth = 200.0

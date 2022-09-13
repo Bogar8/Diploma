@@ -9,10 +9,9 @@ class InvoiceProductView : Fragment("Products of invoice") {
     val controller: InvoiceProductController by inject()
     override val root = borderpane {
         addClass(Styles.background)
-        prefWidth = 800.0
-        prefHeight = 600.0
+        prefWidth = 1200.0
+        prefHeight = 800.0
         center = tableview(controller.products) {
-            prefHeight = 1080.0
             columnResizePolicy = SmartResize.POLICY
             column("Product", InvoiceItem::productNameProperty)
             column("Amount", InvoiceItem::amountProperty)

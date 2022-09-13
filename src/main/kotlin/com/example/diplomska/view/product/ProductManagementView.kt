@@ -2,6 +2,7 @@ package com.example.diplomska.view.product
 
 import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.ProductManagementController
+import com.example.diplomska.controller.ProductPurchaseHistoryController
 import com.example.diplomska.extensions.toNiceString
 import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
@@ -16,6 +17,7 @@ import java.io.File
 //TODO: FILTER SEARCH textfield with combobox for each field or just by name?
 class ProductManagementView : View("Products managment") {
     private val controller: ProductManagementController by inject()
+    private val purchaseHistoryController: ProductPurchaseHistoryController by inject()
 
     override val root = borderpane {
         addClass(Styles.background)
@@ -58,6 +60,14 @@ class ProductManagementView : View("Products managment") {
             onUserSelect(1) {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedProduct = selectionModel.selectedItem
+                }
+            }
+
+            onUserSelect(2) {
+                if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                    controller.selectedProduct = selectionModel.selectedItem
+                    purchaseHistoryController.setProducts(controller.selectedProduct)
+                    find<ProductPurchaseHistory>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
             columnResizePolicy = SmartResize.POLICY
@@ -123,6 +133,19 @@ class ProductManagementView : View("Products managment") {
                             ButtonType.OK,
                         )
                     }
+                }
+            }
+            button("Purchase history") {
+                graphic = imageview(
+                    File("src/main/kotlin/com/example/diplomska/assets/history.png").toURI().toString()
+                ) {
+                    this.fitHeight = 40.0
+                    this.fitWidth = 40.0
+                }
+                useMaxWidth = true
+                action {
+                    purchaseHistoryController.setProducts(controller.selectedProduct)
+                    find<ProductPurchaseHistory>().openWindow(modality = Modality.APPLICATION_MODAL)
                 }
             }
             button("Delete product") {
