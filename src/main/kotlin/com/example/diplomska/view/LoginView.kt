@@ -50,8 +50,10 @@ class LoginView : Fragment("Login") {
                                 controller.login(model.username.value, model.password.value)
                             } ui { login ->
                                 if (!login) {
+                                    progressDouble = 0.001
                                     error.value = controller.error
                                 } else {
+                                    progressDouble = 1.0
                                     isOpened = false
                                     replaceWith(
                                         MainView::class,
@@ -72,21 +74,14 @@ class LoginView : Fragment("Login") {
                         while (isOpened) {
                             if (progressDouble < 95 && controller.waitingForResponse) {
                                 progressDouble += ((200..300).random() / 10000.0)
-                                progress = progressDouble
-                            } else if (error.value.isNullOrEmpty()) {
-                                progressDouble = 0.001
-                                progress = progressDouble
-                            } else {
-                                progressDouble = 1.0
-                                progress = progressDouble
                             }
+                            progress = progressDouble
                             Thread.sleep(100) //reduces cpu usage
                         }
                         return@thread
                     }
                 }
-                label {
-                    bind(error)
+                label(error) {
                     style {
                         textFill = Color.RED
                     }
