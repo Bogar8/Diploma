@@ -8,6 +8,7 @@ import com.example.diplomska.model.Product
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
@@ -22,11 +23,14 @@ class ProductAddView : Fragment("Add Product") {
         val sellingPrice = bind { SimpleStringProperty() }
         val isActive = bind { SimpleBooleanProperty() }
     }
-    val categoryLists = FXCollections.observableArrayList(
-        Category.TECHNOLOGY.name,
-        Category.FOOD.name,
-        Category.SPORTS.name
-    )
+    val categoryLists: ObservableList<String> = FXCollections.observableArrayList()
+
+    init {
+        Category.values().forEach {
+            categoryLists.add(it.name)
+        }
+    }
+
     override val root = vbox {
         addClass(Styles.background)
         form {

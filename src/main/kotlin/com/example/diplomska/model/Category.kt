@@ -5,5 +5,9 @@ enum class Category(var categoryName: String) {
     FOOD("food"),
     SPORTS("sports"),
     TECHNOLOGY("technology"),
-    NONE("none")
+    KITCHEN("kitchen"),
+    GAMES("games"),
+    PETS("pets"),
+    OUTSIDE("outside"),
+    OTHER("other")
 }

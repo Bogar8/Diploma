@@ -11,7 +11,7 @@ class InvoiceProductView : Fragment("Products of invoice") {
         addClass(Styles.background)
         prefWidth = 1200.0
         prefHeight = 800.0
-        center = vbox{
+        center = vbox {
             label(controller.invoiceId)
             tableview(controller.products) {
                 columnResizePolicy = SmartResize.POLICY

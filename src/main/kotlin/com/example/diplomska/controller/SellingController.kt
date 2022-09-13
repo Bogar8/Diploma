@@ -116,15 +116,24 @@ class SellingController : Controller() {
         }
 
         val index = basket.indexOf(selectedInvoiceItem)
-        if (selectedProduct.stock < amount) //stock limit
+        val product = findProductByName(selectedInvoiceItem.productName)
+        if (product == null || product.stock < amount) //stock limit
             return false
 
 
         basket[index].amount = amount
         basket[index].totalPrice = ((basket[index].amount * basket[index].pricePerOne) * 100).roundToInt() / 100.0
-        productsInBasket[selectedProduct] = basket[index].amount
-        log.info("Amount of ${selectedProduct.name} has been set to $amount")
+        productsInBasket[product] = basket[index].amount
+        println(basket)
+        productsInBasket.forEach {
+            println("${it.key.name} -> ${it.value}")
+        }
+        log.info("Amount of ${product.name} has been set to $amount")
         return true
+    }
+
+    private fun findProductByName(productName: String): Product? {
+        return products.find { it.name == productName }
     }
 
 }

@@ -6,7 +6,8 @@ import java.time.LocalDateTime
 fun ArrayList<Product>.getTotalProfit(): Double {
     var totalProfit = 0.0
     this.forEach {
-        totalProfit += it.getProfit()
+        if (it.getProfit() > 0.0)
+            totalProfit += it.getProfit()
     }
     return totalProfit
 }
@@ -30,7 +31,9 @@ fun ArrayList<Product>.getTotalSoldPrice(): Double {
 fun ArrayList<Product>.getTotalProfitBetweenDates(dateFrom: LocalDateTime, dateTo: LocalDateTime): Double {
     var totalProfit = 0.0
     this.forEach {
-        totalProfit += it.getProfitBetweenDates(dateFrom, dateTo)
+        val profit = it.getProfitBetweenDates(dateFrom, dateTo)
+        if (profit > 0.0)
+            totalProfit += profit
     }
     return totalProfit
 }

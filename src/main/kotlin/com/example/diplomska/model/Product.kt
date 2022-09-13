@@ -15,7 +15,7 @@ class Product(
     _id: String = "",
     barcode: String = "",
     name: String = "",
-    category: Category = Category.NONE,
+    category: Category = Category.OTHER,
     stock: Int = 0,
     sellingPrice: Double = 0.0,
     lastPurchasedPrice: Double = 0.0,

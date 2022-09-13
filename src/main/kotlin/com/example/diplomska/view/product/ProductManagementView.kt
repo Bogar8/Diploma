@@ -31,6 +31,9 @@ class ProductManagementView : View("Products managment") {
             column("Stock", Product::stockProperty)
             column("Last changed", Product::lastChangedProperty).cellFormat {
                 text = it.toNiceString()
+                style {
+                    padding = box(10.px, 0.px, 0.px, 10.px)
+                }
             }
             column("Current sell price", Product::sellingPriceProperty)
             column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {

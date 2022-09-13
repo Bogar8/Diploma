@@ -22,12 +22,14 @@ class StatisticProductProfitController : Controller() {
         val totalProfit = AppData.products.getTotalProfit()
         AppData.products.forEach {
             val profit = (it.getProfit() * 100).roundToInt() / 100.0
-            chartDataProfit.add(
-                PieChart.Data(
-                    "${it.name} ${(profit / totalProfit * 100 * 100).roundToInt() / 100.0}% ($profit €)",
-                    profit
+            if (profit > 0.0) {
+                chartDataProfit.add(
+                    PieChart.Data(
+                        "${it.name} ${(profit / totalProfit * 100 * 100).roundToInt() / 100.0}% ($profit €)",
+                        profit
+                    )
                 )
-            )
+            }
         }
         log.info("Product profit chart data has been set ")
     }
@@ -40,12 +42,14 @@ class StatisticProductProfitController : Controller() {
         val totalProfit = AppData.products.getTotalProfitBetweenDates(dateStartTime, dateEndTime)
         AppData.products.forEach {
             val profit = (it.getProfitBetweenDates(dateStartTime, dateEndTime) * 100).roundToInt() / 100.0
-            chartDataProfit.add(
-                PieChart.Data(
-                    "${it.name} ${(profit / totalProfit * 100 * 100).roundToInt() / 100.0}% ($profit €)",
-                    profit
+            if (profit > 0.0) {
+                chartDataProfit.add(
+                    PieChart.Data(
+                        "${it.name} ${(profit / totalProfit * 100 * 100).roundToInt() / 100.0}% ($profit €)",
+                        profit
+                    )
                 )
-            )
+            }
         }
         log.info("Product profit chart data has been set between ${dateStartTime.toNiceString()} and ${dateEndTime.toNiceString()}")
     }
