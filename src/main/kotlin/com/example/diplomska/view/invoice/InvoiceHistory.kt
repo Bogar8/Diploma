@@ -69,6 +69,7 @@ class InvoiceHistory : View("Invoice history") {
             datepicker(datePropertyEnd) {
                 value = LocalDate.now()
             }
+            label()
             button("Select date") {
                 useMaxWidth = true
                 graphic = imageview(

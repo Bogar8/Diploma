@@ -38,6 +38,7 @@ class StatisticProductPurchasedSoldView : View("Invoice per user statistic") {
             datepicker(datePropertyEnd) {
                 value = LocalDate.now()
             }
+            label()
             button("Select date") {
                 useMaxWidth = true
                 graphic = imageview(
