@@ -30,8 +30,18 @@ class LoginView : Fragment("Login") {
     override val root = stackpane {
         addClass(Styles.background)
         prefWidth = 1600.0
-        prefHeight = 900.0
+        prefHeight =900.0
         vbox(alignment = Pos.CENTER) {
+            style {
+                borderColor += box(
+                    top = c("#FFFFFF"),
+                    right = c("#FFFFFF"),
+                    left = c("#FFFFFF"),
+                    bottom = c("#FFFFFF")
+                )
+            }
+            maxHeight=300.0
+            maxWidth=600.0
             form {
                 fieldset {
                     field("Username") {
