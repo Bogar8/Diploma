@@ -10,9 +10,9 @@ class Styles : Stylesheet() {
         val background by cssclass()
         val backgroundSecondary by cssclass()
         val whiteBorder by cssclass()
-        val primaryColor = "7DD5FF"
-        val primaryTable = "61CCFF"
-        val secondaryColor = "B1FFF7"
+        val primaryColor = "00A0EA"
+        val primaryTable = "02BBEE"
+        val secondaryColor = "02EEAB"
     }
 
     init {

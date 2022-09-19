@@ -9,7 +9,6 @@ import javafx.scene.control.Alert
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
-import javafx.scene.paint.Color
 import javafx.stage.Modality
 import tornadofx.*
 import java.io.File
@@ -54,9 +53,9 @@ class ProductManagementView : View("Products managment") {
                 }
                 style {
                     if (it) {
-                        backgroundColor += Color.LIGHTGREEN
+                        backgroundColor += c("24B61A")
                     } else {
-                        backgroundColor += c("#FF6863")
+                        backgroundColor += c("FF6863")
                     }
                 }
             }
