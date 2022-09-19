@@ -16,6 +16,10 @@ class Styles : Stylesheet() {
     }
 
     init {
+        root{
+            fontFamily="Verdana"
+        }
+
         totalPrice {
             fontSize = 20.px
         }
