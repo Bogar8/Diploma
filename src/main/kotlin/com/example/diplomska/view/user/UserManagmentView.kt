@@ -18,17 +18,21 @@ class UserManagmentView : View("User managment") {
 
     override val root = borderpane {
         center = tableview(controller.filteredUsers) {
+            items.onChange {
+                this.requestResize()
+            }
             addClass(Styles.background)
             columnResizePolicy = SmartResize.POLICY
             placeholder = Label("No products found")
             prefHeight = 1080.0
             column("Name", User::nameProperty)
             column("Surname", User::surname)
-            column("Username", User::usernameProperty).remainingWidth()
+            column("Username", User::usernameProperty)
+            column("Level", User::levelProperty)
             column("LastLogin", User::lastLoginProperty).cellFormat {
                 text = it.toNiceString()
             }
-            column("Level", User::levelProperty)
+
             onUserSelect(1) {
                 if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                     controller.selectedUser = selectionModel.selectedItem

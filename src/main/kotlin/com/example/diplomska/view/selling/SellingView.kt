@@ -26,6 +26,9 @@ class SellingView : View("Selling") {
                     addClass(Styles.backgroundSecondary)
                 }
                 tableview(controller.filteredProducts) {
+                    items.onChange {
+                        this.requestResize()
+                    }
                     placeholder = Label("No products found")
                     prefWidth = 600.0
                     prefHeight = 1080.0

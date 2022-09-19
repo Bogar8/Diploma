@@ -18,6 +18,9 @@ class ProductPurchaseHistory : Fragment("Products purchase history") {
             tableview(controller.productStocks) {
                 prefHeight = 1080.0
                 columnResizePolicy = SmartResize.POLICY
+                items.onChange {
+                    this.requestResize()
+                }
                 column("Amount", ProductStock::amountProperty)
                 column("Price per one", ProductStock::pricePerOneProperty)
                 column("Total", Double::class) {

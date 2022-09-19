@@ -21,19 +21,16 @@ class ProductManagementView : View("Products managment") {
     override val root = borderpane {
         addClass(Styles.background)
         center = tableview(controller.filteredProducts) {
+            items.onChange {
+                this.requestResize()
+            }
             placeholder = Label("No products found")
             prefHeight = 1080.0
             columnResizePolicy = SmartResize.POLICY
             column("Barcode", Product::barcodeProperty)
-            column("Name", Product::nameProperty).remainingWidth()
+            column("Name", Product::nameProperty)
             column("Category", Product::categoryProperty)
             column("Stock", Product::stockProperty)
-            column("Last changed", Product::lastChangedProperty).cellFormat {
-                text = it.toNiceString()
-                style {
-                    padding = box(10.px, 0.px, 0.px, 10.px)
-                }
-            }
             column("Current sell price", Product::sellingPriceProperty)
             column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {
                 if (it.toDouble() > 0)
@@ -57,6 +54,12 @@ class ProductManagementView : View("Products managment") {
                     } else {
                         backgroundColor += c("FF6863")
                     }
+                }
+            }
+            column("Last changed", Product::lastChangedProperty).cellFormat {
+                text = it.toNiceString()
+                style {
+                    padding = box(10.px, 0.px, 0.px, 10.px)
                 }
             }
             onUserSelect(1) {
