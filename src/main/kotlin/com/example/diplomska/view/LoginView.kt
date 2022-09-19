@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
+import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import tornadofx.*
 import kotlin.concurrent.thread
@@ -30,7 +31,7 @@ class LoginView : Fragment("Login") {
     override val root = stackpane {
         addClass(Styles.background)
         prefWidth = 1600.0
-        prefHeight =900.0
+        prefHeight = 900.0
         vbox(alignment = Pos.CENTER) {
             style {
                 borderColor += box(
@@ -40,8 +41,8 @@ class LoginView : Fragment("Login") {
                     bottom = c("#FFFFFF")
                 )
             }
-            maxHeight=300.0
-            maxWidth=600.0
+            maxHeight = 300.0
+            maxWidth = 600.0
             form {
                 fieldset {
                     field("Username") {
@@ -55,25 +56,7 @@ class LoginView : Fragment("Login") {
                         enableWhen(model.valid)
                         useMaxWidth = true
                         action {
-                            error.value = ""
-                            runAsync {
-                                controller.login(model.username.value, model.password.value)
-                            } ui { login ->
-                                if (!login) {
-                                    progressDouble = 0.001
-                                    error.value = controller.error
-                                } else {
-                                    progressDouble = 1.0
-                                    isOpened = false
-                                    replaceWith(
-                                        MainView::class,
-                                        ViewTransition.Slide(2.seconds, ViewTransition.Direction.LEFT)
-                                    )
-                                    if (AppData.loggedInUser.level != UserLevel.SELLER) {
-                                        checkOutOfStock()
-                                    }
-                                }
-                            }
+                            login()
                         }
                     }
                 }
@@ -96,6 +79,11 @@ class LoginView : Fragment("Login") {
                         textFill = Color.RED
                     }
                 }
+            }
+        }
+        setOnKeyPressed { key ->
+            if(key.code== KeyCode.ENTER && model.valid.value){
+                login()
             }
         }
     }
@@ -129,6 +117,28 @@ class LoginView : Fragment("Login") {
                 outOfStockProducts,
                 ButtonType.OK,
             )
+        }
+    }
+
+    private fun login(){
+        error.value = ""
+        runAsync {
+            controller.login(model.username.value, model.password.value)
+        } ui { login ->
+            if (!login) {
+                progressDouble = 0.001
+                error.value = controller.error
+            } else {
+                progressDouble = 1.0
+                isOpened = false
+                replaceWith(
+                    MainView::class,
+                    ViewTransition.Slide(2.seconds, ViewTransition.Direction.LEFT)
+                )
+                if (AppData.loggedInUser.level != UserLevel.SELLER) {
+                    checkOutOfStock()
+                }
+            }
         }
     }
 }
