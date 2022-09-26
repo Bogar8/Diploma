@@ -82,7 +82,7 @@ class LoginView : Fragment("Login") {
             }
         }
         setOnKeyPressed { key ->
-            if(key.code== KeyCode.ENTER && model.valid.value){
+            if (key.code == KeyCode.ENTER && model.valid.value) {
                 login()
             }
         }
@@ -120,7 +120,7 @@ class LoginView : Fragment("Login") {
         }
     }
 
-    private fun login(){
+    private fun login() {
         error.value = ""
         runAsync {
             controller.login(model.username.value, model.password.value)

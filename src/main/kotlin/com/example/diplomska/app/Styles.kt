@@ -16,8 +16,8 @@ class Styles : Stylesheet() {
     }
 
     init {
-        root{
-            fontFamily="Verdana"
+        root {
+            fontFamily = "Verdana"
         }
 
         totalPrice {
