@@ -23,37 +23,51 @@ class InvoiceHistory : View("Invoice history") {
 
     override val root = borderpane {
         addClass(Styles.background)
-        center = tableview(controller.invoices) {
-            placeholder = Label("No invoices found")
+        center = hbox {
             prefHeight = 1080.0
-            columnResizePolicy = SmartResize.POLICY
-            items.onChange {
-                this.requestResize()
-            }
-            column("ID", Invoice::_idProperty)
-            column("Seller", Invoice::sellerProperty).cellFormat {
-                text = "${it.name} ${it.surname} (${it.username})"
-            }
-            column("Amount of products", Int::class) {
-                value { it.value.getNumberOfItemsInInvoice() }
-            }
-            column("Total price", Invoice::totalPriceProperty)
-            column("Average price per product", Double::class) {
-                value { (it.value.totalPrice / it.value.getNumberOfItemsInInvoice() * 100).roundToInt() / 100.0 }
-            }
-            column("Last changed", Invoice::dateProperty).cellFormat {
-                text = it.toNiceString()
-            }
-            onUserSelect(1) {
-                if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                    controller.selectedInvoice = selectionModel.selectedItem
+            prefWidth = 1920.0
+            vbox {
+                prefHeight = 1080.0
+                prefWidth = 1920.0
+                borderpane {
+                    center = label("Invoice history")
+                    addClass(Styles.whiteBorder)
+                    addClass(Styles.backgroundSecondary)
                 }
-            }
-            onUserSelect(2) {
-                if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                    controller.selectedInvoice = selectionModel.selectedItem
-                    invoiceProductController.setProducts(controller.selectedInvoice)
-                    find<InvoiceProductView>().openWindow(modality = Modality.APPLICATION_MODAL)
+                tableview(controller.invoices) {
+                    placeholder = Label("No invoices found")
+                    prefHeight = 1080.0
+                    prefWidth = 1920.0
+                    columnResizePolicy = SmartResize.POLICY
+                    items.onChange {
+                        this.requestResize()
+                    }
+                    column("ID", Invoice::_idProperty)
+                    column("Seller", Invoice::sellerProperty).cellFormat {
+                        text = "${it.name} ${it.surname} (${it.username})"
+                    }
+                    column("Amount of products", Int::class) {
+                        value { it.value.getNumberOfItemsInInvoice() }
+                    }
+                    column("Total price", Invoice::totalPriceProperty)
+                    column("Average price per product", Double::class) {
+                        value { (it.value.totalPrice / it.value.getNumberOfItemsInInvoice() * 100).roundToInt() / 100.0 }
+                    }
+                    column("Last changed", Invoice::dateProperty).cellFormat {
+                        text = it.toNiceString()
+                    }
+                    onUserSelect(1) {
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedInvoice = selectionModel.selectedItem
+                        }
+                    }
+                    onUserSelect(2) {
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedInvoice = selectionModel.selectedItem
+                            invoiceProductController.setProducts(controller.selectedInvoice)
+                            find<InvoiceProductView>().openWindow(modality = Modality.APPLICATION_MODAL)
+                        }
+                    }
                 }
             }
         }

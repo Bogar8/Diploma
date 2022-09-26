@@ -20,7 +20,7 @@ class SellingController : Controller() {
     var selectedInvoiceItem = InvoiceItem()
     var filterInUse: String = ""
     var totalPrice = 0.0
-    var totalPriceStringProperty = SimpleStringProperty("Total price $totalPrice")
+    var totalPriceStringProperty = SimpleStringProperty("Total price $totalPrice €")
     private val mainView: MainView by inject()
 
     fun refreshData() {
@@ -46,7 +46,7 @@ class SellingController : Controller() {
         basket.sortBy { it.productName }
         log.info { "Product ${item.productName} successfully added to basket" }
         totalPrice = getTotalPriceOfBasket()
-        totalPriceStringProperty.set("Total price $totalPrice")
+        totalPriceStringProperty.set("Total price $totalPrice €")
         setTotalAmountOfItemsTabName()
         return true
     }
@@ -60,7 +60,7 @@ class SellingController : Controller() {
             log.info { "Product ${item.productName} successfully removed from basket" }
             basket.sortBy { it.productName }
             totalPrice = getTotalPriceOfBasket()
-            totalPriceStringProperty.set("Total price $totalPrice")
+            totalPriceStringProperty.set("Total price $totalPrice €")
             setTotalAmountOfItemsTabName()
         }
     }

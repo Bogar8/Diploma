@@ -1,5 +1,6 @@
 package com.example.diplomska.view.statistic
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.StatisticProductProfitController
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.control.Alert
@@ -20,6 +21,9 @@ class StatisticProductProfitView : View("Invoice per user statistic") {
         center = hbox {
             piechart("Product profit", controller.chartDataProfit) {
                 hgrow = Priority.ALWAYS
+                style {
+                    addClass(Styles.backgroundLabelSecondary)
+                }
             }
         }
 

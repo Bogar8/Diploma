@@ -16,7 +16,7 @@ class BasketView : View("Selling") {
     override val root = borderpane {
         addClass(Styles.background)
         prefHeight = 1080.0
-        center = hbox {
+        center = vbox {
             vbox {
                 prefHeight = 1080.0
                 borderpane {
@@ -24,37 +24,40 @@ class BasketView : View("Selling") {
                     addClass(Styles.whiteBorder)
                     addClass(Styles.backgroundSecondary)
                 }
-                tableview(controller.basket) {
-                    placeholder = Label("No products in basket")
-                    prefWidth = 1200.0
-                    prefHeight = 1080.0
-                    columnResizePolicy = SmartResize.POLICY
-                    column("Name", InvoiceItem::productNameProperty).remainingWidth()
-                    column("Amount", InvoiceItem::amountProperty)
-                    column("Price per one", InvoiceItem::pricePerOneProperty)
-                    column("Total price", InvoiceItem::totalPriceProperty)
-                    onUserSelect(1) {
-                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                            controller.selectedInvoiceItem = selectionModel.selectedItem
+                hbox {
+                    tableview(controller.basket) {
+                        placeholder = Label("No products in basket")
+                        prefWidth = 1200.0
+                        prefHeight = 1080.0
+                        columnResizePolicy = SmartResize.POLICY
+                        column("Name", InvoiceItem::productNameProperty).remainingWidth()
+                        column("Amount", InvoiceItem::amountProperty)
+                        column("Price per one", InvoiceItem::pricePerOneProperty)
+                        column("Total price", InvoiceItem::totalPriceProperty)
+                        onUserSelect(1) {
+                            if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                                controller.selectedInvoiceItem = selectionModel.selectedItem
+                            }
+                        }
+                        onUserSelect(2) {
+                            if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                                controller.selectedInvoiceItem = selectionModel.selectedItem
+                                setAmount()
+                            }
+                        }
+                        columnResizePolicy = SmartResize.POLICY
+                    }
+
+                    vbox {
+                        label("Total price") {
+                            textProperty().bind(controller.totalPriceStringProperty)
+                            addClass(Styles.totalPrice)
+                        }
+                        style {
+                            paddingLeft = 20
+                            paddingTop = 20
                         }
                     }
-                    onUserSelect(2) {
-                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                            controller.selectedInvoiceItem = selectionModel.selectedItem
-                            setAmount()
-                        }
-                    }
-                    columnResizePolicy = SmartResize.POLICY
-                }
-            }
-            vbox {
-                label("Total price") {
-                    textProperty().bind(controller.totalPriceStringProperty)
-                    addClass(Styles.totalPrice)
-                }
-                style {
-                    paddingLeft = 20
-                    paddingTop = 20
                 }
             }
         }
@@ -68,13 +71,6 @@ class BasketView : View("Selling") {
                 )
             }
             prefWidth = 200.0
-            label("Search by barcode or name")
-            textfield {
-                textProperty().addListener { _, _, newValue ->
-                    controller.setFilteredData(newValue.lowercase())
-                }
-            }
-            label("")
             button("Remove product") {
                 useMaxWidth = true
                 graphic = imageview(

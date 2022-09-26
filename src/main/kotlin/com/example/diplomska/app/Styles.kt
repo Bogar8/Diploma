@@ -9,7 +9,9 @@ class Styles : Stylesheet() {
         val totalPrice by cssclass()
         val background by cssclass()
         val backgroundSecondary by cssclass()
+        val backgroundLabelSecondary by cssclass()
         val whiteBorder by cssclass()
+        val whiteLabelBorder by cssclass()
         val primaryColor = "00A0EA"
         val primaryTable = "02BBEE"
         val secondaryColor = "02EEAB"
@@ -73,6 +75,14 @@ class Styles : Stylesheet() {
         backgroundSecondary {
             backgroundColor += c(secondaryColor)
         }
+        backgroundLabelSecondary {
+            label {
+                backgroundColor += c(secondaryColor)
+            }
+            chartLegend {
+                backgroundColor += c(secondaryColor)
+            }
+        }
         whiteBorder {
             borderColor += box(
                 top = c("#FFFFFF"),
@@ -80,6 +90,16 @@ class Styles : Stylesheet() {
                 left = c("#FFFFFF"),
                 bottom = c("#FFFFFF")
             )
+        }
+        whiteLabelBorder {
+            label {
+                borderColor += box(
+                    top = c("#FFFFFF"),
+                    right = c("#FFFFFF"),
+                    left = c("#FFFFFF"),
+                    bottom = c("#FFFFFF")
+                )
+            }
         }
         button {
             backgroundColor += c(secondaryColor)
@@ -114,6 +134,7 @@ class Styles : Stylesheet() {
             )
         }
         tab {
+            backgroundColor += c(primaryTable)
             and(hover) {
                 backgroundColor += c(secondaryColor)
             }
@@ -126,6 +147,9 @@ class Styles : Stylesheet() {
                     bottom = c("#FFFFFF")
                 )
             }
+        }
+        tabHeaderBackground {
+            backgroundColor += c(primaryColor)
         }
     }
 }

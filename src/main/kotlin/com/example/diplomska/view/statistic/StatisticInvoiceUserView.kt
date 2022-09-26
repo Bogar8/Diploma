@@ -15,7 +15,11 @@ class StatisticInvoiceUserView : View("Invoice per user statistic") {
     val datePropertyEnd = SimpleObjectProperty<LocalDate>()
     override val root = borderpane {
         prefHeight = 1080.0
-        center = piechart("Invoices made by users", statisticController.chartData)
+        center = piechart("Invoices made by users", statisticController.chartData) {
+            style {
+                addClass(Styles.backgroundLabelSecondary)
+            }
+        }
         right = vbox {
             label("Total amount") {
                 textProperty().bind(statisticController.totalAmountProperty)

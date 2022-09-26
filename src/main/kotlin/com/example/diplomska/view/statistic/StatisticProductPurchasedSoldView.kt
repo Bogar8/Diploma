@@ -1,6 +1,7 @@
 package com.example.diplomska.view.statistic
 
 
+import com.example.diplomska.app.Styles
 import com.example.diplomska.controller.StatisticProductPurchasedSoldController
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.chart.CategoryAxis
@@ -26,6 +27,9 @@ class StatisticProductPurchasedSoldView : View("Invoice per user statistic") {
                 series("Sales revenue in €", controller.chartDataSelling)
                 hgrow = Priority.ALWAYS
                 animated = false //barchart sometimes bugs out and needs to be refreshed again if using animations
+                style {
+                    addClass(Styles.backgroundLabelSecondary)
+                }
             }
         }
 

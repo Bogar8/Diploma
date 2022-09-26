@@ -34,12 +34,7 @@ class LoginView : Fragment("Login") {
         prefHeight = 900.0
         vbox(alignment = Pos.CENTER) {
             style {
-                borderColor += box(
-                    top = c("#FFFFFF"),
-                    right = c("#FFFFFF"),
-                    left = c("#FFFFFF"),
-                    bottom = c("#FFFFFF")
-                )
+                addClass(Styles.whiteBorder)
             }
             maxHeight = 300.0
             maxWidth = 600.0

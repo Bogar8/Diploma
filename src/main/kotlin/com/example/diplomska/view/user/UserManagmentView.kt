@@ -17,28 +17,41 @@ class UserManagmentView : View("User managment") {
     private val controller: UserManagmentController by inject()
 
     override val root = borderpane {
-        center = tableview(controller.filteredUsers) {
-            items.onChange {
-                this.requestResize()
-            }
-            addClass(Styles.background)
-            columnResizePolicy = SmartResize.POLICY
-            placeholder = Label("No products found")
+        center = hbox {
             prefHeight = 1080.0
-            column("Name", User::nameProperty)
-            column("Surname", User::surname)
-            column("Username", User::usernameProperty)
-            column("Level", User::levelProperty)
-            column("LastLogin", User::lastLoginProperty).cellFormat {
-                text = it.toNiceString()
-            }
+            prefWidth = 1920.0
+            vbox {
+                prefHeight = 1080.0
+                prefWidth = 1920.0
+                borderpane {
+                    center = label("Product administration")
+                    addClass(Styles.whiteBorder)
+                    addClass(Styles.backgroundSecondary)
+                }
+                tableview(controller.filteredUsers) {
+                    items.onChange {
+                        this.requestResize()
+                    }
+                    addClass(Styles.background)
+                    columnResizePolicy = SmartResize.POLICY
+                    placeholder = Label("No products found")
+                    prefHeight = 1080.0
+                    column("Name", User::nameProperty)
+                    column("Surname", User::surname)
+                    column("Username", User::usernameProperty)
+                    column("Level", User::levelProperty)
+                    column("LastLogin", User::lastLoginProperty).cellFormat {
+                        text = it.toNiceString()
+                    }
 
-            onUserSelect(1) {
-                if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
-                    controller.selectedUser = selectionModel.selectedItem
+                    onUserSelect(1) {
+                        if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
+                            controller.selectedUser = selectionModel.selectedItem
+                        }
+                    }
+                    columnResizePolicy = SmartResize.POLICY
                 }
             }
-            columnResizePolicy = SmartResize.POLICY
         }
         right = vbox {
             prefWidth = 200.0
