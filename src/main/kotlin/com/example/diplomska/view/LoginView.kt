@@ -33,9 +33,6 @@ class LoginView : Fragment("Login") {
         prefWidth = 1600.0
         prefHeight = 900.0
         vbox(alignment = Pos.CENTER) {
-            style {
-                addClass(Styles.whiteBorder)
-            }
             maxHeight = 300.0
             maxWidth = 600.0
             form {
@@ -74,6 +71,7 @@ class LoginView : Fragment("Login") {
                         textFill = Color.RED
                     }
                 }
+                addClass(Styles.whiteBorder)
             }
         }
         setOnKeyPressed { key ->
