@@ -21,7 +21,7 @@ class Styles : Stylesheet() {
         }
 
         totalPrice {
-            fontSize = 20.px
+            fontSize = 16.px
         }
 
         label {
