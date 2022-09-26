@@ -3,6 +3,7 @@ package com.example.diplomska.controller
 import com.example.diplomska.dao.implementations.InvoiceDatabase
 import com.example.diplomska.dao.implementations.ProductDatabase
 import com.example.diplomska.model.*
+import com.example.diplomska.view.MainView
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -20,6 +21,7 @@ class SellingController : Controller() {
     var filterInUse: String = ""
     var totalPrice = 0.0
     var totalPriceStringProperty = SimpleStringProperty("Total price $totalPrice")
+    private val mainView: MainView by inject()
 
     fun refreshData() {
         val data = AppData.products.filter { it.isActive && it.stock > 0 }
@@ -45,6 +47,7 @@ class SellingController : Controller() {
         log.info { "Product ${item.productName} successfully added to basket" }
         totalPrice = getTotalPriceOfBasket()
         totalPriceStringProperty.set("Total price $totalPrice")
+        setTotalAmountOfItemsTabName()
         return true
     }
 
@@ -58,6 +61,7 @@ class SellingController : Controller() {
             basket.sortBy { it.productName }
             totalPrice = getTotalPriceOfBasket()
             totalPriceStringProperty.set("Total price $totalPrice")
+            setTotalAmountOfItemsTabName()
         }
     }
 
@@ -76,6 +80,7 @@ class SellingController : Controller() {
         productsInBasket = HashMap<Product, Int>()
         basket.setAll()
         refreshData()
+        setTotalAmountOfItemsTabName()
     }
 
     private fun hasItem(name: String): InvoiceItem? {
@@ -129,11 +134,19 @@ class SellingController : Controller() {
             println("${it.key.name} -> ${it.value}")
         }
         log.info("Amount of ${product.name} has been set to $amount")
+        setTotalAmountOfItemsTabName()
         return true
     }
 
-    private fun findProductByName(productName: String): Product? {
+    fun findProductByName(productName: String): Product? {
         return products.find { it.name == productName }
     }
 
+    fun setTotalAmountOfItemsTabName() {
+        var total = 0
+        basket.forEach {
+            total += it.amount
+        }
+        mainView.setBasketAmount(total)
+    }
 }

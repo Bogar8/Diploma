@@ -14,6 +14,11 @@ class SetAmountView : Fragment("Set amount of product in basket") {
         val amount = bind { SimpleIntegerProperty() }
     }
 
+    init {
+        model.amount.value =
+            controller.productsInBasket[controller.findProductByName(controller.selectedInvoiceItem.productName)]
+    }
+
     override val root = vbox {
         addClass(Styles.background)
         form {

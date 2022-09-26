@@ -7,12 +7,14 @@ import com.example.diplomska.model.AppData
 import com.example.diplomska.model.UserLevel
 import com.example.diplomska.view.invoice.InvoiceHistory
 import com.example.diplomska.view.product.ProductManagementView
+import com.example.diplomska.view.selling.BasketView
 import com.example.diplomska.view.selling.SellingView
 import com.example.diplomska.view.statistic.StatisticInvoiceUserView
 import com.example.diplomska.view.statistic.StatisticProductProfitView
 import com.example.diplomska.view.statistic.StatisticProductPurchasedSoldView
 import com.example.diplomska.view.user.UserManagmentView
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import tornadofx.*
 
@@ -24,6 +26,7 @@ class MainView : View("Prodajalko") {
     private val productManagementView: ProductManagementView by inject()
     private val userManagementView: UserManagmentView by inject()
     private val sellingView: SellingView by inject()
+    private val basketView: BasketView by inject()
     private val sellingController: SellingController by inject()
     private val statisticInvoiceUserView: StatisticInvoiceUserView by inject()
     private val statisticUserController: StatisticInvoiceUserController by inject()
@@ -33,6 +36,7 @@ class MainView : View("Prodajalko") {
     private val statisticProductProfitController: StatisticProductProfitController by inject()
     private val statisticProductPurchasedSoldView: StatisticProductPurchasedSoldView by inject()
     private val statisticProductPurchasedSoldController: StatisticProductPurchasedSoldController by inject()
+    private var basketTab: Tab = Tab()
 
     override val root = vbox {
         addClass(Styles.background)
@@ -50,6 +54,12 @@ class MainView : View("Prodajalko") {
                     if (newValue) {
                         sellingController.refreshData()
                     }
+                }
+            }
+            basketTab = tab("Basket 0 items") {
+                addClass(Styles.background)
+                vbox {
+                    add(basketView.root)
                 }
             }
             tab("Products") {
@@ -114,11 +124,18 @@ class MainView : View("Prodajalko") {
 
     private fun setTabsDependingOnUserLevel(tabpane: TabPane) {
         if (AppData.loggedInUser.level == UserLevel.SELLER)
-            tabpane.tabs.remove(1, tabpane.tabs.size)
+            tabpane.tabs.remove(2, tabpane.tabs.size)
         else if (AppData.loggedInUser.level == UserLevel.MANAGER)
-            tabpane.tabs.remove(3, tabpane.tabs.size)
+            tabpane.tabs.remove(4, tabpane.tabs.size)
 
         sellingController.refreshData()
+    }
+
+    fun setBasketAmount(amount: Int) {
+        if (amount == 1)
+            basketTab.text = "Basket $amount item"
+        else
+            basketTab.text = "Basket $amount items"
     }
 
 }
