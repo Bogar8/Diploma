@@ -6,12 +6,14 @@ import com.example.diplomska.model.Product
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
+import javafx.scene.control.TableView
 import tornadofx.*
 import java.io.File
 
 
 class SellingView : View("Selling") {
     private val controller: SellingController by inject()
+    private var table : TableView<Product> = TableView<Product>()
     override val root = borderpane {
         addClass(Styles.background)
         prefHeight = 1080.0
@@ -23,7 +25,7 @@ class SellingView : View("Selling") {
                     addClass(Styles.whiteBorder)
                     addClass(Styles.backgroundSecondary)
                 }
-                tableview(controller.filteredProducts) {
+               table= tableview(controller.filteredProducts) {
                     items.onChange {
                         this.requestResize()
                     }
@@ -82,8 +84,12 @@ class SellingView : View("Selling") {
 
 
     private fun addProduct() {
-        if (controller.selectedProduct._id != "")
+        if (controller.selectedProduct._id != "") {
             controller.addProductToBasket()
+            table.requestFocus()
+            table.selectionModel.select(controller.selectedProduct)
+            table.selectionModel.focus(table.selectionModel.selectedIndex)
+        }
         else {
             alert(
                 Alert.AlertType.ERROR,
