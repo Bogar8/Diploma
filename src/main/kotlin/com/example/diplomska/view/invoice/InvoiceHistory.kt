@@ -56,9 +56,6 @@ class InvoiceHistory : View("Invoice history") {
                     }
                     column("Last changed", Invoice::dateProperty).cellFormat {
                         textProperty().set(it.toNiceString())
-                        style {
-                            padding = box(10.px, 0.px, 0.px, 10.px)
-                        }
                     }
                     onUserSelect(1) {
                         if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
