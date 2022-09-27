@@ -32,6 +32,7 @@ class ProductPurchaseHistory : Fragment("Products purchase history") {
                     prefHeight = 1080.0
                     columnResizePolicy = SmartResize.POLICY
                     items.onChange {
+                        this.refresh()
                         this.requestResize()
                     }
                     column("Amount", ProductStock::amountProperty)
@@ -40,7 +41,7 @@ class ProductPurchaseHistory : Fragment("Products purchase history") {
                         value { (it.value.pricePerOne * it.value.amount * 100).roundToInt() / 100.0 }
                     }
                     column("Date", ProductStock::dateProperty).remainingWidth().cellFormat {
-                        text = it.toNiceString()
+                        textProperty().set(it.toNiceString())
                     }
                 }
             }

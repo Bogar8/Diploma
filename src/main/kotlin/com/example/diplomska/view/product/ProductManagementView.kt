@@ -33,6 +33,7 @@ class ProductManagementView : View("Products managment") {
                 }
                 tableview(controller.filteredProducts) {
                     items.onChange {
+                        this.refresh()
                         this.requestResize()
                     }
                     placeholder = Label("No products found")
@@ -45,13 +46,10 @@ class ProductManagementView : View("Products managment") {
                     column("Current sell price", Product::sellingPriceProperty)
                     column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {
                         if (it.toDouble() > 0)
-                            text = it.toString()
+                            textProperty().set(it.toString())
                         else
-                            text = "no data"
+                            textProperty().set("no data")
 
-                        style {
-                            padding = box(10.px, 0.px, 0.px, 10.px)
-                        }
                     }
                     column("Active", Product::isActiveProperty).cellFormat {
                         if (it) {
@@ -68,10 +66,7 @@ class ProductManagementView : View("Products managment") {
                         }
                     }
                     column("Last changed", Product::lastChangedProperty).cellFormat {
-                        text = it.toNiceString()
-                        style {
-                            padding = box(10.px, 0.px, 0.px, 10.px)
-                        }
+                        textProperty().set(it.toNiceString())
                     }
                     onUserSelect(1) {
                         if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {

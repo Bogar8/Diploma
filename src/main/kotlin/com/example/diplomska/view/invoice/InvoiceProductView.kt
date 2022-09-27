@@ -27,6 +27,10 @@ class InvoiceProductView : Fragment("Products of invoice") {
                     addClass(Styles.whiteBorder)
                 }
                 tableview(controller.products) {
+                    items.onChange {
+                        this.refresh()
+                        this.requestResize()
+                    }
                     columnResizePolicy = SmartResize.POLICY
                     column("Product", InvoiceItem::productNameProperty)
                     column("Amount", InvoiceItem::amountProperty)

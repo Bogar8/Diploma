@@ -40,11 +40,12 @@ class InvoiceHistory : View("Invoice history") {
                     prefWidth = 1920.0
                     columnResizePolicy = SmartResize.POLICY
                     items.onChange {
+                        this.refresh()
                         this.requestResize()
                     }
                     column("ID", Invoice::_idProperty)
                     column("Seller", Invoice::sellerProperty).cellFormat {
-                        text = "${it.name} ${it.surname} (${it.username})"
+                        textProperty().set("${it.name} ${it.surname} (${it.username})")
                     }
                     column("Amount of products", Int::class) {
                         value { it.value.getNumberOfItemsInInvoice() }
@@ -54,7 +55,10 @@ class InvoiceHistory : View("Invoice history") {
                         value { (it.value.totalPrice / it.value.getNumberOfItemsInInvoice() * 100).roundToInt() / 100.0 }
                     }
                     column("Last changed", Invoice::dateProperty).cellFormat {
-                        text = it.toNiceString()
+                        textProperty().set(it.toNiceString())
+                        style {
+                            padding = box(10.px, 0.px, 0.px, 10.px)
+                        }
                     }
                     onUserSelect(1) {
                         if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {

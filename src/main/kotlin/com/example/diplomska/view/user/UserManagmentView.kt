@@ -30,6 +30,7 @@ class UserManagmentView : View("User managment") {
                 }
                 tableview(controller.filteredUsers) {
                     items.onChange {
+                        this.refresh()
                         this.requestResize()
                     }
                     addClass(Styles.background)
@@ -41,9 +42,8 @@ class UserManagmentView : View("User managment") {
                     column("Username", User::usernameProperty)
                     column("Level", User::levelProperty)
                     column("LastLogin", User::lastLoginProperty).cellFormat {
-                        text = it.toNiceString()
+                        textProperty().set(it.toNiceString())
                     }
-
                     onUserSelect(1) {
                         if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                             controller.selectedUser = selectionModel.selectedItem

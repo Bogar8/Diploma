@@ -13,7 +13,7 @@ import java.io.File
 
 class SellingView : View("Selling") {
     private val controller: SellingController by inject()
-    private var table : TableView<Product> = TableView<Product>()
+    private var table: TableView<Product> = TableView<Product>()
     override val root = borderpane {
         addClass(Styles.background)
         prefHeight = 1080.0
@@ -25,8 +25,9 @@ class SellingView : View("Selling") {
                     addClass(Styles.whiteBorder)
                     addClass(Styles.backgroundSecondary)
                 }
-               table= tableview(controller.filteredProducts) {
+                table = tableview(controller.filteredProducts) {
                     items.onChange {
+                        this.refresh()
                         this.requestResize()
                     }
                     placeholder = Label("No products found")
@@ -89,8 +90,7 @@ class SellingView : View("Selling") {
             table.requestFocus()
             table.selectionModel.select(controller.selectedProduct)
             table.selectionModel.focus(table.selectionModel.selectedIndex)
-        }
-        else {
+        } else {
             alert(
                 Alert.AlertType.ERROR,
                 "Select product",

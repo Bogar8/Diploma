@@ -26,6 +26,10 @@ class BasketView : View("Selling") {
                 }
                 hbox {
                     tableview(controller.basket) {
+                        items.onChange {
+                            this.refresh()
+                            this.requestResize()
+                        }
                         placeholder = Label("No products in basket")
                         prefWidth = 1200.0
                         prefHeight = 1080.0
