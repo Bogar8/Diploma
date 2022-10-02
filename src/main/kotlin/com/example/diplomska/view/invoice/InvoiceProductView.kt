@@ -12,11 +12,11 @@ class InvoiceProductView : Fragment("Products of invoice") {
         prefWidth = 1200.0
         prefHeight = 800.0
         center = hbox {
-            prefHeight = 1080.0
-            prefWidth = 1920.0
+            prefWidth = 1200.0
+            prefHeight = 800.0
             vbox {
-                prefHeight = 1080.0
-                prefWidth = 1920.0
+                prefWidth = 1200.0
+                prefHeight = 800.0
                 borderpane {
                     center = label("Product administration")
                     addClass(Styles.whiteBorder)
@@ -27,6 +27,8 @@ class InvoiceProductView : Fragment("Products of invoice") {
                     addClass(Styles.whiteBorder)
                 }
                 tableview(controller.products) {
+                    prefWidth = 1200.0
+                    prefHeight = 800.0
                     items.onChange {
                         this.refresh()
                         this.requestResize()

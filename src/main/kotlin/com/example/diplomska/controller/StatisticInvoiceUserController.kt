@@ -32,12 +32,21 @@ class StatisticInvoiceUserController : Controller() {
         totalAmountProperty.set("Total: ${AppData.invoices.size}")
         AppData.employees.forEach {
             val amount = getNumberInvoicesForUser(it).toDouble()
-            chartData.add(
-                PieChart.Data(
-                    "${it.username} ${amount.toInt()} (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
-                    amount
+            if(amount>0) {
+                chartData.add(
+                    PieChart.Data(
+                        "${it.username} ${amount.toInt()} (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
+                        amount
+                    )
                 )
-            )
+            }else{
+                chartData.add(
+                    PieChart.Data(
+                        "${it.username} ${amount.toInt()} (0.0%)",
+                        amount
+                    )
+                )
+            }
         }
         log.info("Invoice user chart data has been set")
     }
