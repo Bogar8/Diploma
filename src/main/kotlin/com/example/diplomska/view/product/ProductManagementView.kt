@@ -42,7 +42,17 @@ class ProductManagementView : View("Products managment") {
                     column("Barcode", Product::barcodeProperty)
                     column("Name", Product::nameProperty)
                     column("Category", Product::categoryProperty)
-                    column("Stock", Product::stockProperty)
+                    column("Stock", Product::stockProperty).cellFormat {
+                        textProperty().set(it.toString())
+
+                        style {
+                            if (it.toInt() in 1..9) {
+                                backgroundColor += c("FFFF33")
+                            } else if (it.toInt() == 0) {
+                                backgroundColor += c("FF6863")
+                            }
+                        }
+                    }
                     column("Current sell price", Product::sellingPriceProperty)
                     column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {
                         if (it.toDouble() > 0)
