@@ -81,6 +81,8 @@ class SellingController : Controller() {
         basket.setAll()
         refreshData()
         setTotalAmountOfItemsTabName()
+        totalPrice=getTotalPriceOfBasket()
+        totalPriceStringProperty.set("Total price $totalPrice €")
     }
 
     private fun hasItem(name: String): InvoiceItem? {
@@ -135,6 +137,9 @@ class SellingController : Controller() {
         }
         log.info("Amount of ${product.name} has been set to $amount")
         setTotalAmountOfItemsTabName()
+        totalPrice=getTotalPriceOfBasket()
+        totalPriceStringProperty.set("Total price $totalPrice €")
+
         return true
     }
 

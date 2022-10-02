@@ -18,7 +18,7 @@ class InvoiceProductView : Fragment("Products of invoice") {
                 prefWidth = 1200.0
                 prefHeight = 800.0
                 borderpane {
-                    center = label("Product administration")
+                    center = label("Invoice")
                     addClass(Styles.whiteBorder)
                     addClass(Styles.backgroundSecondary)
                 }
