@@ -25,6 +25,17 @@ class StatisticProductPurchasedSoldController : Controller() {
         }
     }
 
+    private fun setAllProductNameListBetweenDates(dateStart: LocalDate, dateEnd: LocalDate) {
+        productNameList.setAll()
+        val dateStartTime = LocalDateTime.of(dateStart.year, dateStart.month, dateStart.dayOfMonth, 0, 0)
+        val dateEndTime = LocalDateTime.of(dateEnd.year, dateEnd.month, dateEnd.dayOfMonth, 23, 59)
+        AppData.products.forEach {
+            if (it.getTotalPurchasedAmountBetweenDates(dateStartTime,dateEndTime) > 0 || it.getTotalSoldAmountBetweenDates(dateStartTime,dateEndTime) > 0) {
+                productNameList.add(it.name)
+            }
+        }
+    }
+
     fun setChartData() {
         setAllProductNameList()
         chartDataPurchased.setAll()
@@ -50,13 +61,13 @@ class StatisticProductPurchasedSoldController : Controller() {
 
 
     fun setChartDataBetweenDates(dateStart: LocalDate, dateEnd: LocalDate) {
-        setAllProductNameList()
+        setAllProductNameListBetweenDates(dateStart,dateEnd)
         chartDataPurchased.setAll()
         chartDataSelling.setAll()
         val dateStartTime = LocalDateTime.of(dateStart.year, dateStart.month, dateStart.dayOfMonth, 0, 0)
         val dateEndTime = LocalDateTime.of(dateEnd.year, dateEnd.month, dateEnd.dayOfMonth, 23, 59)
         AppData.products.forEach {
-            if (it.getTotalPurchasedAmount() > 0 || it.getTotalSoldAmount() > 0) {
+            if (it.getTotalPurchasedAmountBetweenDates(dateStartTime,dateEndTime) > 0 || it.getTotalSoldAmountBetweenDates(dateStartTime,dateEndTime) > 0) {
                 chartDataPurchased.add(
                     XYChart.Data<String, Number>(
                         it.name,

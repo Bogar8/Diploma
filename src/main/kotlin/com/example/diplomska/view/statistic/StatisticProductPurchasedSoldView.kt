@@ -9,6 +9,7 @@ import javafx.scene.chart.NumberAxis
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.layout.Priority
+import javafx.scene.text.Font
 import tornadofx.*
 import java.io.File
 import java.time.LocalDate
@@ -30,6 +31,8 @@ class StatisticProductPurchasedSoldView : View("Invoice per user statistic") {
                 style {
                     addClass(Styles.backgroundLabelSecondary)
                 }
+                xAxis.tickLabelRotation=90.0
+                xAxis.tickLabelFontProperty().set(Font.font(12.0))
             }
         }
 
