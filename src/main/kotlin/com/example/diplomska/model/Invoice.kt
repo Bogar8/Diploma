@@ -76,11 +76,11 @@ class Invoice(
         var text = "Invoice id: $_id\n" +
                 "Date: ${date.toNiceString()}\n" +
                 "Seller: ${seller.name} ${seller.surname}\n" +
-                String.format("%-30s %-10s %-10s %-10s", "Product", "amount", "per one", "total") + "\n"
+                String.format("%-50s %-10s %-10s %-10s", "Product", "amount", "per one", "total") + "\n"
 
         products.forEach {
             val total = ((it.amount * it.pricePerOne) * 100).roundToInt() / 100.0
-            text += String.format("%-30s %-10s %-10s %-10s", it.productName, it.amount, it.pricePerOne, total) + "\n"
+            text += String.format("%-50s %-10s %-10s %-10s", it.productName, it.amount, it.pricePerOne, total) + "\n"
         }
         text += "Total price: $totalPrice"
         File(subDirectory, "invoice_{$_id}.txt").writeText(text)
