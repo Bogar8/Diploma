@@ -80,9 +80,9 @@ class Invoice(
 
         products.forEach {
             val total = ((it.amount * it.pricePerOne) * 100).roundToInt() / 100.0
-            text += String.format("%-50s %-10s %-10s %-10s", it.productName, it.amount, it.pricePerOne, total) + "\n"
+            text += String.format("%-50s %-10s %-10s %-10s", it.productName, it.amount.toString()+"€", it.pricePerOne.toString()+"€", total) + "\n"
         }
-        text += "Total price: $totalPrice"
+        text += "Total price: $totalPrice€"
         File(subDirectory, "invoice_{$_id}.txt").writeText(text)
     }
 
