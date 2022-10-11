@@ -13,16 +13,14 @@ import com.example.diplomska.view.statistic.StatisticInvoiceUserView
 import com.example.diplomska.view.statistic.StatisticProductProfitView
 import com.example.diplomska.view.statistic.StatisticProductPurchasedSoldView
 import com.example.diplomska.view.user.UserManagmentView
-import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import tornadofx.*
 
 class MainView : View("Prodajalko") {
 
-
-    private var userInfo = SimpleStringProperty()
-    private var userInfoLabel = label(userInfo)
+    private val mainController: MainController by inject()
+    private var userInfoLabel = label(mainController.userInfo)
     private val productManagementView: ProductManagementView by inject()
     private val userManagementView: UserManagmentView by inject()
     private val sellingView: SellingView by inject()

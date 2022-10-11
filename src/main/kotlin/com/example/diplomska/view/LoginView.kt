@@ -58,7 +58,7 @@ class LoginView : Fragment("Login") {
                     thread {
                         while (isOpened) {
                             if (progressDouble < 95 && controller.waitingForResponse) {
-                                progressDouble += ((200..300).random() / 10000.0)
+                                progressDouble += ((2..3).random() / 100.0)
                             }
                             progress = progressDouble
                             Thread.sleep(100) //reduces cpu usage
