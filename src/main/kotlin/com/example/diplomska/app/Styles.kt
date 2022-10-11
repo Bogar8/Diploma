@@ -23,7 +23,8 @@ class Styles : Stylesheet() {
         }
 
         totalPrice {
-            fontSize = 16.px
+            fontSize = 14.px
+            fontWeight = FontWeight.MEDIUM
         }
 
         label {
