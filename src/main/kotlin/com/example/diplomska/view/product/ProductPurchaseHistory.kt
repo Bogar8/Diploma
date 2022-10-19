@@ -36,8 +36,8 @@ class ProductPurchaseHistory : Fragment("Products purchase history") {
                         this.requestResize()
                     }
                     column("Amount", ProductStock::amountProperty)
-                    column("Price per one", ProductStock::pricePerOneProperty)
-                    column("Total", Double::class) {
+                    column("Price per one in €", ProductStock::pricePerOneProperty)
+                    column("Total in €", Double::class) {
                         value { (it.value.pricePerOne * it.value.amount * 100).roundToInt() / 100.0 }
                     }
                     column("Date", ProductStock::dateProperty).remainingWidth().cellFormat {

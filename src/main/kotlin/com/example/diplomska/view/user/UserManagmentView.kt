@@ -41,7 +41,7 @@ class UserManagmentView : View("User managment") {
                     column("Surname", User::surname)
                     column("Username", User::usernameProperty)
                     column("Level", User::levelProperty)
-                    column("LastLogin", User::lastLoginProperty).cellFormat {
+                    column("Last login date", User::lastLoginProperty).cellFormat {
                         textProperty().set(it.toNiceString())
                     }
                     onUserSelect(1) {

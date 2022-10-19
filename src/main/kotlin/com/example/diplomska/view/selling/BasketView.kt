@@ -36,8 +36,8 @@ class BasketView : View("Selling") {
                         columnResizePolicy = SmartResize.POLICY
                         column("Name", InvoiceItem::productNameProperty).remainingWidth()
                         column("Amount", InvoiceItem::amountProperty)
-                        column("Price per one", InvoiceItem::pricePerOneProperty)
-                        column("Total price", InvoiceItem::totalPriceProperty)
+                        column("Price per one in €", InvoiceItem::pricePerOneProperty)
+                        column("Total price in €", InvoiceItem::totalPriceProperty)
                         onUserSelect(1) {
                             if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                                 controller.selectedInvoiceItem = selectionModel.selectedItem

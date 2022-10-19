@@ -44,17 +44,17 @@ class ProductManagementView : View("Products managment") {
                     column("Category", Product::categoryProperty)
                     column("Stock", Product::stockProperty).cellFormat {
                         textProperty().set(it.toString())
-
                         style {
                             if (it.toInt() in 1..9) {
-                                backgroundColor += c("FFFF33")
-                            } else if (it.toInt() == 0) {
-                                backgroundColor += c("FF6863")
+                                backgroundColor += c("FFFF33") //yellow
+                            }
+                            if (it.toInt() == 0) {
+                                backgroundColor += c("FF6863") //red
                             }
                         }
                     }
-                    column("Current sell price", Product::sellingPriceProperty)
-                    column("Current purchase price", Product::lastPurchasedPriceProperty).cellFormat {
+                    column("Current sell price in €", Product::sellingPriceProperty)
+                    column("Current purchase price in €", Product::lastPurchasedPriceProperty).cellFormat {
                         if (it.toDouble() > 0)
                             textProperty().set(it.toString())
                         else

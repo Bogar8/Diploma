@@ -50,11 +50,11 @@ class InvoiceHistory : View("Invoice history") {
                     column("Amount of products", Int::class) {
                         value { it.value.getNumberOfItemsInInvoice() }
                     }
-                    column("Total price", Invoice::totalPriceProperty)
-                    column("Average price per product", Double::class) {
+                    column("Total price in €", Invoice::totalPriceProperty)
+                    column("Average price per product in €", Double::class) {
                         value { (it.value.totalPrice / it.value.getNumberOfItemsInInvoice() * 100).roundToInt() / 100.0 }
                     }
-                    column("Last changed", Invoice::dateProperty).cellFormat {
+                    column("Date", Invoice::dateProperty).cellFormat {
                         textProperty().set(it.toNiceString())
                     }
                     onUserSelect(1) {

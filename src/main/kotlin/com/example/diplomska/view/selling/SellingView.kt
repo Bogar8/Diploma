@@ -38,7 +38,7 @@ class SellingView : View("Selling") {
                     column("Name", Product::nameProperty).remainingWidth()
                     column("Category", Product::categoryProperty)
                     column("Stock", Product::stockProperty)
-                    column("Current sell price", Product::sellingPriceProperty)
+                    column("Current sell price in €", Product::sellingPriceProperty)
                     onUserSelect(1) {
                         if (selectionModel.selectedItem != null && selectionModel.selectedCells.count() == 1) {
                             controller.selectedProduct = selectionModel.selectedItem

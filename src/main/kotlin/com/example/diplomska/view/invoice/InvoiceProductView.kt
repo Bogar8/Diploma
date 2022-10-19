@@ -36,9 +36,8 @@ class InvoiceProductView : Fragment("Products of invoice") {
                     columnResizePolicy = SmartResize.POLICY
                     column("Product", InvoiceItem::productNameProperty)
                     column("Amount", InvoiceItem::amountProperty)
-                    column("Price per one", InvoiceItem::pricePerOneProperty)
-                    column("Total price", InvoiceItem::totalPriceProperty).remainingWidth()
-                    columnResizePolicy = SmartResize.POLICY
+                    column("Price per one in €", InvoiceItem::pricePerOneProperty)
+                    column("Total price in €", InvoiceItem::totalPriceProperty).remainingWidth()
                 }
             }
         }

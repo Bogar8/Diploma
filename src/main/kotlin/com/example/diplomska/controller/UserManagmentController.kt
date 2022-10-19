@@ -88,10 +88,9 @@ class UserManagmentController : Controller() {
 
     fun setFilteredData(filter: String) {
         filteredUsers.setAll(users.filter {
-            it.name.lowercase().contains(filter) || it.username.lowercase().contains(filter) || it.surname.lowercase()
-                .contains(
-                    filter
-                )
+            it.name.lowercase().contains(filter) ||
+            it.username.lowercase().contains(filter) ||
+            it.surname.lowercase().contains(filter)
         })
         filterInUse = filter
     }

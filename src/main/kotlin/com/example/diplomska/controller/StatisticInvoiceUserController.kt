@@ -33,9 +33,10 @@ class StatisticInvoiceUserController : Controller() {
         AppData.employees.forEach {
             val amount = getNumberInvoicesForUser(it).toDouble()
             if (amount > 0) {
+                val percent = (amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0
                 chartData.add(
                     PieChart.Data(
-                        "${it.username} ${amount.toInt()} (${(amount / AppData.invoices.size * 100 * 100).roundToInt() / 100.0}%)",
+                        "${it.username} ${amount.toInt()} " + "($percent%)",
                         amount
                     )
                 )
