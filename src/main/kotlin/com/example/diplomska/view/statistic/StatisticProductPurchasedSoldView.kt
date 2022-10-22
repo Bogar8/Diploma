@@ -23,11 +23,12 @@ class StatisticProductPurchasedSoldView : View("Invoice per user statistic") {
         prefHeight = 1080.0
         useMaxWidth = true
         center = hbox {
-            barchart("Product Purchasing costs/Sales revenue", CategoryAxis(controller.productNameList), NumberAxis()) {
+            barchart("Product Purchasing costs/Sales revenue",
+                CategoryAxis(controller.productNameList), NumberAxis()) {
                 series("Purchasing costs in €", controller.chartDataPurchased)
                 series("Sales revenue in €", controller.chartDataSelling)
                 hgrow = Priority.ALWAYS
-                animated = false //barchart sometimes bugs out and needs to be refreshed again if using animations
+                animated = false
                 style {
                     addClass(Styles.backgroundLabelSecondary)
                 }

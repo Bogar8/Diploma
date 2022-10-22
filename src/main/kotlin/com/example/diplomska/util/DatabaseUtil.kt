@@ -14,8 +14,8 @@ object DatabaseUtil {
 
     private fun getConnection(): MongoDatabase {
         val client =
-            KMongo.createClient("mongodb+srv://bogar:geslo@cluster0.iberm.mongodb.net/?retryWrites=true&w=majority") //get com.mongodb.MongoClient new instance
-        return client.getDatabase("Diploma") //normal java driver usage
+            KMongo.createClient("mongodb+srv://bogar:geslo@cluster0.iberm.mongodb.net/?retryWrites=true&w=majority")
+        return client.getDatabase("Diploma")
     }
 
     fun getDatabaseConnection(): MongoDatabase {
