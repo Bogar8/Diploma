@@ -12,8 +12,11 @@ class MainController : Controller() {
 
     fun getOutOfStockProducts(): ArrayList<Product> {
         log.info("Out of stock products are checked")
-        userInfo.set(AppData.loggedInUser.name + " " + AppData.loggedInUser.surname + " (" + AppData.loggedInUser.username + ")")
         return ProductDatabase.getOutOfStock()
+    }
+
+    fun setLoggedInUser(){
+        userInfo.set(AppData.loggedInUser.name + " " + AppData.loggedInUser.surname + " (" + AppData.loggedInUser.username + ")")
     }
 
 }

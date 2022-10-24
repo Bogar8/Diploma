@@ -128,6 +128,7 @@ class LoginView : Fragment("Login") {
                     MainView::class,
                     ViewTransition.Slide(2.seconds, ViewTransition.Direction.LEFT)
                 )
+                mainController.setLoggedInUser()
                 if (AppData.loggedInUser.level != UserLevel.SELLER) {
                     checkOutOfStock()
                 }
