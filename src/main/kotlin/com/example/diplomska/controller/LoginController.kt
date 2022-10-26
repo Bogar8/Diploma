@@ -22,7 +22,7 @@ class LoginController : Controller() {
             val user = UserDatabase.login(username, password)
             return if (user == null) {
                 error = "Username or password is incorrect"
-                log.info { error }
+                log.warning { error }
                 waitingForResponse = false
                 false
             } else {
@@ -41,10 +41,13 @@ class LoginController : Controller() {
         try {
             val date = LocalDateTime.now()
             val handler =
-                FileHandler("logger_${date.dayOfMonth}-${date.month}-${date.year}-${date.hour}_${date.minute}-${date.second}.log")
+                FileHandler(
+                    "logger_${date.dayOfMonth}-${date.month}-${date.year}" +
+                            "-${date.hour}_${date.minute}-${date.second}.log"
+                )
             Logger.getLogger("").addHandler(handler)
         } catch (_: Exception) {
-
+            log.warning { "Error when creating FileHandler for logging" }
         }
         AppData.invoices = InvoiceDatabase.getAll()
         AppData.invoices.sortByDescending { it.date }
